@@ -1,0 +1,1826 @@
+2023-08-08 08:02:02: iteration 0 of initialization SPY at 1m
+2023-08-08 08:03:02: iteration 1 of initialization SPY at 1m
+2023-08-08 08:04:02: iteration 2 of initialization SPY at 1m
+2023-08-08 08:05:02: iteration 3 of initialization SPY at 1m
+2023-08-08 08:06:03: iteration 4 of initialization SPY at 1m
+2023-08-08 08:07:03: iteration 5 of initialization SPY at 1m
+2023-08-08 08:08:03: iteration 6 of initialization SPY at 1m
+2023-08-08 08:09:03: iteration 7 of initialization SPY at 1m
+2023-08-08 08:10:03: iteration 8 of initialization SPY at 1m
+2023-08-08 08:11:03: iteration 9 of initialization SPY at 1m
+2023-08-08 08:12:04: iteration 10 of initialization SPY at 1m
+2023-08-08 08:13:04: iteration 11 of initialization SPY at 1m
+2023-08-08 08:14:04: iteration 12 of initialization SPY at 1m
+2023-08-08 08:15:04: iteration 13 of initialization SPY at 1m
+2023-08-08 08:16:04: iteration 14 of initialization SPY at 1m
+2023-08-08 08:17:04: iteration 15 of initialization SPY at 1m
+2023-08-08 08:18:04: iteration 16 of initialization SPY at 1m
+2023-08-08 08:19:04: iteration 17 of initialization SPY at 1m
+2023-08-08 08:20:05: iteration 18 of initialization SPY at 1m
+2023-08-08 08:21:05: iteration 19 of initialization SPY at 1m
+2023-08-08 08:22:05: iteration 20 of initialization SPY at 1m
+2023-08-08 08:23:05: iteration 21 of initialization SPY at 1m
+2023-08-08 08:24:05: iteration 22 of initialization SPY at 1m
+2023-08-08 08:25:05: iteration 23 of initialization SPY at 1m
+2023-08-08 08:26:06: iteration 24 of initialization SPY at 1m
+2023-08-08 08:27:06: iteration 25 of initialization SPY at 1m
+2023-08-08 08:28:06: iteration 26 of initialization SPY at 1m
+2023-08-08 08:29:06: iteration 27 of initialization SPY at 1m
+2023-08-08 08:30:06: iteration 28 of initialization SPY at 1m
+2023-08-08 08:31:06: iteration 29 of initialization SPY at 1m
+2023-08-08 08:32:07: iteration 30 of initialization SPY at 1m
+2023-08-08 08:33:07: iteration 31 of initialization SPY at 1m
+2023-08-08 08:34:07: iteration 32 of initialization SPY at 1m
+2023-08-08 08:35:07: iteration 33 of initialization SPY at 1m
+2023-08-08 08:36:07: iteration 34 of initialization SPY at 1m
+2023-08-08 08:37:07: iteration 35 of initialization SPY at 1m
+2023-08-08 08:38:08: iteration 36 of initialization SPY at 1m
+2023-08-08 08:39:08: iteration 37 of initialization SPY at 1m
+2023-08-08 08:40:08: iteration 38 of initialization SPY at 1m
+2023-08-08 08:41:08: iteration 39 of initialization SPY at 1m
+2023-08-08 08:42:08: iteration 40 of initialization SPY at 1m
+2023-08-08 08:43:08: iteration 41 of initialization SPY at 1m
+2023-08-08 08:44:09: iteration 42 of initialization SPY at 1m
+2023-08-08 08:45:09: iteration 43 of initialization SPY at 1m
+2023-08-08 08:46:09: iteration 44 of initialization SPY at 1m
+2023-08-08 08:47:09: iteration 45 of initialization SPY at 1m
+2023-08-08 08:48:09: iteration 46 of initialization SPY at 1m
+2023-08-08 08:49:09: iteration 47 of initialization SPY at 1m
+2023-08-08 08:50:09: iteration 48 of initialization SPY at 1m
+2023-08-08 08:51:10: iteration 49 of initialization SPY at 1m
+2023-08-08 08:52:10: iteration 50 of initialization SPY at 1m
+2023-08-08 08:53:10: iteration 51 of initialization SPY at 1m
+2023-08-08 08:54:10: iteration 52 of initialization SPY at 1m
+2023-08-08 08:55:10: iteration 53 of initialization SPY at 1m
+2023-08-08 08:56:10: iteration 54 of initialization SPY at 1m
+2023-08-08 08:57:10: iteration 55 of initialization SPY at 1m
+2023-08-08 08:58:11: iteration 56 of initialization SPY at 1m
+2023-08-08 08:59:11: iteration 57 of initialization SPY at 1m
+2023-08-08 09:00:11: iteration 58 of initialization SPY at 1m
+2023-08-08 09:01:11: iteration 59 of initialization SPY at 1m
+2023-08-08 09:02:11: iteration 60 of initialization SPY at 1m
+2023-08-08 09:03:12: iteration 61 of initialization SPY at 1m
+2023-08-08 09:04:12: iteration 62 of initialization SPY at 1m
+2023-08-08 09:05:12: iteration 63 of initialization SPY at 1m
+2023-08-08 09:06:12: iteration 64 of initialization SPY at 1m
+2023-08-08 09:07:12: iteration 65 of initialization SPY at 1m
+2023-08-08 09:08:12: iteration 66 of initialization SPY at 1m
+2023-08-08 09:09:12: iteration 67 of initialization SPY at 1m
+2023-08-08 09:10:12: iteration 68 of initialization SPY at 1m
+2023-08-08 09:11:13: iteration 69 of initialization SPY at 1m
+2023-08-08 09:12:13: iteration 70 of initialization SPY at 1m
+2023-08-08 09:13:13: iteration 71 of initialization SPY at 1m
+2023-08-08 09:14:13: iteration 72 of initialization SPY at 1m
+2023-08-08 09:15:13: iteration 73 of initialization SPY at 1m
+2023-08-08 09:16:13: iteration 74 of initialization SPY at 1m
+2023-08-08 09:17:14: iteration 75 of initialization SPY at 1m
+2023-08-08 09:18:14: iteration 76 of initialization SPY at 1m
+2023-08-08 09:19:14: iteration 77 of initialization SPY at 1m
+2023-08-08 09:20:14: iteration 78 of initialization SPY at 1m
+2023-08-08 09:21:14: iteration 79 of initialization SPY at 1m
+2023-08-08 09:22:14: iteration 80 of initialization SPY at 1m
+2023-08-08 09:23:15: iteration 81 of initialization SPY at 1m
+2023-08-08 09:24:15: iteration 82 of initialization SPY at 1m
+2023-08-08 09:25:15: iteration 83 of initialization SPY at 1m
+2023-08-08 09:26:15: iteration 84 of initialization SPY at 1m
+2023-08-08 09:27:15: iteration 85 of initialization SPY at 1m
+2023-08-08 09:28:15: iteration 86 of initialization SPY at 1m
+2023-08-08 09:29:15: iteration 87 of initialization SPY at 1m
+2023-08-08 09:30:16: iteration 88 of initialization SPY at 1m
+2023-08-08 09:31:16: iteration 89 of initialization SPY at 1m
+2023-08-08 09:32:16: iteration 90 of initialization SPY at 1m
+2023-08-08 09:33:16: iteration 91 of initialization SPY at 1m
+2023-08-08 09:34:16: iteration 92 of initialization SPY at 1m
+2023-08-08 09:35:16: iteration 93 of initialization SPY at 1m
+2023-08-08 09:36:16: iteration 94 of initialization SPY at 1m
+2023-08-08 09:37:17: iteration 95 of initialization SPY at 1m
+2023-08-08 09:38:17: iteration 96 of initialization SPY at 1m
+2023-08-08 09:39:17: iteration 97 of initialization SPY at 1m
+2023-08-08 09:40:17: iteration 98 of initialization SPY at 1m
+2023-08-08 09:41:17: iteration 99 of initialization SPY at 1m
+2023-08-08 09:42:17: iteration 100 of initialization SPY at 1m
+2023-08-08 09:43:18: iteration 101 of initialization SPY at 1m
+2023-08-08 09:44:18: iteration 102 of initialization SPY at 1m
+2023-08-08 09:45:21: iteration 0 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:46:15: iteration 1 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:47:10: iteration 2 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:48:04: iteration 3 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:48:59: iteration 4 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:49:53: iteration 5 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:50:48: iteration 6 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:51:42: iteration 7 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:52:37: iteration 8 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:53:32: iteration 9 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:54:26: iteration 10 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:55:21: iteration 11 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:56:15: iteration 12 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:57:10: iteration 13 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:58:04: iteration 14 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:58:59: iteration 15 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 09:59:53: iteration 16 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:00:48: iteration 17 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:01:42: iteration 18 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:02:37: iteration 19 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:03:31: iteration 20 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:04:26: iteration 21 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:05:21: iteration 22 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:06:15: iteration 23 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:07:10: iteration 24 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:08:04: iteration 25 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:08:59: iteration 26 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:09:54: iteration 27 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:10:48: iteration 28 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:11:42: iteration 29 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:12:37: iteration 30 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:13:31: iteration 31 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:14:26: iteration 32 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:15:20: iteration 33 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:16:15: iteration 34 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:17:10: iteration 35 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:18:04: iteration 36 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:18:59: iteration 37 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:19:53: iteration 38 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:20:47: iteration 39 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:21:42: iteration 40 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:22:36: iteration 41 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:23:31: iteration 42 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:24:25: iteration 43 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:25:20: iteration 44 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:26:14: iteration 45 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:27:09: iteration 46 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:28:04: iteration 47 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:28:58: iteration 48 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:29:53: iteration 49 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:30:47: iteration 50 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:31:42: iteration 51 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:32:36: iteration 52 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:33:31: iteration 53 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:34:25: iteration 54 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:35:20: iteration 55 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:36:14: iteration 56 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:37:09: iteration 57 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:38:03: iteration 58 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:38:58: iteration 59 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:39:52: iteration 60 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:40:47: iteration 61 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:41:42: iteration 62 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:42:36: iteration 63 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:43:31: iteration 64 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:44:25: iteration 65 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:45:20: iteration 66 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:46:14: iteration 67 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:47:09: iteration 68 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:48:03: iteration 69 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:48:58: iteration 70 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:49:52: iteration 71 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:50:47: iteration 72 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:51:41: iteration 73 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:52:36: iteration 74 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:53:30: iteration 75 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:54:25: iteration 76 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:55:19: iteration 77 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:56:14: iteration 78 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:57:08: iteration 79 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:58:03: iteration 80 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:58:57: iteration 81 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 10:59:52: iteration 82 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:00:46: iteration 83 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:01:41: iteration 84 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:02:35: iteration 85 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:03:30: iteration 86 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:04:24: iteration 87 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:05:19: iteration 88 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:06:13: iteration 89 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:07:08: iteration 90 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:08:02: iteration 91 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:08:57: iteration 92 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:09:52: iteration 93 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:10:46: iteration 94 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:11:41: iteration 95 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:12:36: iteration 96 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:13:30: iteration 97 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:14:25: iteration 98 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:15:19: iteration 99 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:16:14: iteration 100 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:17:08: iteration 101 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:18:03: iteration 102 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:18:58: iteration 103 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:19:52: iteration 104 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:20:47: iteration 105 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:21:41: iteration 106 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:22:36: iteration 107 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:23:30: iteration 108 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:24:25: iteration 109 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:25:19: iteration 110 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:26:14: iteration 111 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:27:08: iteration 112 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:28:03: iteration 113 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:28:57: iteration 114 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:29:52: iteration 115 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:30:46: iteration 116 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:31:41: iteration 117 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:32:35: iteration 118 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:33:30: iteration 119 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:34:24: iteration 120 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:35:19: iteration 121 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:36:13: iteration 122 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:37:08: iteration 123 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:38:02: iteration 124 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:38:57: iteration 125 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:39:52: iteration 126 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:40:46: iteration 127 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:41:41: iteration 128 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:42:35: iteration 129 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:43:30: iteration 130 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:44:24: iteration 131 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:45:19: iteration 132 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:46:13: iteration 133 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:47:08: iteration 134 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:48:02: iteration 135 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:48:57: iteration 136 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:49:51: iteration 137 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:50:46: iteration 138 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:51:40: iteration 139 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:52:35: iteration 140 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:53:29: iteration 141 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:54:24: iteration 142 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:55:19: iteration 143 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:56:13: iteration 144 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:57:08: iteration 145 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:58:02: iteration 146 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:58:57: iteration 147 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 11:59:52: iteration 148 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:00:46: iteration 149 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:01:40: iteration 150 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:02:35: iteration 151 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:03:30: iteration 152 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:04:24: iteration 153 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:05:19: iteration 154 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:06:13: iteration 155 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:07:08: iteration 156 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:08:02: iteration 157 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:08:57: iteration 158 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:09:51: iteration 159 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:10:45: iteration 160 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:11:40: iteration 161 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:12:35: iteration 162 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:13:29: iteration 163 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:14:24: iteration 164 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:15:18: iteration 165 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:16:13: iteration 166 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:17:07: iteration 167 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:18:02: iteration 168 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:18:56: iteration 169 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:19:51: iteration 170 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:20:46: iteration 171 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:21:40: iteration 172 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:22:35: iteration 173 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:23:29: iteration 174 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:24:24: iteration 175 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:25:19: iteration 176 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:26:13: iteration 177 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:27:08: iteration 178 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:28:03: iteration 179 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:28:57: iteration 180 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:29:52: iteration 181 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:30:46: iteration 182 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:31:41: iteration 183 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:32:35: iteration 184 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:33:30: iteration 185 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:34:24: iteration 186 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:35:19: iteration 187 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:36:13: iteration 188 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:37:08: iteration 189 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:38:03: iteration 190 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:38:57: iteration 191 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:39:52: iteration 192 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:40:46: iteration 193 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:41:41: iteration 194 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:42:36: iteration 195 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:43:30: iteration 196 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:44:25: iteration 197 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:45:19: iteration 198 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:46:13: iteration 199 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:47:08: iteration 200 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:48:02: iteration 201 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:48:57: iteration 202 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:49:52: iteration 203 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:50:46: iteration 204 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:51:41: iteration 205 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:52:35: iteration 206 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:53:30: iteration 207 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:54:24: iteration 208 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:55:19: iteration 209 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:56:13: iteration 210 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:57:08: iteration 211 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:58:03: iteration 212 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:58:57: iteration 213 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 12:59:52: iteration 214 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:00:46: iteration 215 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:01:41: iteration 216 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:02:35: ***BOT 10 SPY at 4463.3, TP: 4477.535518957874,
+                                        SL: 4453.809654028084, id: 1 
+                                            --strat 5_15
+2023-08-08 13:02:35: iteration 217 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:03:30: iteration 218 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:04:24: iteration 219 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:05:19: iteration 220 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:06:13: iteration 221 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:07:08: iteration 222 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:08:02: iteration 223 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:08:57: iteration 224 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:09:52: iteration 225 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:10:46: iteration 226 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:11:41: iteration 227 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:12:35: iteration 228 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:13:30: iteration 229 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:14:24: iteration 230 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:15:19: iteration 231 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:16:13: iteration 232 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: -14.599999999998182
+2023-08-08 13:17:05: ***SOLD 10 SPY at 4468.6 trade id: 1 with profit/loss 51.70000000000182
+	--strat 5_15
+	Was it a timeout close? True
+2023-08-08 13:17:08: iteration 233 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:18:03: iteration 234 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:18:57: iteration 235 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:19:52: iteration 236 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:20:46: iteration 237 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:21:41: iteration 238 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:22:35: iteration 239 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:23:30: iteration 240 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:24:24: iteration 241 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:25:19: iteration 242 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:26:13: iteration 243 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:27:08: iteration 244 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:28:02: iteration 245 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:28:56: iteration 246 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:29:51: iteration 247 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:30:46: iteration 248 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:31:40: iteration 249 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:32:34: iteration 250 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:33:29: iteration 251 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:34:24: iteration 252 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:35:18: iteration 253 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:36:13: iteration 254 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:37:07: iteration 255 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:38:02: iteration 256 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:38:56: iteration 257 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:39:51: iteration 258 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:40:45: iteration 259 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:41:40: iteration 260 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:42:34: iteration 261 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:43:29: iteration 262 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:44:23: iteration 263 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:45:18: iteration 264 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:46:12: iteration 265 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:47:07: iteration 266 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:48:01: iteration 267 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:48:56: iteration 268 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:49:50: iteration 269 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:50:45: iteration 270 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:51:39: iteration 271 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:52:34: iteration 272 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:53:28: iteration 273 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:54:23: iteration 274 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:55:17: iteration 275 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:56:12: iteration 276 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:57:06: iteration 277 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:58:01: iteration 278 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:58:55: iteration 279 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 13:59:50: iteration 280 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:00:44: iteration 281 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:01:39: iteration 282 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:02:33: iteration 283 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:03:28: iteration 284 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:04:23: iteration 285 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:05:17: iteration 286 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:06:12: iteration 287 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:07:06: iteration 288 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:08:01: iteration 289 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:08:55: iteration 290 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:09:50: iteration 291 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:10:44: iteration 292 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:11:39: iteration 293 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:12:33: iteration 294 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:13:28: iteration 295 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:14:23: iteration 296 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:15:17: iteration 297 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:16:12: iteration 298 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:17:06: iteration 299 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:18:01: iteration 300 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:18:55: iteration 301 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:19:50: iteration 302 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:20:45: iteration 303 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:21:39: iteration 304 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:22:34: iteration 305 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:23:28: iteration 306 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:24:23: iteration 307 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:25:17: iteration 308 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:26:12: iteration 309 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:27:07: iteration 310 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:28:01: iteration 311 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:28:56: iteration 312 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:29:50: iteration 313 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:30:45: iteration 314 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:31:39: iteration 315 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:32:34: iteration 316 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:33:29: iteration 317 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:34:23: iteration 318 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:35:18: iteration 319 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:36:12: iteration 320 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:37:07: iteration 321 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:38:01: iteration 322 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:38:56: iteration 323 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:39:50: iteration 324 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:40:45: iteration 325 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:41:39: iteration 326 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:42:34: iteration 327 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:43:28: iteration 328 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:44:23: iteration 329 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:45:18: iteration 330 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:46:12: iteration 331 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:47:07: iteration 332 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:48:01: iteration 333 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:48:56: iteration 334 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:49:51: iteration 335 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:50:45: iteration 336 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:51:39: iteration 337 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:52:34: iteration 338 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:53:28: iteration 339 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:54:23: iteration 340 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:55:18: iteration 341 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:56:12: ***BOT 10 SPY at 4476.4, TP: 4482.690724464298,
+                                        SL: 4472.206183690468, id: 2 
+                                            --strat 5_15
+2023-08-08 14:56:12: iteration 342 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:57:06: iteration 343 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:58:01: iteration 344 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:58:56: iteration 345 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 14:59:50: iteration 346 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 15:00:45: iteration 347 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 15:01:39: iteration 348 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 15:02:34: iteration 349 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 15:03:28: iteration 350 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 15:04:23: iteration 351 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 15:05:17: iteration 352 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 15:06:12: iteration 353 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 15:07:06: iteration 354 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 15:08:01: iteration 355 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 15:08:55: iteration 356 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 15:09:50: iteration 357 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 37.10000000000364
+2023-08-08 15:10:42: ***SOLD 10 SPY at 4479.5 trade id: 2 with profit/loss 29.700000000003637
+	--strat 5_15
+	Was it a timeout close? True
+2023-08-08 15:10:44: iteration 358 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:11:39: iteration 359 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:12:34: iteration 360 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:13:28: iteration 361 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:14:23: iteration 362 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:15:17: iteration 363 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:16:12: iteration 364 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:17:07: iteration 365 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:18:01: iteration 366 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:18:56: iteration 367 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:19:50: iteration 368 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:20:45: iteration 369 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:21:39: iteration 370 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:22:34: iteration 371 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:23:28: iteration 372 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:24:23: iteration 373 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:25:17: iteration 374 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:26:12: iteration 375 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:27:07: iteration 376 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:28:01: iteration 377 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:28:56: iteration 378 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:29:51: iteration 379 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:30:45: iteration 380 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:31:40: iteration 381 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:32:34: iteration 382 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:33:29: iteration 383 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:34:23: iteration 384 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:35:18: iteration 385 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:36:13: iteration 386 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:37:07: iteration 387 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:38:02: iteration 388 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:38:56: iteration 389 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:39:51: iteration 390 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:40:45: iteration 391 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:41:40: iteration 392 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:42:34: iteration 393 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:43:29: iteration 394 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:44:23: iteration 395 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:45:18: iteration 396 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:46:13: iteration 397 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:47:07: iteration 398 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:48:02: iteration 399 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:48:56: iteration 400 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:49:51: iteration 401 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:50:45: iteration 402 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:51:40: iteration 403 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:52:34: iteration 404 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:53:29: iteration 405 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:54:23: iteration 406 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:55:18: iteration 407 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:56:12: iteration 408 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:57:07: iteration 409 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:58:02: iteration 410 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:58:56: iteration 411 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 15:59:51: iteration 412 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:00:45: iteration 413 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:01:40: iteration 414 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:02:34: iteration 415 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:03:29: iteration 416 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:04:23: iteration 417 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:05:17: iteration 418 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:06:12: iteration 419 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:07:07: iteration 420 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:08:01: iteration 421 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:08:56: iteration 422 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:09:50: iteration 423 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:10:45: iteration 424 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:11:39: iteration 425 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:12:34: iteration 426 of trading, current capital: 
+	--strat 1_3: 33.39999999999454
+	--strat 3_5: 21.399999999987266
+	--strat 5_15: 66.80000000000727
+2023-08-08 16:13:25: End: 33.39999999999454
+2023-08-08 16:13:25: End: 21.399999999987266
+2023-08-08 16:13:25: End: 66.80000000000727

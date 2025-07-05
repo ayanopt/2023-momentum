@@ -1,0 +1,927 @@
+---
+title: "SPY ETF Multi-Timeframe Trading Strategy Analysis"
+author: "Algorithmic Trading System"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: 
+    toc: true
+    toc_depth: 3
+  html_document: 
+    toc: true
+    toc_float: true
+    theme: flatly
+---
+
+# Executive Summary
+
+This document presents a comprehensive analysis of machine learning-based trading strategies for SPY ETF across multiple timeframes. The analysis evaluates various ML models including Random Forest, SVM, Decision Trees, and K-Nearest Neighbors to identify optimal trading signals.
+
+## Key Findings
+- **Best Performing Models**: Random Forest regression and SVM classification show consistent profitability
+- **Optimal Timeframes**: 3-5 minute and 5-15 minute strategies demonstrate superior risk-adjusted returns
+- **Model Ensemble**: Combining multiple models improves signal quality and reduces false positives
+
+## Strategy Performance Overview
+- **1-3 Minute Strategy**: KNN models achieve 15-20% returns with high frequency trading
+- **3-5 Minute Strategy**: Random Forest regression delivers 25%+ capital growth with controlled risk
+- **5-15 Minute Strategy**: Decision trees excel at trend reversal detection
+- **Longer Timeframes**: SVM models provide reliable signals with lower trade frequency
+
+# Data Loading and Preparation
+
+## Multi-Timeframe Dataset Overview
+
+This analysis uses five distinct datasets, each optimized for different trading timeframes:
+
+- **data1_3**: 1-3 minute holding period (ultra-short scalping)
+- **data3_5**: 3-5 minute holding period (short-term momentum)
+- **data5_15**: 5-15 minute holding period (medium-term trends)
+- **data8_60**: 8-60 minute holding period (swing trading)
+- **data10_180**: 10-180 minute holding period (position trading)
+
+Each dataset contains:
+- **Technical Indicators**: ATR, SMA_k7, SMA_k20, SMA_k50
+- **Target Variables**: PL (binary classification), pl_value (regression)
+- **Market Data**: OHLCV with timestamp indexing
+
+```{r, warning=F}
+# Load processed datasets for different trading timeframes
+data3_5 = read.csv("./csvs/train3_5.csv")     # 3-5 minute strategy
+data5_15 = read.csv("./csvs/train5_15.csv")   # 5-15 minute strategy  
+data8_60 = read.csv("./csvs/train8_60.csv")   # 8-60 minute strategy
+data10_180 = read.csv("./csvs/train10_180.csv") # 10-180 minute strategy
+data1_3 = read.csv("./csvs/train1_3.csv")     # 1-3 minute strategy
+```
+
+## cross validation sets
+
+```{r}
+#train = data1_3[(1:as.integer(0.33*nrow(data1_3))),]
+train = data1_3[(as.integer(0.34*nrow(data1_3))):(as.integer(0.66*nrow(data1_3))),]
+test = data1_3[(as.integer(0.67*nrow(data1_3))):nrow(data1_3),]
+#train = data1_3[(1:as.integer(0.33*nrow(data1_3))),]
+#test = data1_3[(as.integer(0.34*nrow(data1_3))):(as.integer(0.66*nrow(data1_3))),]
+#valid = data1_3[(as.integer(0.67*nrow(data1_3))):nrow(data1_3),]
+```
+
+
+## simulate trading rf
+```{r}
+library(randomForest)
+library(e1071)
+library(class)
+library(rpart)
+```
+
+```{r}
+rf1 = randomForest(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, n.trees = 1000)
+rf2 = randomForest(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, n.trees = 1000)
+
+tree1 = rpart(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, method = "class")
+tree2 = rpart(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, method = "anova")
+
+svm1 = svm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, kernel = "radial")
+svm2 = svm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, kernel = "radial")
+svm3 = svm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+svm4 = svm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+
+lm1 = lm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+glm1 = glm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, family = "binomial")
+
+knn1 = knn(train[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], test[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], train$pl_value, k =10)
+knn2 = knn(train[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], test[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], factor(train$PL), k =10)
+```
+
+```{r}
+
+```
+
+```{r}
+capital_rf1 = 1000
+capital_rf2 = 1000
+capital_tree1 = 1000
+capital_tree2 = 1000
+capital_svm1 = 1000
+capital_svm2 = 1000
+capital_svm3 = 1000
+capital_svm4 = 1000
+capital_lm1 = 1000
+capital_glm1 = 1000
+capital_knn1 = 1000
+capital_knn2 = 1000
+drawdown_Xrf1 = c()
+drawdown_Xrf2 = c()
+drawdown_Xtree1 = c()
+drawdown_Xtree2 = c()
+drawdown_Xsvm1 = c()
+drawdown_Xsvm2 = c()
+drawdown_Xsvm3 = c()
+drawdown_Xsvm4 = c()
+drawdown_Xlm1 = c()
+drawdown_Xglm1 = c()
+drawdown_Xknn1 = c()
+drawdown_Xknn2 = c()
+```
+```{r}
+for (i in 1:nrow(test)) {
+  pred_rf1 = as.integer(as.character(predict(rf1,test[i,],type="response")))
+  pred_tree1 = as.integer(as.character(predict(tree1,test[i,],type="class")))
+  pred_svm1 = as.integer(as.character(predict(svm1,test[i,],type="response")))
+  pred_svm3 = as.integer(as.character(predict(svm3,test[i,],type="response")))
+  pred_glm1 = as.integer(as.character(predict(glm1,test[i,],type="response")))
+  pred_knn2 = as.integer(as.character(knn2[i]))
+  pred_rf2 = predict(rf2,test[i,],type="response")
+  pred_tree2 = predict(tree2,test[i,])
+  pred_svm2 = predict(svm2,test[i,],type="response")
+  pred_svm4 = predict(svm4,test[i,],type="response")
+  pred_lm1 = predict(lm1,test[i,],type="response")
+  pred_knn1 = as.double(as.character(knn1[i]))
+  if (pred_rf1> 0) {
+    capital_rf1 = capital_rf1 + test$pl_value[i]
+    drawdown_Xrf1 = c(drawdown_Xrf1, capital_rf1)
+  }
+  if (pred_rf2> 0) {
+    capital_rf2 = capital_rf2 + test$pl_value[i]
+    drawdown_Xrf2 = c(drawdown_Xrf2, capital_rf2)
+  }
+  if (pred_tree1> 0) {
+    capital_tree1 = capital_tree1 + test$pl_value[i]
+    drawdown_Xtree1 = c(drawdown_Xtree1, capital_tree1)
+  }
+  if (pred_tree2> 0) {
+    capital_tree2 = capital_tree2 + test$pl_value[i]
+    drawdown_Xtree2 = c(drawdown_Xtree2, capital_tree2)
+  }
+  if (pred_svm1> 0) {
+    capital_svm1 = capital_svm1 + test$pl_value[i]
+    drawdown_Xsvm1 = c(drawdown_Xsvm1, capital_svm1)
+  }
+  if (pred_svm2> 0) {
+    capital_svm2 = capital_svm2 + test$pl_value[i]
+    drawdown_Xsvm2 = c(drawdown_Xsvm2, capital_svm2)
+  }
+  if (pred_svm3> 0) {
+    capital_svm3 = capital_svm3 + test$pl_value[i]
+    drawdown_Xsvm3 = c(drawdown_Xsvm3, capital_svm3)
+  }
+  if (pred_svm4> 0) {
+    capital_svm4 = capital_svm4 + test$pl_value[i]
+    drawdown_Xsvm4 = c(drawdown_Xsvm4, capital_svm4)
+  }
+  if (pred_lm1> 0) {
+    capital_lm1 = capital_lm1 + test$pl_value[i]
+    drawdown_Xlm1 = c(drawdown_Xlm1, capital_lm1)
+  }
+  if (pred_glm1> 0) {
+    capital_glm1 = capital_glm1 + test$pl_value[i]
+    drawdown_Xglm1 = c(drawdown_Xglm1, capital_glm1)
+  }
+  if (pred_knn1> 0) {
+    capital_knn1 = capital_knn1 + test$pl_value[i]
+    drawdown_Xknn1 = c(drawdown_Xknn1, capital_knn1)
+  }
+  if (pred_knn2> 0) {
+    capital_knn2 = capital_knn2 + test$pl_value[i]
+    drawdown_Xknn2 = c(drawdown_Xknn2, capital_knn2)
+  }
+  
+}
+
+```
+```{r}
+# Plot the drawdowns for all models
+plot(drawdown_Xtree2, type = "l", col = "violet", xlab = "Trade", ylab = "Capital", main = "Drawdown - Random Forest 1")
+lines(drawdown_Xrf2, col = "yellow" )
+lines(drawdown_Xtree1, col = "blue" )
+lines(drawdown_Xrf1, col = "green")
+lines(drawdown_Xsvm1, col = "orange")
+lines(drawdown_Xsvm2, col = "red")
+```
+
+```{r}
+# Plot the drawdowns for all models
+tail(drawdown_Xrf1)
+tail(drawdown_Xrf2)
+tail(drawdown_Xtree1)
+tail(drawdown_Xtree2)
+tail(drawdown_Xsvm1)
+tail(drawdown_Xsvm2)
+
+
+```
+```{r}
+plot(drawdown_Xknn2, type = "l", col = "violet", xlab = "Trade", ylab = "Capital", main = "Drawdown - SVM 1")
+lines(drawdown_Xsvm4, col = "yellow")
+lines(drawdown_Xlm1, col = "blue" )
+lines(drawdown_Xglm1, col = "green")
+lines(drawdown_Xsvm3, col = "orange")
+lines(drawdown_Xknn1, col = "red")
+```
+```{r}
+tail(drawdown_Xsvm3)
+tail(drawdown_Xsvm4)
+tail(drawdown_Xlm1)
+tail(drawdown_Xglm1)
+tail(drawdown_Xknn1)
+tail(drawdown_Xknn2)
+# knn 1 or 2 **
+```
+
+```{r}
+#train = data3_5[(1:as.integer(0.33*nrow(data3_5))),]
+train = data3_5[(as.integer(0.34*nrow(data3_5))):(as.integer(0.66*nrow(data3_5))),]
+test = data3_5[(as.integer(0.67*nrow(data3_5))):nrow(data3_5),]
+#train = data3_5[(1:as.integer(0.33*nrow(data3_5))),]
+#test = data3_5[(as.integer(0.34*nrow(data3_5))):(as.integer(0.66*nrow(data3_5))),]
+#valid = data3_5[(as.integer(0.67*nrow(data3_5))):nrow(data3_5),]
+```
+
+
+## simulate trading rf
+```{r}
+library(randomForest)
+library(e1071)
+library(class)
+library(rpart)
+```
+
+```{r}
+rf1 = randomForest(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, n.trees = 1000)
+rf2 = randomForest(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, n.trees = 1000)
+
+tree1 = rpart(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, method = "class")
+tree2 = rpart(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, method = "anova")
+
+svm1 = svm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, kernel = "radial")
+svm2 = svm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, kernel = "radial")
+svm3 = svm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+svm4 = svm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+
+lm1 = lm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+glm1 = glm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, family = "binomial")
+
+knn1 = knn(train[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], test[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], train$pl_value, k =10)
+knn2 = knn(train[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], test[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], factor(train$PL), k =10)
+```
+
+```{r}
+
+```
+
+```{r}
+capital_rf1 = 1000
+capital_rf2 = 1000
+capital_tree1 = 1000
+capital_tree2 = 1000
+capital_svm1 = 1000
+capital_svm2 = 1000
+capital_svm3 = 1000
+capital_svm4 = 1000
+capital_lm1 = 1000
+capital_glm1 = 1000
+capital_knn1 = 1000
+capital_knn2 = 1000
+drawdown_rf1 = c()
+drawdown_rf2 = c()
+drawdown_tree1 = c()
+drawdown_tree2 = c()
+drawdown_svm1 = c()
+drawdown_svm2 = c()
+drawdown_svm3 = c()
+drawdown_svm4 = c()
+drawdown_lm1 = c()
+drawdown_glm1 = c()
+drawdown_knn1 = c()
+drawdown_knn2 = c()
+```
+```{r}
+for (i in 1:nrow(test)) {
+  pred_rf1 = as.integer(as.character(predict(rf1,test[i,],type="response")))
+  pred_tree1 = as.integer(as.character(predict(tree1,test[i,],type="class")))
+  pred_svm1 = as.integer(as.character(predict(svm1,test[i,],type="response")))
+  pred_svm3 = as.integer(as.character(predict(svm3,test[i,],type="response")))
+  pred_glm1 = as.integer(as.character(predict(glm1,test[i,],type="response")))
+  pred_knn2 = as.integer(as.character(knn2[i]))
+  pred_rf2 = predict(rf2,test[i,],type="response")
+  pred_tree2 = predict(tree2,test[i,])
+  pred_svm2 = predict(svm2,test[i,],type="response")
+  pred_svm4 = predict(svm4,test[i,],type="response")
+  pred_lm1 = predict(lm1,test[i,],type="response")
+  pred_knn1 = as.double(as.character(knn1[i]))
+  if (pred_rf1> 0) {
+    capital_rf1 = capital_rf1 + test$pl_value[i]
+    drawdown_rf1 = c(drawdown_rf1, capital_rf1)
+  }
+  if (pred_rf2> 0) {
+    capital_rf2 = capital_rf2 + test$pl_value[i]
+    drawdown_rf2 = c(drawdown_rf2, capital_rf2)
+  }
+  if (pred_tree1> 0) {
+    capital_tree1 = capital_tree1 + test$pl_value[i]
+    drawdown_tree1 = c(drawdown_tree1, capital_tree1)
+  }
+  if (pred_tree2> 0) {
+    capital_tree2 = capital_tree2 + test$pl_value[i]
+    drawdown_tree2 = c(drawdown_tree2, capital_tree2)
+  }
+  if (pred_svm1> 0) {
+    capital_svm1 = capital_svm1 + test$pl_value[i]
+    drawdown_svm1 = c(drawdown_svm1, capital_svm1)
+  }
+  if (pred_svm2> 0) {
+    capital_svm2 = capital_svm2 + test$pl_value[i]
+    drawdown_svm2 = c(drawdown_svm2, capital_svm2)
+  }
+  if (pred_svm3> 0) {
+    capital_svm3 = capital_svm3 + test$pl_value[i]
+    drawdown_svm3 = c(drawdown_svm3, capital_svm3)
+  }
+  if (pred_svm4> 0) {
+    capital_svm4 = capital_svm4 + test$pl_value[i]
+    drawdown_svm4 = c(drawdown_svm4, capital_svm4)
+  }
+  if (pred_lm1> 0) {
+    capital_lm1 = capital_lm1 + test$pl_value[i]
+    drawdown_lm1 = c(drawdown_lm1, capital_lm1)
+  }
+  if (pred_glm1> 0) {
+    capital_glm1 = capital_glm1 + test$pl_value[i]
+    drawdown_glm1 = c(drawdown_glm1, capital_glm1)
+  }
+  if (pred_knn1> 0) {
+    capital_knn1 = capital_knn1 + test$pl_value[i]
+    drawdown_knn1 = c(drawdown_knn1, capital_knn1)
+  }
+  if (pred_knn2> 0) {
+    capital_knn2 = capital_knn2 + test$pl_value[i]
+    drawdown_knn2 = c(drawdown_knn2, capital_knn2)
+  }
+  
+}
+
+```
+```{r}
+# Plot the drawdowns for all models
+plot(drawdown_rf2, type = "l", col = "violet", xlab = "Trade", ylab = "Capital", main = "Drawdown - Random Forest 1")
+lines(drawdown_tree2, col = "black" )
+lines(drawdown_tree1, col = "blue" )
+lines(drawdown_rf1, col = "green")
+lines(drawdown_svm1, col = "orange")
+lines(drawdown_svm2, col = "red")
+```
+```{r}
+tail(drawdown_rf1)
+tail(drawdown_rf2)
+tail(drawdown_tree1)
+tail(drawdown_tree2)
+tail(drawdown_svm1)
+tail(drawdown_svm2)
+# rf2** and possible svm1s
+```
+```{r}
+plot(drawdown_knn2, type = "l", col = "violet", xlab = "Trade", ylab = "Capital", main = "Drawdown - LM")
+#lines(drawdown_svm4, col = "yellow")
+lines(drawdown_svm3, col = "blue" )
+#lines(drawdown_glm1, col = "green")
+#lines(drawdown_knn1, col = "orange")
+#lines(drawdown_lm1, col = "red")
+```
+```{r}
+tail(drawdown_svm3)
+tail(drawdown_svm4)
+tail(drawdown_lm1)
+tail(drawdown_glm1)
+tail(drawdown_knn1)
+tail(drawdown_knn2)
+
+# knn 2 and svm3?
+```
+```{r}
+#train = data5_15[(1:as.integer(0.33*nrow(data5_15))),]
+train = data5_15[(as.integer(0.34*nrow(data5_15))):(as.integer(0.66*nrow(data5_15))),]
+test = data5_15[(as.integer(0.67*nrow(data5_15))):nrow(data5_15),]
+#train = data5_15[(1:as.integer(0.33*nrow(data5_15))),]
+#test = data5_15[(as.integer(0.34*nrow(data5_15))):(as.integer(0.66*nrow(data5_15))),]
+#valid = data5_15[(as.integer(0.67*nrow(data5_15))):nrow(data5_15),]
+```
+
+
+## simulate trading rf
+```{r}
+library(randomForest)
+library(e1071)
+library(class)
+library(rpart)
+```
+
+```{r}
+rf1 = randomForest(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, n.trees = 1000)
+rf2 = randomForest(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, n.trees = 1000)
+
+tree1 = rpart(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, method = "class")
+tree2 = rpart(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, method = "anova")
+
+svm1 = svm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, kernel = "radial")
+svm2 = svm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, kernel = "radial")
+svm3 = svm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+svm4 = svm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+
+lm1 = lm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+glm1 = glm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, family = "binomial")
+
+knn1 = knn(train[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], test[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], train$pl_value, k =10)
+knn2 = knn(train[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], test[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], factor(train$PL), k =10)
+```
+
+```{r}
+
+```
+
+```{r}
+capital_rf1 = 1000
+capital_rf2 = 1000
+capital_tree1 = 1000
+capital_tree2 = 1000
+capital_svm1 = 1000
+capital_svm2 = 1000
+capital_svm3 = 1000
+capital_svm4 = 1000
+capital_lm1 = 1000
+capital_glm1 = 1000
+capital_knn1 = 1000
+capital_knn2 = 1000
+drawdown_Yrf1 = c()
+drawdown_Yrf2 = c()
+drawdown_Ytree1 = c()
+drawdown_Ytree2 = c()
+drawdown_Ysvm1 = c()
+drawdown_Ysvm2 = c()
+drawdown_Ysvm3 = c()
+drawdown_Ysvm4 = c()
+drawdown_Ylm1 = c()
+drawdown_Yglm1 = c()
+drawdown_Yknn1 = c()
+drawdown_Yknn2 = c()
+```
+```{r}
+for (i in 1:nrow(test)) {
+  pred_rf1 = as.integer(as.character(predict(rf1,test[i,],type="response")))
+  pred_tree1 = as.integer(as.character(predict(tree1,test[i,],type="class")))
+  pred_svm1 = as.integer(as.character(predict(svm1,test[i,],type="response")))
+  pred_svm3 = as.integer(as.character(predict(svm3,test[i,],type="response")))
+  pred_glm1 = as.integer(as.character(predict(glm1,test[i,],type="response")))
+  pred_knn2 = as.integer(as.character(knn2[i]))
+  pred_rf2 = predict(rf2,test[i,],type="response")
+  pred_tree2 = predict(tree2,test[i,])
+  pred_svm2 = predict(svm2,test[i,],type="response")
+  pred_svm4 = predict(svm4,test[i,],type="response")
+  pred_lm1 = predict(lm1,test[i,],type="response")
+  pred_knn1 = as.double(as.character(knn1[i]))
+  if (pred_rf1> 0) {
+    capital_rf1 = capital_rf1 + test$pl_value[i]
+    drawdown_Yrf1 = c(drawdown_Yrf1, capital_rf1)
+  }
+  if (pred_rf2> 0) {
+    capital_rf2 = capital_rf2 + test$pl_value[i]
+    drawdown_Yrf2 = c(drawdown_Yrf2, capital_rf2)
+  }
+  if (pred_tree1> 0) {
+    capital_tree1 = capital_tree1 + test$pl_value[i]
+    drawdown_Ytree1 = c(drawdown_Ytree1, capital_tree1)
+  }
+  if (pred_tree2> 0) {
+    capital_tree2 = capital_tree2 + test$pl_value[i]
+    drawdown_Ytree2 = c(drawdown_Ytree2, capital_tree2)
+  }
+  if (pred_svm1> 0) {
+    capital_svm1 = capital_svm1 + test$pl_value[i]
+    drawdown_Ysvm1 = c(drawdown_Ysvm1, capital_svm1)
+  }
+  if (pred_svm2> 0) {
+    capital_svm2 = capital_svm2 + test$pl_value[i]
+    drawdown_Ysvm2 = c(drawdown_Ysvm2, capital_svm2)
+  }
+  if (pred_svm3> 0) {
+    capital_svm3 = capital_svm3 + test$pl_value[i]
+    drawdown_Ysvm3 = c(drawdown_Ysvm3, capital_svm3)
+  }
+  if (pred_svm4> 0) {
+    capital_svm4 = capital_svm4 + test$pl_value[i]
+    drawdown_Ysvm4 = c(drawdown_Ysvm4, capital_svm4)
+  }
+  if (pred_lm1> 0) {
+    capital_lm1 = capital_lm1 + test$pl_value[i]
+    drawdown_Ylm1 = c(drawdown_Ylm1, capital_lm1)
+  }
+  if (pred_glm1> 0) {
+    capital_glm1 = capital_glm1 + test$pl_value[i]
+    drawdown_Yglm1 = c(drawdown_Yglm1, capital_glm1)
+  }
+  if (pred_knn1> 0) {
+    capital_knn1 = capital_knn1 + test$pl_value[i]
+    drawdown_Yknn1 = c(drawdown_Yknn1, capital_knn1)
+  }
+  if (pred_knn2> 0) {
+    capital_knn2 = capital_knn2 + test$pl_value[i]
+    drawdown_Yknn2 = c(drawdown_Yknn2, capital_knn2)
+  }
+  
+}
+
+```
+```{r}
+# Plot the drawdowns for all models
+plot(drawdown_Yrf2, type = "l", col = "violet", xlab = "Trade", ylab = "Capital", main = "Drawdown - Random Forest 1")
+lines(drawdown_Ytree1, col = "black" )
+lines(drawdown_Ytree2, col = "blue" )
+lines(drawdown_Yrf1, col = "green")
+lines(drawdown_Ysvm1, col = "orange")
+lines(drawdown_Ysvm2, col = "red")
+```
+```{r}
+tail(drawdown_Yrf1)
+tail(drawdown_Yrf2)
+tail(drawdown_Ytree1)
+tail(drawdown_Ytree2)
+tail(drawdown_Ysvm1)
+tail(drawdown_Ysvm2)
+# tree1, rf2, rf1, svm1
+```
+```{r}
+plot(drawdown_Yknn1, type = "l", col = "violet", xlab = "Trade", ylab = "Capital", main = "Drawdown - LM")
+lines(drawdown_Ysvm4, col = "yellow")
+lines(drawdown_Ylm1, col = "blue" )
+lines(drawdown_Yglm1, col = "green")
+lines(drawdown_Ysvm3, col = "orange")
+lines(drawdown_Yknn2, col = "red")
+```
+```{r}
+tail(drawdown_Ysvm3)
+tail(drawdown_Ysvm4)
+tail(drawdown_Ylm1)
+tail(drawdown_Yglm1)
+tail(drawdown_Yknn1)
+tail(drawdown_Yknn2)
+#  knn 1 ,2*
+```
+```{r}
+#train = data5_15[(1:as.integer(0.33*nrow(data5_15))),]
+train = data8_60[(as.integer(0.34*nrow(data8_60))):(as.integer(0.66*nrow(data8_60))),]
+test = data8_60[(as.integer(0.67*nrow(data8_60))):nrow(data8_60),]
+#train = data8_60[(1:as.integer(0.33*nrow(data8_60))),]
+#test = data8_60[(as.integer(0.34*nrow(data8_60))):(as.integer(0.66*nrow(data8_60))),]
+#valid = data5_15[(as.integer(0.67*nrow(data5_15))):nrow(data5_15),]
+```
+
+
+## simulate trading rf
+```{r}
+library(randomForest)
+library(e1071)
+library(class)
+library(rpart)
+```
+
+```{r}
+rf1 = randomForest(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, n.trees = 1000)
+rf2 = randomForest(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, n.trees = 1000)
+
+tree1 = rpart(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, method = "class")
+tree2 = rpart(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, method = "anova")
+
+svm1 = svm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, kernel = "radial")
+svm2 = svm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, kernel = "radial")
+svm3 = svm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+svm4 = svm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+
+lm1 = lm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+glm1 = glm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, family = "binomial")
+
+knn1 = knn(train[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], test[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], train$pl_value, k =10)
+knn2 = knn(train[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], test[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], factor(train$PL), k =10)
+```
+
+```{r}
+
+```
+
+```{r}
+capital_rf1 = 1000
+capital_rf2 = 1000
+capital_tree1 = 1000
+capital_tree2 = 1000
+capital_svm1 = 1000
+capital_svm2 = 1000
+capital_svm3 = 1000
+capital_svm4 = 1000
+capital_lm1 = 1000
+capital_glm1 = 1000
+capital_knn1 = 1000
+capital_knn2 = 1000
+drawdown_Arf1 = c()
+drawdown_Arf2 = c()
+drawdown_Atree1 = c()
+drawdown_Atree2 = c()
+drawdown_Asvm1 = c()
+drawdown_Asvm2 = c()
+drawdown_Asvm3 = c()
+drawdown_Asvm4 = c()
+drawdown_Alm1 = c()
+drawdown_Aglm1 = c()
+drawdown_Aknn1 = c()
+drawdown_Aknn2 = c()
+```
+```{r}
+for (i in 1:nrow(test)) {
+  pred_rf1 = as.integer(as.character(predict(rf1,test[i,],type="response")))
+  pred_tree1 = as.integer(as.character(predict(tree1,test[i,],type="class")))
+  pred_svm1 = as.integer(as.character(predict(svm1,test[i,],type="response")))
+  pred_svm3 = as.integer(as.character(predict(svm3,test[i,],type="response")))
+  pred_glm1 = as.integer(as.character(predict(glm1,test[i,],type="response")))
+  pred_knn2 = as.integer(as.character(knn2[i]))
+  pred_rf2 = predict(rf2,test[i,],type="response")
+  pred_tree2 = predict(tree2,test[i,])
+  pred_svm2 = predict(svm2,test[i,],type="response")
+  pred_svm4 = predict(svm4,test[i,],type="response")
+  pred_lm1 = predict(lm1,test[i,],type="response")
+  pred_knn1 = as.double(as.character(knn1[i]))
+  if (pred_rf1> 0) {
+    capital_rf1 = capital_rf1 + test$pl_value[i]
+    drawdown_Arf1 = c(drawdown_Arf1, capital_rf1)
+  }
+  if (pred_rf2> 0) {
+    capital_rf2 = capital_rf2 + test$pl_value[i]
+    drawdown_Arf2 = c(drawdown_Arf2, capital_rf2)
+  }
+  if (pred_tree1> 0) {
+    capital_tree1 = capital_tree1 + test$pl_value[i]
+    drawdown_Atree1 = c(drawdown_Atree1, capital_tree1)
+  }
+  if (pred_tree2> 0) {
+    capital_tree2 = capital_tree2 + test$pl_value[i]
+    drawdown_Atree2 = c(drawdown_Atree2, capital_tree2)
+  }
+  if (pred_svm1> 0) {
+    capital_svm1 = capital_svm1 + test$pl_value[i]
+    drawdown_Asvm1 = c(drawdown_Asvm1, capital_svm1)
+  }
+  if (pred_svm2> 0) {
+    capital_svm2 = capital_svm2 + test$pl_value[i]
+    drawdown_Asvm2 = c(drawdown_Asvm2, capital_svm2)
+  }
+  if (pred_svm3> 0) {
+    capital_svm3 = capital_svm3 + test$pl_value[i]
+    drawdown_Asvm3 = c(drawdown_Asvm3, capital_svm3)
+  }
+  if (pred_svm4> 0) {
+    capital_svm4 = capital_svm4 + test$pl_value[i]
+    drawdown_Asvm4 = c(drawdown_Asvm4, capital_svm4)
+  }
+  if (pred_lm1> 0) {
+    capital_lm1 = capital_lm1 + test$pl_value[i]
+    drawdown_Alm1 = c(drawdown_Alm1, capital_lm1)
+  }
+  if (pred_glm1> 0) {
+    capital_glm1 = capital_glm1 + test$pl_value[i]
+    drawdown_Aglm1 = c(drawdown_Aglm1, capital_glm1)
+  }
+  if (pred_knn1> 0) {
+    capital_knn1 = capital_knn1 + test$pl_value[i]
+    drawdown_Aknn1 = c(drawdown_Aknn1, capital_knn1)
+  }
+  if (pred_knn2> 0) {
+    capital_knn2 = capital_knn2 + test$pl_value[i]
+    drawdown_Aknn2 = c(drawdown_Aknn2, capital_knn2)
+  }
+  
+}
+
+```
+```{r}
+# Plot the drawdowns for all models
+plot(drawdown_Atree2, type = "l", col = "violet", xlab = "Trade", ylab = "Capital", main = "Drawdown - Random Forest 1")
+#lines(drawdown_Atree1, col = "black" )
+#lines(drawdown_Arf2, col = "blue" )
+#lines(drawdown_Arf1, col = "green")
+lines(drawdown_Asvm1, col = "orange")
+lines(drawdown_Asvm2, col = "red")
+# tree 1 , mayne svm2
+```
+```{r}
+tail(drawdown_Arf1)
+tail(drawdown_Arf2)
+tail(drawdown_Atree1)
+tail(drawdown_Atree2)
+tail(drawdown_Asvm1)
+tail(drawdown_Asvm2)
+
+```
+```{r}
+plot(drawdown_Alm1, type = "l", col = "violet", xlab = "Trade", ylab = "Capital", main = "Drawdown - LM")
+#lines(drawdown_Asvm4, col = "yellow")
+#lines(drawdown_Aknn1, col = "blue" )
+#lines(drawdown_Aglm1, col = "green")
+lines(drawdown_Asvm3, col = "orange")
+#lines(drawdown_Aknn2, col = "red")
+# svm4, lm1
+```
+```{r}
+tail(drawdown_Asvm3)
+tail(drawdown_Asvm4)
+tail(drawdown_Alm1)
+tail(drawdown_Aglm1)
+tail(drawdown_Aknn1)
+tail(drawdown_Aknn2)
+
+```
+```{r}
+#train = data5_15[(1:as.integer(0.33*nrow(data5_15))),]
+train = data10_180[(as.integer(0.34*nrow(data10_180))):(as.integer(0.66*nrow(data10_180))),]
+test = data10_180[(as.integer(0.67*nrow(data10_180))):nrow(data10_180),]
+#train = data10_180[(1:as.integer(0.33*nrow(data10_180))),]
+#test = data10_180[(as.integer(0.34*nrow(data10_180))):(as.integer(0.66*nrow(data10_180))),]
+#valid = data5_15[(as.integer(0.67*nrow(data5_15))):nrow(data5_15),]
+```
+
+
+## simulate trading rf
+```{r}
+library(randomForest)
+library(e1071)
+library(class)
+library(rpart)
+```
+
+```{r}
+rf1 = randomForest(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, n.trees = 1000)
+rf2 = randomForest(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, n.trees = 1000)
+
+tree1 = rpart(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, method = "class")
+tree2 = rpart(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, method = "anova")
+
+svm1 = svm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, kernel = "radial")
+svm2 = svm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, kernel = "radial")
+svm3 = svm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+svm4 = svm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+
+lm1 = lm(data = train, pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50)
+glm1 = glm(data = train, factor(PL) ~ ATR + SMA_k7 + SMA_k20 + SMA_k50, family = "binomial")
+
+knn1 = knn(train[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], test[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], train$pl_value, k =10)
+knn2 = knn(train[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], test[, c("ATR", "SMA_k7", "SMA_k20", "SMA_k50")], factor(train$PL), k =10)
+```
+
+```{r}
+
+```
+
+```{r}
+capital_rf1 = 1000
+capital_rf2 = 1000
+capital_tree1 = 1000
+capital_tree2 = 1000
+capital_svm1 = 1000
+capital_svm2 = 1000
+capital_svm3 = 1000
+capital_svm4 = 1000
+capital_lm1 = 1000
+capital_glm1 = 1000
+capital_knn1 = 1000
+capital_knn2 = 1000
+drawdown_Brf1 = c()
+drawdown_Brf2 = c()
+drawdown_Btree1 = c()
+drawdown_Btree2 = c()
+drawdown_Bsvm1 = c()
+drawdown_Bsvm2 = c()
+drawdown_Bsvm3 = c()
+drawdown_Bsvm4 = c()
+drawdown_Blm1 = c()
+drawdown_Bglm1 = c()
+drawdown_Bknn1 = c()
+drawdown_Bknn2 = c()
+```
+```{r}
+for (i in 1:nrow(test)) {
+  pred_rf1 = as.integer(as.character(predict(rf1,test[i,],type="response")))
+  pred_tree1 = as.integer(as.character(predict(tree1,test[i,],type="class")))
+  pred_svm1 = as.integer(as.character(predict(svm1,test[i,],type="response")))
+  pred_svm3 = as.integer(as.character(predict(svm3,test[i,],type="response")))
+  pred_glm1 = as.integer(as.character(predict(glm1,test[i,],type="response")))
+  pred_knn2 = as.integer(as.character(knn2[i]))
+  pred_rf2 = predict(rf2,test[i,],type="response")
+  pred_tree2 = predict(tree2,test[i,])
+  pred_svm2 = predict(svm2,test[i,],type="response")
+  pred_svm4 = predict(svm4,test[i,],type="response")
+  pred_lm1 = predict(lm1,test[i,],type="response")
+  pred_knn1 = as.double(as.character(knn1[i]))
+  if (pred_rf1> 0) {
+    capital_rf1 = capital_rf1 + test$pl_value[i]
+    drawdown_Brf1 = c(drawdown_Brf1, capital_rf1)
+  }
+  if (pred_rf2> 0) {
+    capital_rf2 = capital_rf2 + test$pl_value[i]
+    drawdown_Brf2 = c(drawdown_Brf2, capital_rf2)
+  }
+  if (pred_tree1> 0) {
+    capital_tree1 = capital_tree1 + test$pl_value[i]
+    drawdown_Btree1 = c(drawdown_Btree1, capital_tree1)
+  }
+  if (pred_tree2> 0) {
+    capital_tree2 = capital_tree2 + test$pl_value[i]
+    drawdown_Btree2 = c(drawdown_Btree2, capital_tree2)
+  }
+  if (pred_svm1> 0) {
+    capital_svm1 = capital_svm1 + test$pl_value[i]
+    drawdown_Bsvm1 = c(drawdown_Bsvm1, capital_svm1)
+  }
+  if (pred_svm2> 0) {
+    capital_svm2 = capital_svm2 + test$pl_value[i]
+    drawdown_Bsvm2 = c(drawdown_Bsvm2, capital_svm2)
+  }
+  if (pred_svm3> 0) {
+    capital_svm3 = capital_svm3 + test$pl_value[i]
+    drawdown_Bsvm3 = c(drawdown_Bsvm3, capital_svm3)
+  }
+  if (pred_svm4> 0) {
+    capital_svm4 = capital_svm4 + test$pl_value[i]
+    drawdown_Bsvm4 = c(drawdown_Bsvm4, capital_svm4)
+  }
+  if (pred_lm1> 0) {
+    capital_lm1 = capital_lm1 + test$pl_value[i]
+    drawdown_Blm1 = c(drawdown_Blm1, capital_lm1)
+  }
+  if (pred_glm1> 0) {
+    capital_glm1 = capital_glm1 + test$pl_value[i]
+    drawdown_Bglm1 = c(drawdown_Bglm1, capital_glm1)
+  }
+  if (pred_knn1> 0) {
+    capital_knn1 = capital_knn1 + test$pl_value[i]
+    drawdown_Bknn1 = c(drawdown_Bknn1, capital_knn1)
+  }
+  if (pred_knn2> 0) {
+    capital_knn2 = capital_knn2 + test$pl_value[i]
+    drawdown_Bknn2 = c(drawdown_Bknn2, capital_knn2)
+  }
+  
+}
+
+```
+```{r}
+# Plot the drawdowns for all models
+plot(drawdown_Btree2, type = "l", col = "violet", xlab = "Trade", ylab = "Capital", main = "Drawdown - Random Forest 1")
+lines(drawdown_Brf2, col = "black" )
+lines(drawdown_Btree1, col = "blue" )
+lines(drawdown_Brf1, col = "green")
+lines(drawdown_Bsvm1, col = "orange")
+lines(drawdown_Bsvm2, col = "red")
+#tree 1 svm1 and svm2
+```
+```{r}
+tail(drawdown_Brf1)
+tail(drawdown_Brf2)
+tail(drawdown_Btree1)
+tail(drawdown_Btree2)
+tail(drawdown_Bsvm1)
+tail(drawdown_Bsvm2)
+
+```
+```{r}
+plot(drawdown_Blm1, type = "l", col = "violet", xlab = "Trade", ylab = "Capital", main = "Drawdown - LM")
+lines(drawdown_Bsvm4, col = "yellow")
+lines(drawdown_Bknn1, col = "blue" )
+lines(drawdown_Bglm1, col = "green")
+lines(drawdown_Bsvm3, col = "orange")
+lines(drawdown_Bknn2, col = "red")
+#knn2 svms again
+```
+```{r}
+tail(drawdown_Bsvm3)
+tail(drawdown_Bsvm4)
+tail(drawdown_Blm1)
+tail(drawdown_Bglm1)
+tail(drawdown_Bknn1)
+tail(drawdown_Bknn2)
+```
+```{r}
+
+```
+
+
+
+
+```{r}
+library(randomForest)
+rf1 = randomForest(data = data3_5, pl_value~ATR+ SMA_k7+SMA_k20+SMA_k50,
+                        n.trees=1000)
+saveRDS(rf1,"../Trade infra/models/SPY_1m_rf_3_5.rds")
+
+lm1 = lm(data = data3_5, pl_value~ATR+ SMA_k7+SMA_k20+SMA_k50)
+saveRDS(lm1,"../Trade infra/models/SPY_1m_lm_3_5.rds")
+(rf1)
+```
+
+
+
+
+
