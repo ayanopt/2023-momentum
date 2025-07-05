@@ -2,7 +2,7 @@
 
 ## Overview
 
-2023-momentum is an algorithmic trading system I developed for SPY ETF trading using machine learning techniques. The system combines multiple models across different timeframes to identify profitable trades while managing risk through dynamic position sizing. What makes this system unique is its multi-timeframe approach and real-time execution capabilities. Refer to article.md, mkt_data.ipynb and **strat_book.pdf** for details.
+2023-momentum is an algorithmic trading system I developed for SPY ETF trading using machine learning techniques. The system combines multiple models across different timeframes to identify profitable trades while managing risk through dynamic position sizing. This is the first system I ever developed, so it can be a little disorganized. Refer to article.md, mkt_data.ipynb and **strat_book.pdf** for details.
 
 ## Key Features
 
