@@ -20,14 +20,14 @@
 
 Each strategy uses different model combinations and risk parameters optimized through backtesting.
 
-### 🎯 Advanced Risk Management
+### Advanced Risk Management
 - **Dynamic Stop-Loss**: ATR-based adaptive stop placement
 - **Take-Profit Optimization**: Volatility-adjusted profit targets
 - **Position Sizing**: Risk-proportional allocation based on market conditions
 - **Timeout Protection**: Maximum holding period constraints
 - **Drawdown Controls**: Portfolio-level risk monitoring
 
-### ⚡ Real-Time Execution Engine
+### Real-Time Execution Engine
 - **Live Market Data**: 1-minute SPY price feeds with technical indicators
 - **Model Inference**: R-based prediction pipeline with Python execution
 - **Order Management**: Automated trade execution with comprehensive logging
