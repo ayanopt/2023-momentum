@@ -6,14 +6,14 @@
 
 ## Key Features
 
-### 🤖 Machine Learning Models
+### Machine Learning Models
 - **Random Forest**: Used for both classification (profit/loss) and regression (profit amount)
 - **Support Vector Machines**: Multiple kernel types tested, RBF performed best
 - **K-Nearest Neighbors**: Surprisingly effective for short-term predictions
 - **Linear Models**: Provide stable baseline performance and fast inference
 - **Decision Trees**: Excel at capturing trend reversals in longer timeframes
 
-### 📊 Trading Strategies
+### Trading Strategies
 - **1-3 Minute**: Quick momentum plays, high frequency but smaller positions
 - **3-5 Minute**: Main strategy with best risk-adjusted returns
 - **5-15 Minute**: Longer holds for trend continuation, lower frequency
