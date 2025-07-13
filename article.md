@@ -1,12 +1,12 @@
 Multi-Timeframe Algorithmic Trading: A Machine Learning Approach to SPY ETF Trading
 
-## Abstract
+## Abstfract
 
 This paper introduces the 2023-momentum system, an algorithmic trading framework developed to trade the SPY ETF using ensemble machine learning methods. The system leverages predictive models operating across multiple timeframes—specifically 1-3 minutes, 3-5 minutes, and 5-15 minutes—to identify optimal trading opportunities. Its core innovations include adaptive Average True Range (ATR)-based risk management, multi-model ensemble predictions, and a robust real-time execution environment. Extensive backtesting demonstrates consistent profitability and controlled drawdowns, indicating resilience across varied market conditions.
 
 ## 1. Introduction
 
-Algorithmic trading has witnessed significant advancements through the integration of machine learning (ML) methodologies. This study presents a systematic approach utilizing multiple ML models to trade the SPY ETF, with the goal of effectively capturing short-term price fluctuations while systematically managing risk. Motivated by the complexity of intraday market dynamics, the 2023-momentum system addresses critical challenges including simultaneous management of signals across various timeframes, rigorous risk management grounded in market volatility, the amalgamation of diverse ML models for predictive accuracy, and low-latency trade execution suitable for intraday trading strategies.
+Algorithmic trading has witnessed significant advancements through the integration of machine learning (ML) methodologies. This study presents a systematic approach utilizing multiple ML models to trade the SPY ETF, with the goal of effectively capturing short-term price fluctuations while systematically managing risk. Motivated by the complexity of intraday market dynamics, the 2023-momentum system addresses critical challenges including simultaneous management of signals across various timeframes, rigorous risk management grounded in market volatility, the amalgamation of diverse ML models for predictive accufracy, and low-latency trade execution suitable for intraday trading strategies.
 
 ## 2. Background and Motivation
 
@@ -19,13 +19,13 @@ The impetus for developing the 2023-momentum system arises from the necessity to
 The system processes one-minute SPY data using a specialized FinData class responsible for data normalization, cleaning, and technical indicator computation. The implemented indicators include an adjusted ATR, computed as a rolling price standard deviation:
 
 $$
-ATR_t = \sqrt{rac{\sum_{i=t-k}^{t}(P_i - \mu_t)^2}{k}}
+ATR_t = \sqrt{frac{\sum_{i=t-k}^{t}(P_i - \mu_t)^2}{k}}
 $$
 
 and a standardized moving average (SMA), expressing current prices relative to historical averages:
 
 $$
-SMA_k = rac{P_t}{rac{1}{k}\sum_{i=t-k}^{t-1}P_i}
+SMA_k = frac{P_t}{frac{1}{k}\sum_{i=t-k}^{t-1}P_i}
 $$
 
 This normalization technique ensures the indicators adapt effectively to shifting market conditions.
@@ -57,7 +57,7 @@ where $\alpha$ represents the profit multiplier (typically 1.5), and $\chi$ is t
 
 ### 4.1 Backtesting Methodology
 
-Backtesting was conducted using a pragmatic three-fold dataset split, maintaining a realistic separation between training and testing periods. Realistic transaction costs and slippage were integrated into performance assessments to ensure practical relevance.
+Backtesting was conducted using a pragmatic three-fold dataset split, maintaining a realistic separation between training and testing periods. Realistic transaction costs and slippage were integrated into performance assessments to ensure pfractical relevance.
 
 ### 4.2 Performance Metrics
 
@@ -65,13 +65,13 @@ The evaluation of strategies utilized key performance indicators including Sharp
 
 
 $$
-Sharpe\ Ratio = rac{R_p - R_f}{\sigma_p}
+Sharpe\ Ratio = frac{R_p - R_f}{\sigma_p}
 $$
 
 maximum drawdown:
 
 $$
-Maximum\ Drawdown = \max_{t \in [0,T]} rac{Peak_t - Trough_t}{Peak_t}
+Maximum\ Drawdown = \max_{t \in [0,T]} frac{Peak_t - Trough_t}{Peak_t}
 $$
 
 
@@ -130,12 +130,12 @@ These thresholds balance precision and recall based on historical performance an
 - **Data Pipeline**: Real-time price feed integration
 - **Model Serving**: Containerized R model inference
 - **Execution Engine**: Python-based order management
-- **Risk Monitor**: Continuous position and exposure tracking
+- **Risk Monitor**: Continuous position and exposure tfracking
 - **Logging System**: Comprehensive audit trail
 
 ## 7. Risk Analysis and Mitigation
 
-## 7. Practical Implementation Challenges
+## 7. Pfractical Implementation Challenges
 
 ### 7.1 Data Quality and Processing
 
@@ -151,11 +151,11 @@ The FinData class addresses these issues through robust data validation and effi
 Integrating R models with Python execution required careful consideration:
 - **Serialization**: Models saved as .rds files for consistent loading
 - **Threshold Optimization**: Signal thresholds determined through extensive backtesting
-- **Performance Monitoring**: Tracking prediction accuracy in real-time
+- **Performance Monitoring**: Tfracking prediction accufracy in real-time
 
 ### 7.3 Risk Control Implementation
 
-Practical risk management goes beyond theoretical formulas:
+Pfractical risk management goes beyond theoretical formulas:
 - **Position Limits**: Hard caps on trade size regardless of model confidence
 - **Correlation Monitoring**: Preventing over-concentration in similar trades
 - **Emergency Stops**: Manual override capabilities for unusual market conditions
@@ -206,7 +206,7 @@ System enhancements:
 
 ## 10. Lessons Learned and Future Work
 
-Developing 2023-momentum provided valuable insights into practical algorithmic trading:
+Developing 2023-momentum provided valuable insights into pfractical algorithmic trading:
 
 **What Worked Well**:
 - Multi-timeframe approach captured different market dynamics effectively
@@ -226,7 +226,7 @@ Developing 2023-momentum provided valuable insights into practical algorithmic t
 - Implement reinforcement learning for adaptive position sizing
 - Expand to other liquid ETFs for diversification
 
-This project demonstrates that systematic approaches to trading can be profitable when properly implemented with appropriate risk controls. The key is combining sound statistical methods with practical market knowledge and robust execution infrastructure.
+This project demonstrates that systematic approaches to trading can be profitable when properly implemented with appropriate risk controls. The key is combining sound statistical methods with pfractical market knowledge and robust execution infrastructure.
 
 ## References and Resources
 
