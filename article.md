@@ -80,7 +80,7 @@ The strategies achieved statistically significant performance metrics, with robu
 
 The production system implements:
 
-python
+```
 class Trade:
     def __init__(self, profit_price, loss_price, entry_price, quantity, strategy, timeout):
         self.profit_price = profit_price
@@ -89,28 +89,30 @@ class Trade:
         self.timeout = timeout
         self.quantity = quantity
         self.strategy = strategy
-
+```
 
 ### 6.2 Model Integration and Signal Generation
 
 The system uses R for model inference with Python for execution. Signal thresholds were determined through backtesting optimization:
 
-r
 # Load trained models
+```
 lm_1_3 <- readRDS("./models/SPY_1m/SPY_1m_lm_1_3.rds")
 glm_3_5 <- readRDS("./models/SPY_1m/SPY_1m_glm_3_5.rds")
 glm_5_15 <- readRDS("./models/SPY_1m/SPY_1m_glm_5_15.rds")
-
+```
 # Generate predictions
+```
 pred_1_3 <- predict(lm_1_3, current_data)
 pred_glm_3_5 <- predict(glm_3_5, current_data, type="response")
 pred_glm_5_15 <- predict(glm_5_15, current_data, type="response")
-
+```
 # Apply optimized thresholds
+```
 bullish_1_3 <- ifelse(pred_1_3 > 0.8634, 1, 0)
 bullish_3_5 <- ifelse(pred_glm_3_5 > 0.5914 & pred_lm_3_5 > 1.558, 1, 0)
 bullish_5_15 <- ifelse(pred_glm_5_15 > 0.5146, 1, 0)
-
+```
 
 These thresholds balance precision and recall based on historical performance analysis.
 
@@ -157,7 +159,6 @@ Primary sources of excess returns:
 - **Mean Reversion**: Short-term price inefficiencies
 - **Momentum Capture**: Trend-following in favorable conditions
 - **Volatility Timing**: ATR-based position sizing optimization
-- **Ensemble Benefits**: Model diversification effects
 
 ### 8.2 Transaction Cost Analysis
 
@@ -177,18 +178,9 @@ Potential improvements include:
 - **Feature Learning**: Automated technical indicator discovery
 - **Transfer Learning**: Cross-asset model adaptation
 
-### 9.2 Alternative Data Integration
-
-Expansion opportunities:
-- **Sentiment Analysis**: Social media and news sentiment
-- **Options Flow**: Derivative market signals
-- **Economic Indicators**: Macro-economic factor integration
-- **Cross-Asset Signals**: Multi-market correlation analysis
-
-### 9.3 Infrastructure Scaling
+### 9.2 Infrastructure Scaling
 
 System enhancements:
-- **Cloud Deployment**: Scalable compute resources
 - **Multi-Asset Support**: Portfolio-level optimization
 - **Real-Time Analytics**: Enhanced monitoring capabilities
 - **API Integration**: Broader broker connectivity
@@ -201,17 +193,13 @@ Developing 2023-momentum provided valuable insights into practical algorithmic t
 - Multi-timeframe approach captured different market dynamics effectively
 - ATR-based risk management adapted well to changing volatility
 - Ensemble methods provided more robust predictions than individual models
-- The 3-5 minute strategy found the sweet spot between signal quality and execution frequency
 
 **Key Challenges**:
-- Model overfitting required careful validation procedures
+- Model overfitting required careful validation procedures, linear models were better in this metric
 - Real-time execution introduced latency considerations not present in backtesting
-- Market regime changes occasionally reduced model effectiveness
-- Transaction costs and slippage impact profitability more than initially expected
 
 **Future Improvements**:
 - Incorporate regime detection to adapt model weights dynamically
-- Add alternative data sources like options flow or sentiment indicators
 - Implement reinforcement learning for adaptive position sizing
 - Expand to other liquid ETFs for diversification
 
