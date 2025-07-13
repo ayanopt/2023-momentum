@@ -60,7 +60,7 @@ $$
 maximum drawdown:
 
 $$
-Maximum\ Drawdown = Maximum\ Drawdown = \max_{t \in [0,T]} \frac{Peak_t - Trough_t}{Peak_t}
+Maximum\ Drawdown = \max_{t \in [0,T]} \frac{Peak_t - Trough_t}{Peak_t}
 $$
 
 
