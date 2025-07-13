@@ -2,15 +2,15 @@
 
 ## Abstract
 
-This paper introduces the 2023-momentum system, an algorithmic trading framework developed to trade the SPY ETF using ensemble machine learning methods. The system leverages predictive models operating across multiple timeframes—specifically 1-3 minutes, 3-5 minutes, and 5-15 minutes—to identify optimal trading opportunities. Its core innovations include adaptive Average True Range (ATR)-based risk management, multi-model ensemble predictions, and a robust real-time execution environment. Extensive backtesting demonstrates consistent profitability and controlled drawdowns, indicating resilience across varied market conditions.
+This paper introduces the 2023-momentum system, an algorithmic trading framework developed to trade the SPY ETF using ensemble machine learning methods. The system leverages predictive models operating across multiple timeframes—specifically 1-3 minutes, 3-5 minutes, and 5-15 minutes—to identify optimal trading opportunities. Its core innovations include adaptive Average True Range (ATR)-based risk management, multi-model ensemble predictions, and a robust real-time execution environment. Extensive backtesting demonstrates consistent profitability and controlled drawdowns, indicating resilience across varied market conditions. The hypothesis is finding small momentum cycles (SMCs) in small time periods using machine learning and finding trends in price.
 
 ## 1. Introduction
 
-Algorithmic trading has witnessed significant advancements through the integration of machine learning (ML) methodologies. This study presents a systematic approach utilizing multiple ML models to trade the SPY ETF, with the goal of effectively capturing short-term price fluctuations while systematically managing risk. Motivated by the complexity of intraday market dynamics, the 2023-momentum system addresses critical challenges including simultaneous management of signals across various timeframes, rigorous risk management grounded in market volatility, the amalgamation of diverse ML models for predictive accuracy, and low-latency trade execution suitable for intraday trading strategies.
+Algorithmic trading has witnessed significant advancements through the integration of machine learning (ML) methodologies. This study presents a systematic approach utilizing multiple ML models to trade the SPY ETF, with the goal of effectively capturing short-term price fluctuations while systematically managing risk. Motivated by the complexity of intraday market dynamics and SMCs, the 2023-momentum system addresses critical challenges including simultaneous management of signals across various timeframes, rigorous risk management grounded in market volatility, the amalgamation of diverse ML models for predictive accuracy, and low-latency trade execution suitable for intraday trading strategies.
 
 ## 2. Background and Motivation
 
-The impetus for developing the 2023-momentum system arises from the necessity to systematically exploit short-term pricing inefficiencies in the SPY ETF. Conventional technical analysis methods often lack sufficient analytical rigor for sustained profitability, whereas purely machine learning-based strategies may neglect critical microstructural market effects. Ensemble methods offer a robust solution by capitalizing on the strengths of various predictive models. For instance, Random Forest effectively handles complex, nonlinear market relationships; Support Vector Machines (SVMs) provide clear classification boundaries; K-Nearest Neighbors (KNN) excels at detecting localized patterns; and linear models offer interpretability and computational speed. Recognizing the multifaceted nature of market dynamics, the system integrates these models across multiple timeframes.
+The impetus for developing the 2023-momentum system arises from the necessity to systematically exploit short-term pricing inefficiencies in the SPY ETF. Conventional technical analysis methods often _lack_ sufficient analytical rigor for sustained profitability, whereas purely machine learning-based strategies may neglect critical microstructural market effects. Ensemble methods offer a robust solution by capitalizing on the strengths of various predictive models. For instance, Random Forest effectively handles complex, nonlinear market relationships; Support Vector Machines (SVMs) provide clear classification boundaries; K-Nearest Neighbors (KNN) excels at detecting localized patterns; and linear models offer interpretability and computational speed. Recognizing the multifaceted nature of market dynamics, the system integrates these models across multiple timeframes.
 
 ## 3. Methodology
 
@@ -118,11 +118,11 @@ These thresholds balance precision and recall based on historical performance an
 
 ### 6.3 Infrastructure Components
 
-- **Data Pipeline**: Real-time price feed integration
-- **Model Serving**: Containerized R model inference
-- **Execution Engine**: Python-based order management
-- **Risk Monitor**: Continuous position and exposure tracking
-- **Logging System**: Comprehensive audit trail
+1. **Data Pipeline**: Real-time price feed integration
+2. **Model Serving**: Containerized R model inference
+3. **Execution Engine**: Python-based order management
+4. **Risk Monitor**: Continuous position and exposure tracking
+5. **Logging System**: Comprehensive audit trail
 
 ## 7. Risk Analysis and Mitigation
 
@@ -131,9 +131,9 @@ These thresholds balance precision and recall based on historical performance an
 ### 7.1 Data Quality and Processing
 
 Real-time market data presents several challenges:
-- **Missing Data**: Handling gaps in price feeds during low-volume periods
-- **Outliers**: Filtering erroneous price spikes that could trigger false signals
-- **Latency**: Ensuring indicators are calculated quickly enough for real-time decisions
+- **Missing Data**: Handling gaps in price feeds during low-volume periods. A more reliable source of information used by large financial institutions would be better in this regard, however it is inaccessible as a solo developer
+- **Outliers**: Filtering erroneous price spikes that could trigger false signals. Noise reduction is crucial in machine learning. (eg: large movements due to breaking news)
+- **Latency**: Ensuring indicators are calculated quickly enough for real-time decisions. C++ could be used to improve client side latency.
 
 The FinData class addresses these issues through robust data validation and efficient calculation methods.
 
@@ -142,7 +142,7 @@ The FinData class addresses these issues through robust data validation and effi
 Integrating R models with Python execution required careful consideration:
 - **Serialization**: Models saved as .rds files for consistent loading
 - **Threshold Optimization**: Signal thresholds determined through extensive backtesting
-- **Performance Monitoring**: Tracking prediction accuracy in real-time
+- **Performance Logging**
 
 ### 7.3 Risk Control Implementation
 
@@ -150,6 +150,7 @@ Practical risk management goes beyond theoretical formulas:
 - **Position Limits**: Hard caps on trade size regardless of model confidence
 - **Correlation Monitoring**: Preventing over-concentration in similar trades
 - **Emergency Stops**: Manual override capabilities for unusual market conditions
+- **Auto Timeout**: Prevent entering a new momentum cycle by closing trades before Take profit or stop loss price.
 
 ## 8. Performance Attribution
 
@@ -165,8 +166,6 @@ Primary sources of excess returns:
 Comprehensive cost analysis reveals:
 - **Bid-Ask Spreads**: Minimal impact due to SPY liquidity
 - **Commission Costs**: Fixed costs amortized across volume
-- **Market Impact**: Negligible for typical position sizes
-- **Slippage**: Well-controlled through limit order usage
 
 ## 9. Future Enhancements
 
@@ -195,7 +194,7 @@ Developing 2023-momentum provided valuable insights into practical algorithmic t
 - Ensemble methods provided more robust predictions than individual models
 
 **Key Challenges**:
-- Model overfitting required careful validation procedures, linear models were better in this metric
+- Model overfitting required careful validation procedures, linear models were better in this regard
 - Real-time execution introduced latency considerations not present in backtesting
 
 **Future Improvements**:
@@ -205,15 +204,10 @@ Developing 2023-momentum provided valuable insights into practical algorithmic t
 
 This project demonstrates that systematic approaches to trading can be profitable when properly implemented with appropriate risk controls. The key is combining sound statistical methods with practical market knowledge and robust execution infrastructure.
 
-## References and Resources
-
-**Technical References**:
-- Hastie, T., Tibshirani, R., & Friedman, J. (2009). The Elements of Statistical Learning
-- Chan, E. (2009). Quantitative Trading: How to Build Your Own Algorithmic Trading Business
-- Lopez de Prado, M. (2018). Advances in Financial Machine Learning
+## Resources
 
 **Data Sources**:
-- Market data obtained through standard financial APIs
+- Market data obtained through TD Ameritrade (deprecated) API
 - Technical indicators calculated using custom implementations
 - Backtesting performed on historical SPY data from 2022-2023
 
