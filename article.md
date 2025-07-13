@@ -37,7 +37,9 @@ The employed ML architecture involves distinct implementations of Random Forest,
 ### 3.4 Risk Management Framework
 
 Risk management utilizes dynamically calculated profit-taking and stop-loss levels anchored on the ATR metric:
+
 $$TP = P_{entry} + \alpha \cdot \chi \cdot ATR_t$$
+
 $$SL = P_{entry} - \chi \cdot ATR_t$$
 
 where $\alpha$ represents the profit multiplier (typically 1.5), and $\chi$ is the strategy-specific risk parameter. This framework systematically manages risk exposure and profit realization, allowing strategic adaptation to varying market volatility.
@@ -163,9 +165,8 @@ Primary sources of excess returns:
 
 ### 8.2 Transaction Cost Analysis
 
-Comprehensive cost analysis reveals:
-- **Bid-Ask Spreads**: Minimal impact due to SPY liquidity
-- **Commission Costs**: Fixed costs amortized across volume
+1. **Bid-Ask Spreads**: Minimal impact due to SPY liquidity
+2. **Commission Costs**: Fixed costs amortized across volume
 
 ## 9. Future Enhancements
 
@@ -173,18 +174,18 @@ Comprehensive cost analysis reveals:
 
 Potential improvements include:
 - **Deep Learning**: LSTM networks for sequence modeling
-- **Reinforcement Learning**: Adaptive strategy optimization
-- **Feature Learning**: Automated technical indicator discovery
-- **Transfer Learning**: Cross-asset model adaptation
+- **Reinforcement Learning**: Adaptive strategy where a machine learning model looks at the market situation and determines which model should be applied to evaluate a trade
+- **Confidence**: Confidence of trade execution which may be used for `punishment`, or reinforcement
+- **PCA**: Vectorize successful and unsuccessful trades, create a PCA to visualize and cluster trades. Identify trends and clusters which may arise
 
 ### 9.2 Infrastructure Scaling
 
 System enhancements:
-- **Multi-Asset Support**: Portfolio-level optimization
-- **Real-Time Analytics**: Enhanced monitoring capabilities
-- **API Integration**: Broader broker connectivity
+- **Multi-Asset Support**: More ETFs may be used for the same strategy, as we standardize prices. This means the same `.rds` may be used
+- **Real-Time Analytics**: Enhanced monitoring capabilities such as a live trading dashboard
+- **Cloud-infrastructure**: Move processes to microservices so that host capacity or host availability is not a bottleneck
 
-## 10. Lessons Learned and Future Work
+## 10. Lessons Learned
 
 Developing 2023-momentum provided valuable insights into practical algorithmic trading:
 
@@ -195,12 +196,8 @@ Developing 2023-momentum provided valuable insights into practical algorithmic t
 
 **Key Challenges**:
 - Model overfitting required careful validation procedures, linear models were better in this regard
-- Real-time execution introduced latency considerations not present in backtesting
+- Real-time execution introduced latency considerations not present in backtesting, the compute time was on average 8 seconds. I doubt this changed the SMC the trade was in, but it is very important to note regardless
 
-**Future Improvements**:
-- Incorporate regime detection to adapt model weights dynamically
-- Implement reinforcement learning for adaptive position sizing
-- Expand to other liquid ETFs for diversification
 
 This project demonstrates that systematic approaches to trading can be profitable when properly implemented with appropriate risk controls. The key is combining sound statistical methods with practical market knowledge and robust execution infrastructure.
 
