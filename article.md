@@ -35,12 +35,10 @@ An extensive set of engineered features comprises normalized SMA ratios, ATR-bas
 The employed ML architecture involves linear models for very short periods (1-3) and log regression for comparitively longer periods (5-15). Further, at the intersection of these time periods, an ensemble prediction where $pred_{lm} > threshold$ and $pred_{glm} > threshold$ performed the best.
 
 #### Log regression backtesting
-A 75-25 train test split was done, and a=the default threshold for a "buy" trade was set to 0.5. The following was the prediction accuracy of the model. The binary variable `PL` was set (encoding direction of SPY), and was regressed on all SMAs
+A 75–25 train-test split was used, and the default threshold for initiating a "buy" trade was set to 0.5. The binary target variable PL, indicating the direction of SPY price movement, was regressed on all standardized SMA features. Model performance was evaluated based on classification accuracy, achieving a predictive accuracy of approximately 65%, indicating a meaningful edge over random guessing.
 
 ![](log_regression_validation.png)
 
-A 65% accuracy was determined. Furthermore, an initial capital of 1000 dollars was set, and the `pl_value` (This column was computed in [mkt_data.ipynb]("SPY%20training/mkt_data.ipynb") was added if the threshold was met. This is the approximation of drawdown while backtesting.
-![](log_regression_performance.png)
 
 ### 3.4 Risk Management Framework
 
@@ -149,7 +147,10 @@ Effective risk management in production must go beyond formulaic stop-loss logic
 
 ## 8. Performance
 
-The primary sources of excess returns in the system are mean reversion, momentum capture, and volatility timing. Mean reversion strategies exploit short-term price inefficiencies, identifying instances where prices deviate from their expected value and are likely to revert. Momentum capture involves following established price trends during favorable market conditions to generate profits. Volatility timing uses ATR-based position sizing to adapt exposure dynamically in response to changing market volatility, enhancing risk-adjusted returns.
+The primary sources of excess returns in the system are mean reversion, momentum capture, and volatility timing. Mean reversion strategies exploit short-term price inefficiencies, identifying instances where prices deviate from their expected value and are likely to revert. Momentum capture involves following established price trends during favorable market conditions to generate profits. Volatility timing uses ATR-based position sizing to adapt exposure dynamically in response to changing market volatility, enhancing risk-adjusted returns. The following is the results of backtesting log-regression 
+
+An initial capital of 1000 dollars was set, and the `pl_value` (This column was computed in [mkt_data.ipynb]("SPY%20training/mkt_data.ipynb") was added if the threshold was met. This is the approximation of drawdown while backtesting. This following graph shows that in a 100 trades, the model is able to increase it's capital by 4%.
+![](log_regression_performance.png)
 
 ## 9. Future Enhancements
 
