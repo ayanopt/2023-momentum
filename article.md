@@ -10,7 +10,7 @@ Algorithmic trading has witnessed significant advancements through the integrati
 
 ## 2. Background and Motivation
 
-The impetus for developing the 2023-momentum system arises from the necessity to systematically exploit short-term pricing inefficiencies in the SPY ETF. Conventional technical analysis methods often _lack_ sufficient analytical rigor for sustained profitability, whereas purely machine learning-based strategies may neglect critical microstructural market effects. Ensemble methods offer a robust solution by capitalizing on the strengths of various predictive models. For instance, Random Forest effectively handles complex, nonlinear market relationships; Support Vector Machines (SVMs) provide clear classification boundaries; K-Nearest Neighbors (KNN) excels at detecting localized patterns; and linear models offer interpretability and computational speed. Recognizing the multifaceted nature of market dynamics, the system integrates these models across multiple timeframes.
+The impetus for developing the 2023-momentum system arises from the necessity to systematically exploit short-term pricing inefficiencies in the SPY ETF. Conventional technical analysis methods often _lack_ sufficient analytical rigor for sustained profitability, whereas purely machine learning-based strategies may neglect critical microstructural market effects. Ensemble methods offer a practical and statistically grounded approach to capturing diverse aspects of market behavior. This system integrates multiple model types to account for both trend and noise in SPY price movement. Linear regression is used to predict future price changes directly, providing a fast and interpretable baseline. In parallel, logistic regression is applied to a binary-encoded target indicating whether the price will move up or down, allowing for directional classification. These models are complemented by others such as Random Forest (removed after poor performance forward testing), which captures nonlinear structure in the data.
 
 ## 3. Methodology
 
@@ -32,11 +32,19 @@ An extensive set of engineered features comprises normalized SMA ratios, ATR-bas
 
 ### 3.3 Model Architecture
 
-The employed ML architecture involves distinct implementations of Random Forest, SVM, and other methods. Specifically, Random Forest models were trained for both classification and regression tasks, while SVMs utilized radial basis function (RBF) kernels to capture nonlinear market behaviors alongside linear kernels for baseline comparisons. Multiple strategies were developed to function across different timeframes: the ultra-short-term momentum capture strategy (1-3 minutes), the short-term trend-following strategy (3-5 minutes), and the medium-term position-holding strategy (5-15 minutes).
+The employed ML architecture involves linear models for very short periods (1-3) and log regression for comparitively longer periods (5-15). Further, at the intersection of these time periods, an ensemble prediction where $pred_{lm} > threshold$ and $pred_{glm} > threshold$ performed the best.
+
+#### Log regression backtesting
+A 75-25 train test split was done, and a=the default threshold for a "buy" trade was set to 0.5. The following was the prediction accuracy of the model. The binary variable `PL` was set (encoding direction of SPY), and was regressed on all SMAs
+
+![](log_regression_validation.png)
+
+A 65% accuracy was determined. Furthermore, an initial capital of 1000 dollars was set, and the `pl_value` (This column was computed in [mkt_data.ipynb]("SPY%20training/mkt_data.ipynb") was added if the threshold was met. This is the approximation of drawdown while backtesting.
+![](log_regression_performance.png)
 
 ### 3.4 Risk Management Framework
 
-Risk management utilizes dynamically calculated profit-taking and stop-loss levels anchored on the ATR metric:
+In real-time trading, risk was calculated to detemine position siszing. Risk management also utilized dynamically calculated profit-taking and stop-loss levels anchored on the ATR metric:
 
 $$TP = P_{entry} + \alpha \cdot \chi \cdot ATR_t$$
 
@@ -70,7 +78,7 @@ win rate, and profit factor, providing a comprehensive picture of model effectiv
 
 ## 5. Results and Analysis
 
-Detailed backtesting across distinct timeframes highlighted each strategy’s strengths. The 1-3 minute strategy yielded optimal results from KNN models, whereas Random Forest excelled in the 3-5 minute strategy, offering superior risk-adjusted returns. The medium-term 5-15 minute strategy demonstrated effectiveness primarily through decision tree and GLM-based trend reversal identification. Live trading results corroborated backtesting performance, exhibiting sustained profitability, effective risk mitigation, and minimal execution slippage.
+Detailed backtesting across distinct timeframes highlighted each strategy’s strengths. The 1-3 minute strategy yielded optimal results from linear models, whereas the ensemble excelled in the 3-5 minute strategy, offering superior risk-adjusted returns. The medium-term 5-15 minute strategy demonstrated effectiveness primarily through decision tree and GLM-based trend reversal identification. Live trading results corroborated backtesting performance, exhibiting sustained profitability, effective risk mitigation, and minimal execution slippage.
 
 ### 5.3 Statistical Significance
 
@@ -242,5 +250,4 @@ This project demonstrates that systematic approaches to trading can be profitabl
 - Volume-weighted features: Price-volume relationships
 
 ## Appendix B: Performance Tables
-
-[R backtesting]("SPY\ training/workbooks.strat_book.pdf)
+[R backtesting](SPY%20training/workbooks.strat_book.pdf)
