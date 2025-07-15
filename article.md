@@ -2,11 +2,11 @@
 
 ## Abstract
 
-This paper introduces the 2023-momentum system, an algorithmic trading framework developed to trade the SPY ETF using ensemble machine learning methods. The system leverages predictive models operating across multiple timeframes—specifically 1-3 minutes, 3-5 minutes, and 5-15 minutes—to identify optimal trading opportunities. Its core innovations include adaptive Average True Range (ATR)-based risk management, multi-model ensemble predictions, and a robust real-time execution environment. Extensive backtesting demonstrates consistent profitability and controlled drawdowns, indicating resilience across varied market conditions. The hypothesis is finding small momentum cycles (SMCs) in small time periods using machine learning and finding trends in price.
+This paper introduces the 2023-momentum system, an algorithmic trading framework developed to trade the SPY ETF using ensemble machine learning methods. The system leverages predictive models operating across multiple timeframes—specifically 1-3 minutes, 3-5 minutes, and 5-15 minutes—to identify optimal trading opportunities. Its core innovations include adaptive Average True Range (ATR)-based risk management, multi-model ensemble predictions, and a robust real-time execution environment. Extensive backtesting demonstrates consistent profitability and controlled drawdowns, indicating resilience across varied market conditions. I hypothesize that short-duration momentum bursts (SMCs) in SPY exhibit repeatable statistical signatures that can be detected and exploited via machine learning models trained on volatility and trend-based features.
 
 ## 1. Introduction
 
-Algorithmic trading has witnessed significant advancements through the integration of machine learning (ML) methodologies. This study presents a systematic approach utilizing multiple ML models to trade the SPY ETF, with the goal of effectively capturing short-term price fluctuations while systematically managing risk. Motivated by the complexity of intraday market dynamics and SMCs, the 2023-momentum system addresses critical challenges including simultaneous management of signals across various timeframes, rigorous risk management grounded in market volatility, the amalgamation of diverse ML models for predictive accuracy, and low-latency trade execution suitable for intraday trading strategies.
+Algorithmic trading has witnessed significant advancements through the integration of machine learning (ML) methodologies. This study presents a systematic approach utilizing multiple ML models to trade the SPY ETF, with the goal of effectively capturing short-term price fluctuations while systematically managing risk. Motivated by the complexity of the fast-paced intraday market dynamics and SMCs, the 2023-momentum system addresses critical challenges including simultaneous management of signals across various timeframes, rigorous risk management grounded in market volatility, the amalgamation of diverse ML models for predictive accuracy, and low-latency trade execution suitable for intraday trading strategies.
 
 ## 2. Background and Motivation
 
@@ -126,57 +126,61 @@ These thresholds balance precision and recall based on historical performance an
 4. **Risk Monitor**: Continuous position and exposure tracking
 5. **Logging System**: Comprehensive audit trail
 
-## 7. Risk Analysis and Mitigation
-
 ## 7. Practical Implementation Challenges
 
 ### 7.1 Data Quality and Processing
+Real-time market data introduces several nontrivial issues. First, missing data can occur during low-liquidity intervals, especially outside regular trading hours. While institutional-grade data feeds offer better reliability, these are generally inaccessible to individual developers. Second, outliers such as sudden price jumps—often driven by breaking news—must be carefully filtered to avoid contaminating model inputs. Reducing noise is especially important when using machine learning models sensitive to anomalous values. Finally, latency is a central concern. Indicators must be computed quickly enough to support timely decision-making. In performance-critical settings, client-side latency could be improved by rewriting computational bottlenecks in a lower-level language such as C++.
 
-Real-time market data presents several challenges:
-- **Missing Data**: Handling gaps in price feeds during low-volume periods. A more reliable source of information used by large financial institutions would be better in this regard, however it is inaccessible as a solo developer
-- **Outliers**: Filtering erroneous price spikes that could trigger false signals. Noise reduction is crucial in machine learning. (eg: large movements due to breaking news)
-- **Latency**: Ensuring indicators are calculated quickly enough for real-time decisions. C++ could be used to improve client side latency.
-
-The FinData class addresses these issues through robust data validation and efficient calculation methods.
+The FinData class was developed to address these concerns. It handles data validation, smoothing, and indicator computation efficiently and with minimal overhead.
 
 ### 7.2 Model Deployment
-
-Integrating R models with Python execution required careful consideration:
-- **Serialization**: Models saved as .rds files for consistent loading
-- **Threshold Optimization**: Signal thresholds determined through extensive backtesting
-- **Performance Logging**
+Deploying R models in a Python-based execution system required deliberate design decisions. Models are serialized as .rds files and loaded at runtime. Signal thresholds were selected based on cross-validated backtesting to maximize predictive reliability. Logging infrastructure was added to monitor prediction consistency and performance over time.
 
 ### 7.3 Risk Control Implementation
+Effective risk management in production must go beyond formulaic stop-loss logic. Position sizes are capped independently of model confidence to limit exposure to model overfitting or regime shifts. Trade correlation is monitored to avoid redundant risk across instruments or strategies. Manual override functionality is included to disable the system in response to unusual market events or infrastructure failures. An auto-timeout mechanism ensures trades are exited if neither take-profit nor stop-loss levels are reached within a predefined window, preventing unintended exposure to new momentum cycles.
 
-Practical risk management goes beyond theoretical formulas:
-- **Position Limits**: Hard caps on trade size regardless of model confidence
-- **Correlation Monitoring**: Preventing over-concentration in similar trades
-- **Emergency Stops**: Manual override capabilities for unusual market conditions
-- **Auto Timeout**: Prevent entering a new momentum cycle by closing trades before Take profit or stop loss price.
+## 8. Performance
 
-## 8. Performance Attribution
-
-### 8.1 Alpha Generation Sources
-
-Primary sources of excess returns:
-- **Mean Reversion**: Short-term price inefficiencies
-- **Momentum Capture**: Trend-following in favorable conditions
-- **Volatility Timing**: ATR-based position sizing optimization
-
-### 8.2 Transaction Cost Analysis
-
-1. **Bid-Ask Spreads**: Minimal impact due to SPY liquidity
-2. **Commission Costs**: Fixed costs amortized across volume
+The primary sources of excess returns in the system are mean reversion, momentum capture, and volatility timing. Mean reversion strategies exploit short-term price inefficiencies, identifying instances where prices deviate from their expected value and are likely to revert. Momentum capture involves following established price trends during favorable market conditions to generate profits. Volatility timing uses ATR-based position sizing to adapt exposure dynamically in response to changing market volatility, enhancing risk-adjusted returns.
 
 ## 9. Future Enhancements
 
 ### 9.1 Advanced Machine Learning
 
 Potential improvements include:
-- **Deep Learning**: LSTM networks for sequence modeling
-- **Reinforcement Learning**: Adaptive strategy where a machine learning model looks at the market situation and determines which model should be applied to evaluate a trade
-- **Confidence**: Confidence of trade execution which may be used for `punishment`, or reinforcement
-- **PCA**: Vectorize successful and unsuccessful trades, create a PCA to visualize and cluster trades. Identify trends and clusters which may arise
+#### **Deep Learning**: 
+
+LSTM networks for sequence modeling. From reading literature it seems that this model is good at sequential predictions. A matrix of SMAs as input would work well.
+Let:
+
+- $t$ be the current timestep  
+- $k \in \{7, 20, 50, 100\}$ denote different SMA periods  
+- $L$ be the lookback window length (e.g., 30 timesteps)
+
+Then the **input matrix** $X_t \in \mathbb{R}^{L \times K}$ is defined as:
+
+```
+X_t = [
+  [SMA₇[t−30], SMA₂₀[t−30], SMA₅₀[t−30], SMA₁₀₀[t−30]],
+  [SMA₇[t−29], SMA₂₀[t−29], SMA₅₀[t−29], SMA₁₀₀[t−29]],
+  ...
+  [SMA₇[t],    SMA₂₀[t],    SMA₅₀[t],    SMA₁₀₀[t]]
+]
+```
+
+Each row represents one timestep, and each column represents a different SMA period. The goal is to predict a price movement or trading signal at time $t+1$ based on the SMA dynamics observed in the prior $L$ timesteps.
+
+#### **Reinforcement Learning**: 
+
+Adaptive strategy where a machine learning model looks at the market situation and determines which model should be applied to evaluate a trade
+
+#### **Confidence**: 
+
+Confidence of trade execution which may be used for `punishment`, or reinforcement. There is already a scaling factor $\chi$ for position sizes, this can be expanded upon
+
+#### **PCA**: 
+
+Vectorize successful and unsuccessful trades, create a PCA to visualize and cluster trades. Identify trends and clusters which may arise
 
 ### 9.2 Infrastructure Scaling
 
@@ -185,6 +189,9 @@ System enhancements:
 - **Real-Time Analytics**: Enhanced monitoring capabilities such as a live trading dashboard
 - **Cloud-infrastructure**: Move processes to microservices so that host capacity or host availability is not a bottleneck
 
+### 9.3 Centralization
+
+Using `.rds` (the R binary file format for serialized models) for each prediction introduces unnecessary latency, as the model must be loaded from disk and invoked on every call. This results in slow inference times, especially problematic in the SMCs we are targeting. A more efficient alternative is to host the models in a persistent R process and expose a WebSocket or REST API for inference, allowing the models to remain in memory and significantly reducing response time. Alternatively, migrating the models entirely to Python by retraining them using equivalent libraries like scikit-learn—would eliminate cross-language overhead and simplify system architecture, enabling faster evaluations per second.
 ## 10. Lessons Learned
 
 Developing 2023-momentum provided valuable insights into practical algorithmic trading:
@@ -204,7 +211,7 @@ This project demonstrates that systematic approaches to trading can be profitabl
 ## Resources
 
 **Data Sources**:
-- Market data obtained through TD Ameritrade (deprecated) API
+- Market data obtained through TD Ameritrade (deprecated) API. Big thanks to the folks at [td-api](https://tda-api.readthedocs.io/en/latest/)
 - Technical indicators calculated using custom implementations
 - Backtesting performed on historical SPY data from 2022-2023
 
@@ -236,4 +243,4 @@ This project demonstrates that systematic approaches to trading can be profitabl
 
 ## Appendix B: Performance Tables
 
-[redacted]
+[R backtesting]("SPY\ training/workbooks.strat_book.pdf)
