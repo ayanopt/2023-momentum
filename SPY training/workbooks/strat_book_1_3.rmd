@@ -1,0 +1,634 @@
+---
+title: "SPY ETF ML Trading Strategy Analysis"
+author: "Algorithmic Trading System"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    toc: true
+    toc_float: true
+    theme: flatly
+  pdf_document: 
+    toc: true
+    toc_depth: 3
+---
+
+# Data Load
+
+The numeric suffix for each data set represents 
+1. ATR multiplier
+2. Trade timeout duration (minutes)
+
+```{r}
+data1_3 = read.csv("../csvs/train1_3.csv")     # 1-3 minute holding period
+```
+
+
+# Data exploration for 1_3
+
+```{r}
+summary(data1_3)
+```
+## View Summary and shape
+
+### ATR Multiplier (λ - Lambda)
+#### Mean Price Calculation:
+$$\mu_T = \frac{\sum_{i=T-k}^{T}(OHLC_i)}{k}$$
+
+#### Modified ATR Formula:
+$$ATR_T = \sqrt{\frac{\sum_{i=T-k}^{T}(OHLC_i - \mu_T)^2}{k}}$$
+Controls the sensitivity to market volatility:
+
+- **Purpose**: Scales profit/loss targets based on current market conditions
+
+- **Example**: If SPY ATR = 0.50 and λ = 10:
+
+  - Base volatility adjustment = 10 × 0.50 = $5.00
+  
+  - Sell if SPY is up 5$ from entry price
+
+### pl_value 
+It is determined by iterating through the dataframe and seeing if the price reaches take profit or stop loss first. It assumes a 1000 share position size.
+
+#### Profit-to-Loss Ratio (χ - Chi)
+Asymmetric risk-reward ratio:
+- **Default**: 1.5 (profit targets 50% wider than loss targets)
+
+- **Profit Target**: $Price_T + λ × χ × ATR$
+
+- **Loss Target**: $Price_T - λ × ATR$
+
+#### Timeout Period (t)
+Maximum holding period before forced exit:
+
+- **Purpose**: Prevents indefinite position holding
+
+- **Logic**: If neither target hit within t periods, compare exit price to entry
+
+- **Classification**: Profit (1) if $Price_{T+t} > Price_T$, Loss (0) otherwise
+
+
+### SMA
+$$SMA_k = \frac{Open_T}{\frac{1}{k}\sum_{i=T-k}^{T-1}Close_i}$$
+
+- $T$ = current time period
+
+- $k$ = lookback period
+
+- Hypothetically, values > 1.0 indicate price above historical average (bullish)
+
+- Values < 1.0 indicate price below historical average (bearish)
+
+#### Multi-Timeframe Analysis
+The system calculates SMA for three periods:
+
+- **SMA_7**: Short-term momentum (1 week of 5-min bars)
+
+- **SMA_20**: Medium-term trend (1 month of daily closes)
+
+- **SMA_50**: Long-term trend (quarterly trend)
+
+
+#### Signal Interpretation
+- **Trend Confirmation**: Multiple SMAs above 1.0 = strong uptrend
+
+- **Momentum Divergence**: SMA_7 > SMA_20 > SMA_50 = accelerating uptrend
+
+- **Mean Reversion**: Extreme SMA values (>1.05 or <0.95) suggest potential reversal
+
+See mkt_data.ipynb for information
+### PL: Encodes 0 if `pl_value` < 0
+
+Split train-test data
+```{r}
+seed_num = 213
+set.seed(seed_num) # reproducibility
+data1_3$norm_volume = (data1_3$Volume - mean(data1_3$Volume))/sd(data1_3$Volume)
+ind = sample(1:nrow(data1_3),0.75*nrow(data1_3))
+train = data1_3[ind,]
+test = data1_3[-ind,]
+```
+```{r}
+hist(train$pl_value, breaks = 50, col = "skyblue", main = "Distribution of pl_value (P&L)", xlab = "pl_value")
+```
+## Assess correlation
+```{r}
+par(mfrow=c(2,2))
+plot(train$SMA_k7/train$SMA_k20, train$pl_value, main="SMA_k7 / SMA_k20 vs P&L", xlab="SMA_k7/SMA_k20", ylab="pl_value")
+plot(train$SMA_k20/train$SMA_k50, train$pl_value, main="SMA_k20 / SMA_k50 vs P&L", xlab="SMA_k20/SMA_k50", ylab="pl_value")
+plot(train$ATR, train$pl_value, main="ATR vs P&L", xlab="ATR", ylab="pl_value")
+plot(log(train$norm_volume), train$pl_value, main="Volume vs P&L", xlab="normalized(Volume)", ylab="pl_value")
+par(mfrow=c(1,1))
+```
+
+ATR shows to have a weak correlation. I think the interaction of predictors with each other will be more important.
+
+## Visualize predictor correlation matrix
+```{r}
+library(corrplot)
+
+numeric_vars <- train[, c("Open", "Close", "High", "Low", "norm_volume", "ATR", "SMA_k7", "SMA_k20", "SMA_k50", "pl_value")]
+cor_matrix <- cor(numeric_vars, use="complete.obs")
+
+corrplot(cor_matrix, method = "color", type = "upper", tl.cex = 0.8)
+```
+
+## Log regression
+Use all parameters and all interactions initially
+```{r}
+glm1 = glm(
+  data = train,
+  PL ~ ATR + SMA_k7 + SMA_k20 + SMA_k50 + norm_volume +
+       ATR:SMA_k7 +
+       ATR:SMA_k20 +
+       ATR:SMA_k50 +
+       ATR:SMA_k7:SMA_k20 +
+       ATR:SMA_k7:SMA_k50 +
+       ATR:SMA_k20:SMA_k50 +
+       ATR:SMA_k7:SMA_k20:SMA_k50 +
+       norm_volume:ATR +
+       norm_volume:SMA_k7 +
+       norm_volume:SMA_k20 +
+       norm_volume:SMA_k50 +
+       norm_volume:ATR:SMA_k7 +
+       norm_volume:ATR:SMA_k20 +
+       norm_volume:ATR:SMA_k50 +
+       norm_volume:SMA_k7:SMA_k20 +
+       norm_volume:SMA_k7:SMA_k50 +
+       norm_volume:SMA_k20:SMA_k50 +
+       norm_volume:ATR:SMA_k7:SMA_k20 +
+       norm_volume:ATR:SMA_k7:SMA_k50 +
+       norm_volume:ATR:SMA_k20:SMA_k50 +
+       norm_volume:ATR:SMA_k7:SMA_k20:SMA_k50,
+  family = "binomial"
+)
+
+```
+
+### Assess accuracy
+```{r}
+summary(glm1)
+```
+### Residuals analysis
+Regular residual plots don't make sense in glm. Dunn and Gordon (2018) introduce quantile residuals for discrete response variables. Their primary benefits are they do not show weird patterns (due to variable’s discreteness). They are available in R via statmod::qresid().
+```{r}
+library(statmod)
+plot(density(qresid(glm1)))
+```
+
+This residuals do appear normally distributed. Which means there is no unexplained variance (non linearity or omitted variables) in the model. Let's use forward AIC to trim some of the predictors. AIC is usually computationally expensive, however I am not dealing with a lot of predictors here.
+
+```{r}
+glm_step <- step(glm1, direction = "both")
+summary(glm_step)
+plot(density(qresid(glm_step)))
+```
+
+This is still a lot of predictors, let's try and do some subset selection
+```{r}
+library(glmnet)
+# Get interaction matrix
+X <- model.matrix(PL ~ (ATR + SMA_k7 + SMA_k20 + SMA_k50 + norm_volume)^3, data = train)[, -1]
+y <- train$PL
+cvfit <- cv.glmnet(X, y, family = "binomial", alpha = 1)
+
+# Get model with lowest Cross Validation error
+lasso_coef <- coef(cvfit, s = "lambda.min")
+selected_vars <- rownames(lasso_coef)[lasso_coef[,1] != 0][-1]  # exclude intercept
+selected_vars
+```
+
+These are a lot fewer than earlier, let's fit this conservative model
+
+```{r}
+glm_formula <- as.formula(paste("PL ~", paste(selected_vars, collapse = " + ")))
+glm_cons <- glm(glm_formula, data = train, family = "binomial")
+summary(glm_cons)
+```
+
+### Assess performance
+
+```{r}
+pred_glm = ifelse(predict(glm_step,test,type="response")>0.5,1,0)
+winrate = mean(pred_glm == test$PL)
+print(winrate)
+
+pred_glm_cons = ifelse(predict(glm_cons,test,type="response")>0.5,1,0)
+winrate = mean(pred_glm_cons == test$PL)
+print(winrate)
+```
+
+It appears that the conservative model performs worse. This accuracy is good, but it needs to be contextualized. The worst, bare bones model would trade on a coin flip. Let's simulate $nrow(test)$ coin flips and compare it to a 55% win rate. 
+
+Simulate 1000 trading simulations with random buy indicators and see if winrate if better than it. `p = 0.05`. This is to weed out strategies that don't perform better than random chance.
+```{r}
+# Baseline comparison: coin flip vs accuracy
+
+n <- nrow(test)
+
+# Simulate coin flips (baseline)
+baseline_accuracy = c()
+for (i in 1:1000) {
+  set.seed(i)
+  coin_flips <- rbinom(n, size = 1, prob = 0.5)
+  baseline_accuracy <- c(mean(coin_flips == test$PL), baseline_accuracy)
+}
+set.seed(seed_num) # reproducibility
+cat("Coin toss simulations that performed better than strategy :",length(baseline_accuracy[baseline_accuracy>winrate]) / length(baseline_accuracy))
+
+
+# Use normal approximation
+
+cat("\nWinrate p value:",pnorm(winrate, mean(baseline_accuracy), sd(baseline_accuracy), lower.tail = F))
+```
+
+This is definitely below the p value.
+
+### Buy threshold
+We need to determine when to buy based on the threshold. This improves the win rate at the cost of fewer trades. This will miss out on a lot of winning trades too (False negatives). But to succeed at trading we need to minimize false positives. Precision, or $\frac{TP}{FP+TP}$ is much more important. "For estimating a binomial proportion, at least 10 successes and 10 failures is recommended for normal approximation intervals."
+Reference:
+Agresti, A. (2013). Categorical Data Analysis (3rd ed.)
+```{r}
+# Define thresholds
+probs <- 10^seq(-2, -10, length.out = 9)
+
+# Calculate mean and standard deviation of fitted values
+fit_mean <- mean(glm_step$fitted.values)
+fit_sd <- sd(glm_step$fitted.values)
+
+# Loop through probabilities and evaluate predictions
+prob_with_best_winrate = 0.05 # init
+best_winrate = 0
+for (prob in probs) {
+  threshold <- qnorm(1 - prob, mean = fit_mean, sd = fit_sd)
+  pred_glm <- ifelse(predict(glm_step, train, type = "response") > threshold, 1, 0)
+
+  true_positive <- sum(pred_glm == 1 & train$PL == 1)
+  false_positive <- sum(pred_glm == 1 & train$PL == 0)
+  total_predicted_positive <- sum(pred_glm == 1)
+  if ((true_positive + false_positive) < 30) {
+    break # CLT
+  }
+  # Avoid division by zero
+  winrate <- if (total_predicted_positive > 0) {
+    true_positive / total_predicted_positive
+  } else {
+    NA
+  }
+  if (winrate > best_winrate) {
+    best_winrate = winrate
+    prob_with_best_winrate = prob
+  }
+
+  cat(sprintf("Prob = %.5f | TP = %d | FP = %d | Winrate = %.3f\n", 
+              prob, true_positive, false_positive, winrate))
+}
+
+best_threshold = qnorm(1 - prob_with_best_winrate, mean = fit_mean, sd = fit_sd)
+cat("Best winrate", best_winrate*100)
+cat("\nProbability with highest precision", prob_with_best_winrate)
+cat("\nThreshold", best_threshold)
+
+
+```
+### Drawdown
+
+`pl_value` is calculated with 1000 shares of SPY. In trading, using 2% of your portfolio in a trade is recommended, hence, The initial capital is set at $\frac{1}{0.02} * (1000 * Price)$. 
+```{r}
+initial_capital = (1/(0.02))*(1000 * sample(train$Open, 1)) # random price
+capital <- initial_capital
+drawdown <- c(capital)
+wins <- c()
+
+for (i in 1:nrow(test)) {
+  pred_X <- predict(glm_step, test[i, ], type = "response")
+  if (pred_X > best_threshold) {
+    capital <- capital + test$pl_value[i]
+    drawdown <- c(drawdown, capital)
+    wins <- c(wins, test$pl_value[i])
+  }
+}
+
+# Plot the equity curve
+plot(drawdown, type = "l", col = "blue", main = "Equity Curve", ylab = "Capital", xlab = "Trade #")
+
+# Sharpe ratio (simplified version: mean return over SD of returns)
+sharpe <- (tail(drawdown, 1) - initial_capital) / sd(wins)
+
+# Maximum Drawdown Calculation
+peak = max(drawdown)
+trough = min(drawdown)
+max_drawdown = (trough-peak)/peak
+
+
+# Output results
+cat("Initial Capital", initial_capital)
+cat("\nFinal Capital:", tail(drawdown, 1), "\n")
+cat("Sharpe Ratio:", round(sharpe, 3), "\n")
+cat("Max Drawdown:", max_drawdown*100, "\n")
+cat("Returns:", ((capital/initial_capital)-1)*100, "%\n")
+```
+
+## XGboost
+
+In this section, we use **XGBoost**, a gradient-boosted decision tree ensemble, to classify trade direction. Our goal is not just accuracy but **precision**, the ratio of true positives to all predicted positives. This focus reduces false positives—critical for real-world trading where bad trades are costly.
+
+
+### Load Data
+
+We construct a design matrix using all two- and three-way interactions of trading indicators. The outcome variable `PL` is a binary indicator for whether a trade was profitable.
+
+```{r}
+library(xgboost)
+library(Matrix)
+library(caret)
+
+data = train
+X = model.matrix(PL ~ (ATR + SMA_k7 + SMA_k20 + SMA_k50 + norm_volume)^3, data=data)[, -1]
+y = data$PL
+dtrain = xgb.DMatrix(data = X, label = y)
+```
+
+
+### Cross-Validation and Training
+
+We optimize for **AUC-PR** (area under the precision-recall curve), which directly measures precision vs. recall trade-offs.
+
+```{r}
+param_grid <- expand.grid(
+  eta = 0.05,
+  max_depth = 3,
+  subsample = 0.8,
+  colsample_bytree = 0.8,
+  eval_metric = "aucpr",         # maximize precision-recall AUC
+  objective = "binary:logistic"  # output probabilities
+)
+
+watchlist = list(train = dtrain)
+
+model <- xgb.train(
+  params = as.list(param_grid),
+  data = dtrain,
+  nrounds = 100,
+  watchlist = watchlist,
+  verbose = 0
+)
+```
+
+---
+
+### Threshold Selection Based on Precision
+
+Rather than defaulting to a 0.5 decision threshold, we **optimize threshold** \( T \) to maximize:
+
+\[
+\text{Precision} = \frac{TP}{TP + FP}
+\]
+
+We assume model predictions \( \hat{y} \sim N(\mu, \sigma^2) \) and scan high quantiles (e.g., 0.99999) to reduce false positives.
+
+```{r}
+pred_probs <- predict(model, dtrain)
+probs <- 10^seq(-2, -10, length.out = 9)
+
+fit_mean = mean(pred_probs)
+fit_sd = sd(pred_probs)
+
+best_precision = 0
+best_threshold = 0.5
+
+for (prob in probs){
+  threshold <- qnorm(1 - prob, mean = fit_mean, sd = fit_sd)
+  preds = ifelse(pred_probs > threshold, 1, 0)
+  TP = sum(preds == 1 & train$PL == 1)
+  FP = sum(preds == 1 & train$PL == 0)
+  if ((TP + FP) < 30) {
+    break # CLT
+  }
+  precision = ifelse((TP + FP) == 0, NA, TP / (TP + FP))
+  if (!is.na(precision) && precision > best_precision){
+    best_precision = precision
+    best_threshold = threshold
+  }
+}
+
+cat("Best Precision:", round(best_precision * 100, 2), "% at Threshold", best_threshold, "\n")
+```
+
+
+### Backtesting Equity Curve
+
+Using the **test set**, we execute trades where the predicted probability \( \hat{y} > T \), and track capital changes.
+
+Let:
+- \( C_0 \): Initial capital
+- \( r_i \): Profit/loss from trade \( i \)
+- \( T \): Threshold for high-precision entry
+
+Then:
+\[
+C_{i+1} = C_i + r_i \quad \text{only if } \hat{y}_i > T
+\]
+
+```{r}
+test_X = model.matrix(PL ~ (ATR + SMA_k7 + SMA_k20 + SMA_k50 + norm_volume)^3, data=test)[, -1]
+dtest = xgb.DMatrix(data = test_X)
+
+pred_probs <- predict(model, dtest)
+
+initial_capital = (1/(0.02)) * (1000 * sample(train$Open, 1))
+capital = initial_capital
+drawdown = c(capital)
+wins = c()
+
+for (i in 1:nrow(test)) {
+  pred_X = pred_probs[i]
+  if (pred_X > best_threshold) {
+    capital = capital + test$pl_value[i]
+    drawdown = c(drawdown, capital)
+    wins = c(wins, test$pl_value[i])
+  }
+}
+
+plot(drawdown, type="l", col="blue", main="XGBoost Equity Curve", ylab="Capital", xlab="Trade #")
+
+# Performance metrics
+sharpe = (tail(drawdown, 1) - drawdown[1]) / sd(wins)
+max_dd = min(drawdown - cummax(drawdown)) / max(drawdown)
+
+cat("Final Capital:", capital, "\n")
+cat("Sharpe Ratio:", round(sharpe, 3), "\n")
+cat("Max Drawdown:", round(max_dd * 100, 2), "%\n")
+```
+
+
+### Commentary
+
+XGBoost is particularly effective when:
+- Feature interactions matter
+- There are non-linear decision boundaries
+- **precision over recall**
+
+Its ability to output probabilities makes it well-suited for **threshold tuning**, which we exploit using quantiles of the fitted distribution. By focusing on **extremely confident predictions**, we reduce bad trades and focus capital on high-reward setups.
+
+
+## Linear Model Regressing on `pl_value`
+
+This section introduces a **linear model** (LM) regressing on continuous profit/loss (`pl_value`). Unlike classification models (GLM/XGBoost), here we predict the **magnitude of returns**, not just the direction. This supports trading decisions by estimating expected trade value.
+
+### Data Preparation
+
+```{r}
+lm1 <- lm(
+  pl_value ~ ATR + SMA_k7 + SMA_k20 + SMA_k50 + norm_volume +
+       ATR:SMA_k7 +
+       ATR:SMA_k20 +
+       ATR:SMA_k50 +
+       ATR:SMA_k7:SMA_k20 +
+       ATR:SMA_k7:SMA_k50 +
+       ATR:SMA_k20:SMA_k50 +
+       ATR:SMA_k7:SMA_k20:SMA_k50 +
+       norm_volume:ATR +
+       norm_volume:SMA_k7 +
+       norm_volume:SMA_k20 +
+       norm_volume:SMA_k50 +
+       norm_volume:ATR:SMA_k7 +
+       norm_volume:ATR:SMA_k20 +
+       norm_volume:ATR:SMA_k50 +
+       norm_volume:SMA_k7:SMA_k20 +
+       norm_volume:SMA_k7:SMA_k50 +
+       norm_volume:SMA_k20:SMA_k50 +
+       norm_volume:ATR:SMA_k7:SMA_k20 +
+       norm_volume:ATR:SMA_k7:SMA_k50 +
+       norm_volume:ATR:SMA_k20:SMA_k50 +
+       norm_volume:ATR:SMA_k7:SMA_k20:SMA_k50,
+  data = train
+)
+
+# Perform AIC
+lm1 <- step(lm1, direction = "both")
+summary(lm1)
+```
+
+### Residual Analysis
+
+```{r}
+
+hist(lm1$residuals, main="Histogram of Residuals", col="lightblue", breaks=30)
+
+qqnorm(lm1$residuals)
+qqline(lm1$residuals, col = "red")
+```
+
+
+The Q-Q plot reveals the data is heavy tailed. Trimming outliers might be beneficial here.
+
+For this we should use robust linear regression which is able to downweight outliers
+```{r}
+library(MASS)
+lm_robust <- rlm(
+  lm1$terms,
+  data = train
+)
+summary(lm_robust)
+```
+
+### Precision Evaluation of LM
+
+We define precision here as the model's **ability to correctly predict profitable trades**. Let \( \hat{y} \) be the predicted `pl_value`. A trade is considered positive if \( \hat{y} > 0 \).
+
+Let:
+
+- TP: \( \hat{y} > 0 \) and actual \( y > 0 \)
+- FP: \( \hat{y} > 0 \) but actual \( y \le 0 \)
+
+\[
+\text{Precision} = \frac{TP}{TP + FP}
+\]
+
+```{r}
+pred_lm = predict(lm_robust, train)
+
+TP = sum(pred_lm > 0 & train$pl_value > 0)
+FP = sum(pred_lm > 0 & train$pl_value <= 0)
+precision = TP / (TP + FP)
+
+cat("TP:", TP, "FP:", FP, "\n")
+cat("Precision:", round(precision, 4), "\n")
+```
+
+---
+
+### Adjusting Buy Threshold
+
+We adjust the threshold \( T \) such that:
+\[
+\text{Buy only if } \hat{y} > T
+\]
+
+This helps **reduce false positives**. Based on central limit theorem assumptions, we want at least 30 trades
+
+```{r}
+thresholds <- seq(0, max(lm_robust$fitted.values), by = 1)
+results <- data.frame()
+
+for (T in thresholds) {
+  TP = sum(pred_lm > T & train$pl_value > 0)
+  FP = sum(pred_lm > T & train$pl_value <= 0)
+  precision = ifelse((TP + FP) == 0, NA, TP / (TP + FP))
+  count = TP + FP
+  if (count < 30){
+    break
+  }
+  results = rbind(results, data.frame(threshold=T, TP=TP, FP=FP, Precision=precision, Trades=count))
+}
+
+tail(results)
+```
+
+
+### Backtest
+
+```{r}
+pred_lm = predict(lm_robust, test)
+best_row = results[which.max(results$Precision), ]
+best_threshold = best_row$threshold
+cat("Best threshold for precision:", best_threshold, "\n")
+
+capital = (1/(0.02)) * (1000 * sample(train$Open, 1))
+drawdown = c(capital)
+wins = c()
+
+for (i in 1:nrow(test)) {
+  pred = pred_lm[i]
+  if (pred > best_threshold) {
+    capital = capital + test$pl_value[i]
+    drawdown = c(drawdown, capital)
+    wins = c(wins, test$pl_value[i])
+  }
+}
+
+plot(drawdown, type = "l", col = "darkgreen", main = "Equity Curve (LM)", ylab = "Capital", xlab = "Trade #")
+sharpe = (tail(drawdown, 1) - drawdown[1]) / sd(wins)
+max_dd = min(drawdown - cummax(drawdown)) / max(drawdown)
+
+cat("Final Capital:", capital, "\n")
+cat("Sharpe Ratio:", round(sharpe, 3), "\n")
+cat("Max Drawdown:", round(max_dd * 100, 2), "%\n")
+```
+
+---
+
+# Final Thoughts
+
+We have now explored **three models** in depth:
+
+| Model | Output Type | Thresholding | Precision Tuning | Purpose |
+|-------|-------------|--------------|------------------|---------|
+| Logistic Regression (GLM) | Probabilities (binary) | Yes | Yes via qnorm thresholds | Predict trade direction |
+| XGBoost | Probabilities (binary) | Yes | Yes via precision-optimized threshold | Precision-focused execution |
+| Linear Regression (LM) | Continuous (`pl_value`) | Yes | Yes via trade value cutoffs | Forecast trade magnitude |
+
+In trading, minimizing **false positives** is often more critical than maximizing true positives due to the **asymmetric cost of bad trades**. While GLM offers interpretability and XGBoost offers nonlinear flexibility, the linear model offers continuous signal strength which supports **position sizing** and **expected value filtering**.
+
+For high-frequency or precision-critical applications, combining these models in an ensemble or using their outputs as **features for meta-learning** may offer further benefits.
+
