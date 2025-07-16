@@ -62,9 +62,9 @@ position size.
 Asymmetric risk-reward ratio: - **Default**: 1.5 (profit targets 50%
 wider than loss targets)
 
--   **Profit Target**: $Price_T + \lambda × \chi × ATR$
+-   **Profit Target**: $Price_T + \lambda * \chi × ATR$
 
--   **Loss Target**: $Price_T - \lambda × ATR$
+-   **Loss Target**: $Price_T - \lambda * ATR$
 
 #### Timeout Period (t)
 
@@ -118,13 +118,15 @@ See data_mining.ipynb for information
 Split train-test data
 
 ```{r}
-seed_num = 213
+seed_num = 7
 set.seed(seed_num) # reproducibility
 data1_3$norm_volume = (data1_3$Volume - mean(data1_3$Volume))/sd(data1_3$Volume)
 ind = sample(1:nrow(data1_3),0.75*nrow(data1_3))
 train = data1_3[ind,]
 test = data1_3[-ind,]
 ```
+
+Investigate dependent variable
 
 ```{r}
 hist(train$pl_value, breaks = 50, col = "skyblue", main = "Distribution of pl_value (P&L)", xlab = "pl_value")
@@ -142,20 +144,38 @@ par(mfrow=c(1,1))
 ```
 
 ATR shows to have a weak correlation. I think the interaction of
-predictors with each other will be more important.
+predictors with each other will be more important. Let's see the interaction of volume and ATR
+```{r}
+library(ggplot2)
+ggplot(train, aes(x=ATR, y=norm_volume, color=PL)) +
+  geom_point(alpha=0.5) +
+  scale_color_gradient2(mid="red", high="blue") +
+  theme_minimal() +
+  ggtitle("ATR vs Volume")
+```
+This shows us that low ATR and volume have a lower chance of being profitable. Though it tends to fluctuate quite a lot.
 
 ## Visualize predictor correlation matrix
 
 ```{r}
 library(corrplot)
-library(ggplot2)
+
 numeric_vars <- train[, c("Open", "Close", "High", "Low", "norm_volume", "ATR", "SMA_k7", "SMA_k20", "SMA_k50", "pl_value")]
 cor_matrix <- cor(numeric_vars, use="complete.obs")
 
 corrplot(cor_matrix, method = "color", type = "upper", tl.cex = 0.8)
 ```
+We will have to take steps to ensure we address multicollinearity, one way of doing this is looking at the VIF (Variance Inflation Factor). VIF is a diagnostic tool used to detect multicollinearity, which occurs when independent variables in a regression model are highly correlated with each other. High VIF values indicate that a variable's variance is inflated due to multicollinearity. Values over 5 may have potential issues in fitting models.
+
+```{r}
+library(car)
+vif_model <- lm(pl_value ~ ATR + SMA_k7 + SMA_k20+ SMA_k50+ norm_volume, data=train)
+vif(vif_model)
+```
+This shows us that in order to reduce multicollinearity, we must omit `SMA_k20`
 
 ## Log regression
+
 ### Model Diagnostics and Theoretical Foundations
 
 Logistic regression models the log-odds of a binary outcome as a linear
@@ -170,35 +190,14 @@ the predictor, holding all other variables constant. We use all parameters and a
 ```{r}
 glm1 = glm(
   data = train,
-  PL ~ ATR + SMA_k7 + SMA_k20 + SMA_k50 + norm_volume +
-       ATR:SMA_k7 +
-       ATR:SMA_k20 +
-       ATR:SMA_k50 +
-       ATR:SMA_k7:SMA_k20 +
-       ATR:SMA_k7:SMA_k50 +
-       ATR:SMA_k20:SMA_k50 +
-       ATR:SMA_k7:SMA_k20:SMA_k50 +
-       norm_volume:ATR +
-       norm_volume:SMA_k7 +
-       norm_volume:SMA_k20 +
-       norm_volume:SMA_k50 +
-       norm_volume:ATR:SMA_k7 +
-       norm_volume:ATR:SMA_k20 +
-       norm_volume:ATR:SMA_k50 +
-       norm_volume:SMA_k7:SMA_k20 +
-       norm_volume:SMA_k7:SMA_k50 +
-       norm_volume:SMA_k20:SMA_k50 +
-       norm_volume:ATR:SMA_k7:SMA_k20 +
-       norm_volume:ATR:SMA_k7:SMA_k50 +
-       norm_volume:ATR:SMA_k20:SMA_k50 +
-       norm_volume:ATR:SMA_k7:SMA_k20:SMA_k50,
+  PL ~ (ATR + SMA_k7 + SMA_k50 + norm_volume)^4,
   family = "binomial"
 )
 
 ```
 
 ### Assess
-
+The full model will likely have only a handful of terms with significant probabilities because of multi-colinearity
 ```{r}
 summary(glm1)
 ```
@@ -234,7 +233,7 @@ computationally expensive, however I am not dealing with a lot of
 predictors here.
 
 ```{r}
-glm_step <- step(glm1, direction = "both")
+glm_step <- step(glm1, direction = "both", trace = 0)
 summary(glm_step)
 plot(density(qresid(glm_step)))
 ```
@@ -246,7 +245,7 @@ selection. This method uses cross validation and fits models with the least mean
 ```{r}
 library(glmnet)
 # Get interaction matrix
-X <- model.matrix(PL ~ (ATR + SMA_k7 + SMA_k20 + SMA_k50 + norm_volume)^3, data = train)[, -1]
+X <- model.matrix(PL ~ (ATR + SMA_k7 + SMA_k50 + norm_volume)^4, data = train)[, -1]
 y <- train$PL
 cvfit <- cv.glmnet(X, y, family = "binomial", alpha = 1)
 
@@ -272,11 +271,18 @@ winrate = mean(pred_glm == test$PL)
 print(winrate)
 
 pred_glm_cons = ifelse(predict(glm_cons,test,type="response")>0.5,1,0)
-winrate = mean(pred_glm_cons == test$PL)
-print(winrate)
+winrate_cons = mean(pred_glm_cons == test$PL)
+print(winrate_cons)
+
+if (winrate_cons < winrate) {
+  glm2 = glm_step
+} else {
+  glm2 = glm_cons
+}
+
 ```
 
-It appears that the conservative model performs worse. This accuracy is
+The accuracy is
 good, but it needs to be contextualized. The worst, bare bones model
 would trade on a coin flip. Let's simulate $nrow(test)$ coin flips and
 compare it to a 55% win rate.
@@ -321,14 +327,14 @@ intervals." Reference: Agresti, A. (2013). Categorical Data Analysis
 # Define thresholds
 probs <- 10^seq(-2, -10, length.out = 9)
 
-fit_mean <- mean(glm_step$fitted.values)
-fit_sd <- sd(glm_step$fitted.values)
+fit_mean <- mean(glm2$fitted.values)
+fit_sd <- sd(glm2$fitted.values)
 
 prob_with_best_winrate = 0.05 # init
 best_winrate = 0
 for (prob in probs) {
   threshold <- qnorm(1 - prob, mean = fit_mean, sd = fit_sd)
-  pred_glm <- ifelse(predict(glm_step, train, type = "response") > threshold, 1, 0)
+  pred_glm <- ifelse(predict(glm_cons, train, type = "response") > threshold, 1, 0)
 
   true_positive <- sum(pred_glm == 1 & train$PL == 1)
   false_positive <- sum(pred_glm == 1 & train$PL == 0)
@@ -346,14 +352,14 @@ for (prob in probs) {
     prob_with_best_winrate = prob
   }
 
-  cat(sprintf("Prob = %.5f | TP = %d | FP = %d | Winrate = %.3f\n", 
+  cat(sprintf("Prob = %e | TP = %d | FP = %d | Winrate = %.3f\n", 
               prob, true_positive, false_positive, winrate))
 }
 
-best_threshold = qnorm(1 - prob_with_best_winrate, mean = fit_mean, sd = fit_sd)
+best_threshold_glm = qnorm(1 - prob_with_best_winrate, mean = fit_mean, sd = fit_sd)
 cat("Best winrate", best_winrate*100)
 cat("\nProbability with highest precision", prob_with_best_winrate)
-cat("\nThreshold", best_threshold)
+cat("\nThreshold", best_threshold_glm)
 
 
 ```
@@ -371,8 +377,8 @@ drawdown <- c(capital)
 wins <- c()
 
 for (i in 1:nrow(test)) {
-  pred_X <- predict(glm_step, test[i, ], type = "response")
-  if (pred_X > best_threshold) {
+  pred_X <- predict(glm2, test[i, ], type = "response")
+  if (pred_X > best_threshold_glm) {
     capital <- capital + test$pl_value[i]
     drawdown <- c(drawdown, capital)
     wins <- c(wins, test$pl_value[i])
@@ -432,7 +438,7 @@ library(Matrix)
 library(caret)
 
 data = train
-X = model.matrix(PL ~ (ATR + SMA_k7 + SMA_k20 + SMA_k50 + norm_volume)^3, data=data)[, -1]
+X = model.matrix(PL ~ (ATR + SMA_k7 + SMA_k50 + norm_volume)^4, data=data)[, -1]
 y = data$PL
 dtrain = xgb.DMatrix(data = X, label = y)
 ```
@@ -502,7 +508,7 @@ fit_mean = mean(pred_probs)
 fit_sd = sd(pred_probs)
 
 best_precision = 0
-best_threshold = 0.5
+best_threshold_xg = 0.5
 
 for (prob in probs){
   threshold <- qnorm(1 - prob, mean = fit_mean, sd = fit_sd)
@@ -515,11 +521,13 @@ for (prob in probs){
   precision = ifelse((TP + FP) == 0, NA, TP / (TP + FP))
   if (!is.na(precision) && precision > best_precision){
     best_precision = precision
-    best_threshold = threshold
+    best_threshold_xg = threshold
   }
+  cat(sprintf("Prob = %e | TP = %d | FP = %d | Winrate = %.3f\n", 
+              prob, TP, FP, precision))
 }
 
-cat("Best Precision:", round(best_precision * 100, 2), "% at Threshold", best_threshold, "\n")
+cat("Best Precision:", round(best_precision * 100, 2), "% at Threshold", best_threshold_xg, "\n")
 ```
 
 ### Backtesting Equity Curve
@@ -535,10 +543,10 @@ C_{i+1} = C_i + r_i \quad \text{only if } \hat{y}_i > T
 $$
 
 ```{r}
-test_X = model.matrix(PL ~ (ATR + SMA_k7 + SMA_k20 + SMA_k50 + norm_volume)^3, data=test)[, -1]
+test_X = model.matrix(PL ~ (ATR + SMA_k7 + SMA_k50 + norm_volume)^4, data=test)[, -1]
 dtest = xgb.DMatrix(data = test_X)
 
-pred_probs <- predict(model, dtest)
+pred_probs_xg <- predict(model, dtest)
 
 initial_capital = (1/(0.02)) * (1000 * sample(train$Open, 1))
 capital = initial_capital
@@ -546,8 +554,8 @@ drawdown = c(capital)
 wins = c()
 
 for (i in 1:nrow(test)) {
-  pred_X = pred_probs[i]
-  if (pred_X > best_threshold) {
+  pred_X = pred_probs_xg[i]
+  if (pred_X > best_threshold_xg) {
     capital = capital + test$pl_value[i]
     drawdown = c(drawdown, capital)
     wins = c(wins, test$pl_value[i])
@@ -623,11 +631,11 @@ optimizing precision
 ```{r}
 library(e1071)
 
-X = model.matrix(PL ~ (ATR + SMA_k7 + SMA_k20 + SMA_k50 + norm_volume)^3, data=train)[, -1]
+X = model.matrix(PL ~ (ATR + SMA_k7 + SMA_k50 + norm_volume)^4, data=train)[, -1]
 y = as.factor(train$PL)
 
 svm_model <- svm(x = X, y = y, 
-                 kernel = "radial", 
+                 kernel = "radial", # RBF is renowned for precision
                  probability = TRUE,
                  cost = 10,
                  gamma = 0.1)
@@ -660,7 +668,7 @@ fit_mean <- mean(svm_probs)
 fit_sd <- sd(svm_probs)
 
 best_precision <- 0
-best_threshold <- 0.5
+best_threshold_svm <- 0.5
 
 for (prob in probs) {
   threshold <- qnorm(1 - prob, mean = fit_mean, sd = fit_sd)
@@ -677,21 +685,23 @@ for (prob in probs) {
   
   if (!is.na(precision) && precision > best_precision) {
     best_precision <- precision
-    best_threshold <- threshold
+    best_threshold_svm <- threshold
   }
+  cat(sprintf("Prob = %e | TP = %d | FP = %d | Winrate = %.3f\n", 
+              prob, TP, FP, precision))
 }
 
-cat("SVM Best Precision:", round(best_precision * 100, 2), "% at Threshold", best_threshold, "\n")
+cat("SVM Best Precision:", round(best_precision * 100, 2), "% at Threshold", best_threshold_svm, "\n")
 ```
 
 ### Backtesting SVM Strategy
 
 ```{r}
 #test data
-test_X <- model.matrix(PL ~ (ATR + SMA_k7 + SMA_k20 + SMA_k50 + norm_volume)^3, data=test)[, -1]
+test_X <- model.matrix(PL ~ (ATR + SMA_k7 + SMA_k50 + norm_volume)^4, data=test)[, -1]
 
 # Get probability predictions for test set
-test_probs <- attr(predict(svm_model, test_X, probability = TRUE), "probabilities")[, "1"]
+test_probs_svm <- attr(predict(svm_model, test_X, probability = TRUE), "probabilities")[, "1"]
 
 initial_capital <- (1/(0.02)) * (1000 * sample(train$Open, 1))
 capital <- initial_capital
@@ -699,8 +709,8 @@ drawdown <- c(capital)
 wins <- c()
 
 for (i in 1:nrow(test)) {
-  pred_X <- test_probs[i]
-  if (pred_X > best_threshold) {
+  pred_X <- test_probs_svm[i]
+  if (pred_X > best_threshold_svm) {
     capital <- capital + test$pl_value[i]
     drawdown <- c(drawdown, capital)
     wins <- c(wins, test$pl_value[i])
@@ -756,6 +766,110 @@ The non-linear mapping capability is particularly valuable for capturing
 market regimes where relationships between indicators and outcomes
 change dynamically.
 
+# Random chance
+It's possible that the data is looking at a biased subset of information. It's possible that the overall trend from when this data was collected was upward, and these models wouldn't hold up in turbulent market. To disprove this, A random trader was utilized, trading on a coin toss
+```{r}
+initial_capital <- (1/(0.02)) * (1000 * sample(train$Open, 1))
+capital <- initial_capital
+drawdown <- c(capital)
+wins <- c()
+
+for (i in 1:nrow(test)) {
+  if (round(runif(1,0,1)) == 1) {
+    capital <- capital + test$pl_value[i]
+    drawdown <- c(drawdown, capital)
+    wins <- c(wins, test$pl_value[i])
+  }
+}
+
+ggplot(data = data.frame(trade = 1:length(drawdown), 
+                        equity = drawdown), 
+       aes(x = trade, y = equity)) +
+  geom_line(color = "black", size = 1) +
+  theme_minimal() +
+  labs(title = "Monkey trader Equity Curve",
+       x = "Trade #",
+       y = "Capital") +
+  theme(
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 10),
+    panel.grid.major = element_line(color = "grey90"),
+    panel.grid.minor = element_line(color = "grey95")
+  ) +
+  scale_y_continuous(labels = scales::comma)
+
+# Calculate performance metrics
+sharpe <- (tail(drawdown, 1) - drawdown[1]) / sd(wins)
+max_dd <- min(drawdown - cummax(drawdown)) / max(drawdown)
+
+cat("Initial Capital:", initial_capital, "\n")
+cat("Final Capital:", capital, "\n")
+cat("Sharpe Ratio:", round(sharpe, 3), "\n")
+cat("Max Drawdown:", round(max_dd * 100, 2), "%\n")
+cat("Returns:", round(((capital/initial_capital)-1)*100, 2), "%\n")
+```
+
+This makes it clear that our models perform better than random chance
+
+# Ensemble prediction
+For production trading systems, an ensemble approach combining these
+models might offer the most robust performance across varying market
+conditions. Each model captures different aspects of market behavior,
+and their combined signals could provide more reliable trading decisions
+than any single model alone.
+```{r}
+initial_capital = (1/(0.02))*(1000 * sample(train$Open, 1)) # random price
+capital <- initial_capital
+drawdown <- c(capital)
+wins <- c()
+
+for (i in 1:nrow(test)) {
+  pred_X <- predict(glm2, test[i, ], type = "response")
+  pred_xg = pred_probs_xg[i]
+  pred_svm = test_probs_svm[i]
+  # Best threshold not used because all 3 never aligned in dataset
+  if (pred_X > 0.5 & pred_xg > 0.5 & pred_svm > 0.5) {
+    capital <- capital + test$pl_value[i]
+    drawdown <- c(drawdown, capital)
+    wins <- c(wins, test$pl_value[i])
+  }
+}
+
+ggplot(data = data.frame(trade = 1:length(drawdown), 
+                        equity = drawdown), 
+       aes(x = trade, y = equity)) +
+  geom_line(color = "maroon", size = 1) +
+  theme_minimal() +
+  labs(title = "Equity Curve",
+       x = "Trade #",
+       y = "Capital") +
+  theme(
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 10),
+    panel.grid.major = element_line(color = "grey90"),
+    panel.grid.minor = element_line(color = "grey95")
+  ) +
+  scale_y_continuous(labels = scales::comma)
+
+# Sharpe ratio (simplified version: mean return over SD of returns)
+sharpe <- (tail(drawdown, 1) - initial_capital) / sd(wins)
+
+
+peak = max(drawdown)
+trough = min(drawdown)
+max_drawdown = (trough-peak)/peak
+
+
+cat("Initial Capital", initial_capital)
+cat("\nFinal Capital:", tail(drawdown, 1), "\n")
+cat("Sharpe Ratio:", round(sharpe, 3), "\n")
+cat("Max Drawdown:", max_drawdown*100, "%\n")
+cat("Returns:", ((capital/initial_capital)-1)*100, "%\n")
+```
+```
+
 ------------------------------------------------------------------------
 
 # Final Thoughts
@@ -764,9 +878,9 @@ We have now explored **three models** in depth:
 
 | Model | Output Type | Thresholding | Precision Tuning | Purpose |
 |--------------|--------------|--------------|-----------------|--------------|
-| Logistic Regression (GLM) | Probabilities (binary) | Yes | Yes via qnorm thresholds | Predict trade direction |
-| XGBoost | Probabilities (binary) | Yes | Yes via precision-optimized threshold | Precision-focused execution |
-| Support Vector Machines | Probabilities (binary) | Yes | Yes via precision-optimized threshold | Non-linear boundary detection |
+| Logistic Regression (GLM) | Probabilities (binary) | Yes | qnorm thresholds | Predict trade direction |
+| XGBoost | Probabilities (binary) | Yes | precision-optimized threshold | Precision-focused execution |
+| Support Vector Machines | Probabilities (binary) | Yes | precision-optimized threshold | Non-linear boundary detection |
 
 Each model offers distinct advantages for trading strategy development:
 
@@ -787,10 +901,4 @@ trading signals.
 In trading, minimizing **false positives** is often more critical than
 maximizing true positives due to the **asymmetric cost of bad trades**.
 All three models allow for threshold optimization to achieve
-precision-focused execution.
-
-For production trading systems, an ensemble approach combining these
-models might offer the most robust performance across varying market
-conditions. Each model captures different aspects of market behavior,
-and their combined signals could provide more reliable trading decisions
-than any single model alone.
+precision-focused execution. These models were put into production, and we found that glm models performed the best in real-time trading.
