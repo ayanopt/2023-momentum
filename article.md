@@ -149,7 +149,7 @@ Effective risk management in production must go beyond formulaic stop-loss logic
 
 The primary sources of excess returns in the system are mean reversion, momentum capture, and volatility timing. Mean reversion strategies exploit short-term price inefficiencies, identifying instances where prices deviate from their expected value and are likely to revert. Momentum capture involves following established price trends during favorable market conditions to generate profits. Volatility timing uses ATR-based position sizing to adapt exposure dynamically in response to changing market volatility, enhancing risk-adjusted returns. The following is the results of backtesting log-regression 
 
-An initial capital of 1000 dollars was set, and the `pl_value` (This column was computed in [mkt_data.ipynb]("SPY%20training/mkt_data.ipynb") was added if the threshold was met. This is the approximation of drawdown while backtesting. This following graph shows that in a 100 trades, the model is able to increase it's capital by 4%.
+An initial capital of 1000 dollars was set, and the `pl_value` (This column was computed in [data_mining.ipynb]("SPY%20training/data_mining.ipynb") was added if the threshold was met. This is the approximation of drawdown while backtesting. This following graph shows that in a 100 trades, the model is able to increase it's capital by 4%.
 ![](log_regression_performance.png)
 
 ## 9. Future Enhancements
