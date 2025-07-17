@@ -3,13 +3,13 @@ title: "SPY ETF ML Trading Strategy Analysis"
 author: "Algorithmic Trading System"
 date: "`r Sys.Date()`"
 output:
-  pdf_document: 
-    toc: true
-    toc_depth: 3
   html_document: 
     toc: true
     toc_float: true
     theme: flatly
+  pdf_document: 
+    toc: true
+    toc_depth: 3
 editor_options: 
   markdown: 
     wrap: 72
@@ -20,13 +20,13 @@ The numeric suffix for each data set represents 1. ATR multiplier 2.
 Trade timeout duration (minutes). View data_mining.ipynb for how this is populated.
 
 ```{r}
-data1_3 = read.csv("../csvs/train1_3.csv")
+data10_180 = read.csv("../csvs/train10_180.csv")
 ```
 
-# Data exploration for 1_3
+# Data exploration for 10_180
 
 ```{r}
-summary(data1_3)
+summary(data10_180)
 ```
 
 ## View Summary and shape
@@ -113,23 +113,17 @@ The system calculates SMA for three periods:
 
 See data_mining.ipynb for information
 
-### PL
-
-Encodes 0 if `pl_value` \< 0
-
-### Normalized volume
-
-Standard normalization $norm\_vol = \frac{mean(Vol) - Vol}{sd(Vol)}$
+### PL: Encodes 0 if `pl_value` \< 0
 
 Split train-test data
 
 ```{r}
 seed_num = 7
 set.seed(seed_num) # reproducibility
-data1_3$norm_volume = (data1_3$Volume - mean(data1_3$Volume))/sd(data1_3$Volume)
-ind = sample(1:nrow(data1_3),0.75*nrow(data1_3))
-train = data1_3[ind,]
-test = data1_3[-ind,]
+data10_180$norm_volume = (data10_180$Volume - mean(data10_180$Volume))/sd(data10_180$Volume)
+ind = sample(1:nrow(data10_180),0.75*nrow(data10_180))
+train = data10_180[ind,]
+test = data10_180[-ind,]
 ```
 
 Investigate dependent variable

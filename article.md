@@ -1,254 +1,183 @@
-# Multi-Timeframe Algorithmic Trading: A Machine Learning Approach to SPY ETF Trading
+---
+title: "Machine Learning-Driven Multi-Timeframe Trading Strategy for SPY ETF"
+author: "Ayan Goswami"
+date: "2025-07-16"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+---
 
-## Abstract
+# Abstract
 
-This paper introduces the 2023-momentum system, an algorithmic trading framework developed to trade the SPY ETF using ensemble machine learning methods. The system leverages predictive models operating across multiple timeframes—specifically 1-3 minutes, 3-5 minutes, and 5-15 minutes—to identify optimal trading opportunities. Its core innovations include adaptive Average True Range (ATR)-based risk management, multi-model ensemble predictions, and a robust real-time execution environment. Extensive backtesting demonstrates consistent profitability and controlled drawdowns, indicating resilience across varied market conditions. I hypothesize that short-duration momentum bursts (SMCs) in SPY exhibit repeatable statistical signatures that can be detected and exploited via machine learning models trained on volatility and trend-based features.
+This paper presents a machine learning framework for intraday trading of the SPDR S&P 500 ETF (SPY) using standardized formats of traditional indicators. We employ logistic regression, XGBoost, and support vector machines (SVM) to predict short-term profitability. The strategies leverage Average True Range (ATR), Moving Averages, and Volume to try and predict short-term momentum bursts (MBs). This paper will focus on long-only strategies as they are less risky when implementing in a production environment. Emphasis is placed on high precision and minimizing false positives using probabilistic thresholds derived from model outputs. Backtests demonstrate that our methods significantly outperform random strategies in terms of Sharpe ratio, precision, and drawdown control.
 
-## 1. Introduction
+# Introduction
 
-Algorithmic trading has witnessed significant advancements through the integration of machine learning (ML) methodologies. This study presents a systematic approach utilizing multiple ML models to trade the SPY ETF, with the goal of effectively capturing short-term price fluctuations while systematically managing risk. Motivated by the complexity of the fast-paced intraday market dynamics and SMCs, the 2023-momentum system addresses critical challenges including simultaneous management of signals across various timeframes, rigorous risk management grounded in market volatility, the amalgamation of diverse ML models for predictive accuracy, and low-latency trade execution suitable for intraday trading strategies.
+The development of statistically sound and precision-driven trading strategies is essential in modern algorithmic finance. This paper addresses the problem of directional prediction of SPY ETF trades using machine learning and statistical modeling over multi-timeframe indicators. We aim to optimize execution precision rather than naive accuracy, focusing on reducing false positive trade signals.
 
-## 2. Background and Motivation
+# Data and Features
+The dataset comprises one-minute interval price data (OHLCV: Open, High, Low, Close, Volume) for the SPDR S&P 500 ETF Trust (SPY) spanning from May 29th, 2023, to July 17th, 2023. From these primary market data points, we derived a set of technical indicators commonly employed in financial analysis. While these indicators typically involve parameterization, we adopted industry-standard parameters to maintain methodological consistency and prevent overfitting through excessive parameter optimization. This research focuses primarily on optimizing machine learning models' predictive capabilities using these established indicators, rather than engaging in indicator parameter optimization. This approach allows us to isolate the effectiveness of various machine learning architectures while maintaining the integrity of widely-accepted technical analysis frameworks.
 
-The impetus for developing the 2023-momentum system arises from the necessity to systematically exploit short-term pricing inefficiencies in the SPY ETF. Conventional technical analysis methods often _lack_ sufficient analytical rigor for sustained profitability, whereas purely machine learning-based strategies may neglect critical microstructural market effects. Ensemble methods offer a practical and statistically grounded approach to capturing diverse aspects of market behavior. This system integrates multiple model types to account for both trend and noise in SPY price movement. Linear regression is used to predict future price changes directly, providing a fast and interpretable baseline. In parallel, logistic regression is applied to a binary-encoded target indicating whether the price will move up or down, allowing for directional classification. These models are complemented by others such as Random Forest (removed after poor performance forward testing), which captures nonlinear structure in the data.
+## Timeout (t)
+There is no right way to time price trends, hence the best path forward to specialize in different time frames is to set an automatic timeout for trades. This way we categorize different types of momentum bursts based on their time period, and each strategy occupies its own seperate area of specialization. Thus, we introduce 5 primary timeout periods for this paper:
+1. 3 minutes
+2. 5 minutes
+3. 15 minutes
+4. 60 minutes
+5. 180 minutes
 
-## 3. Methodology
+## ATR (volatility measure)
 
-### 3.1 Data Processing Pipeline
+ATR (Average true range) is a technical indicator that measures market volatility by decomposing the entire range of an asset's price for a given period. Developed by J. Welles Wilder, it's calculated using the previous price movements of the security. For the purpose of our analysis, it was calculated using standard deviation.
 
-The system processes one-minute SPY data using a specialized FinData class responsible for data normalization, cleaning, and technical indicator computation. The implemented indicators include an adjusted ATR, computed as a rolling price standard deviation:
-
-$$ATR_t = \sqrt{\frac{\sum_{i=t-k}^{t}(P_i - \mu_t)^2}{k}}$$
-
-and a standardized moving average (SMA), expressing current prices relative to historical averages:
-
-$$SMA_k = \frac{P_t}{\frac{1}{k}\sum_{i=t-k}^{t-1}P_i}$$
-
-This normalization technique ensures the indicators adapt effectively to shifting market conditions.
-
-### 3.2 Feature Engineering
-
-An extensive set of engineered features comprises normalized SMA ratios, ATR-based volatility metrics, momentum indicators, and cross-timeframe technical signals. This comprehensive approach ensures robust model performance by capturing various market dynamics and conditions.
-
-### 3.3 Model Architecture
-
-The employed ML architecture involves linear models for very short periods (1-3) and log regression for comparitively longer periods (5-15). Further, at the intersection of these time periods, an ensemble prediction where $pred_{lm} > threshold$ and $pred_{glm} > threshold$ performed the best.
-
-#### Log regression backtesting
-A 75–25 train-test split was used, and the default threshold for initiating a "buy" trade was set to 0.5. The binary target variable PL, indicating the direction of SPY price movement, was regressed on all standardized SMA features. Model performance was evaluated based on classification accuracy, achieving a predictive accuracy of approximately 65%, indicating a meaningful edge over random guessing.
-
-![](log_regression_validation.png)
+$$ ATR_T = \sqrt{\frac{\sum_{i=T-k}^{T}(OHLC_i - \mu_T)^2}{k}} $$ 
 
 
-### 3.4 Risk Management Framework
+Where $OHLC = \frac{Open+High+Low+Close}{4}$ and $k$ is the look back period. The look back period standard in the industry is 14, and we set this as our look back period as well.
 
-In real-time trading, risk was calculated to detemine position siszing. Risk management also utilized dynamically calculated profit-taking and stop-loss levels anchored on the ATR metric:
+The motivation was to control
+the sensitivity to market volatility and potentially use as a regressor. The purpose is that it scales profit/loss targets based on current market conditions
 
-$$TP = P_{entry} + \alpha \cdot \chi \cdot ATR_t$$
+During the data mining process, we introduced an ATR scaling factor $\lambda$ which uses ATR to increase profit and loss margins. 
+- **Example**: If SPY ATR = 0.50 and $\lambda = 10$:
+    - Base volatility adjustment = 10 × 0.50 = \$5.00
+    - Hypothetically: Sell if SPY is up 5$ from entry price
 
-$$SL = P_{entry} - \chi \cdot ATR_t$$
+For longer time periods, the price might fluctuate a lot more than shorter time frames. In order to prevent being stopped out of a potentially profitable but volatile trade, the bounds for profit and loss are set a lot higher in trading windows with higher timeouts. In order to determine what the multiplier should be for the defined timeouts we implement a logarithmic scaling function that increases position bounds proportionally to the trading window duration.
 
-where $\alpha$ represents the profit multiplier (typically 1.5), and $\chi$ is the strategy-specific risk parameter. This framework systematically manages risk exposure and profit realization, allowing strategic adaptation to varying market volatility.
+The relationship between timeframe and volatility follows a logarithmic pattern, where:
 
-## 4. Experimental Design
+$$\lambda = 4\log(t-2)+1$$
 
-### 4.1 Backtesting Methodology
+Hence the relationships for each timeout are as follows:
 
-Backtesting was conducted using a pragmatic three-fold dataset split, maintaining a realistic separation between training and testing periods. Realistic transaction costs and slippage were integrated into performance assessments to ensure practical relevance.
+1. 3 minutes $t$ => $\lambda = 1$
+1. 5 minutes $t$ => $\lambda = 3$
+1. 15 minutes $t$ => $\lambda = 5$
+1. 60 minutes $t$ => $\lambda = 8$
+1. 180 minutes $t$ => $\lambda = 10$
 
-### 4.2 Performance Metrics
+Furthermore, we introduced an asymmetric risk-ratio ($\chi$) which determines how much higher the take profit price will be compared to the stop loss, for a given $\lambda$. For simplicity though, this was fixed to 1.5. Further exploration can be conducted to fine tune this parameter
 
-The evaluation of strategies utilized key performance indicators including Sharpe ratio:
+Our `pl_value` column was determined by a 1000 shares of SPY, where the targets were:
+- **Profit Target** $PT$: $Price + \lambda * \chi × ATR$
 
+- **Loss Target** $LT$: $Price - \lambda * ATR$
+
+For each entry point $i$, the algorithm checks future prices within time window $t$ minutes. This is done pessimistically, where the stop loss is evaluated first:
+Stop Loss Check:
+```
+if Low_{i+j} ≤ Loss_target:
+    PL = 0  # Loss trade
+    pl_value = (Loss_target - Open_i) × 1000
+where:
+Loss_target = Open_i - (λ × ATR_i)
+j ∈ [0, t]
+```
+
+Take Profit Check:
+```
+if High_{i+j} ≥ Profit_target:
+    PL = 1  # Winning trade
+    pl_value = (Profit_target - Open_i) × 1000
+where:
+Profit_target = Open_i + (λ × ATR_i)
+j ∈ [0, t]
+```
+Time Expiry:
+```
+if j = t and no target hit:
+    pl_value = (Close_{i+t} - Open_i) × 1000
+```
+The `PL` column was used for encoding a binary win/lose variable for the machine learning models, and `pl_value `was used to determine drawdown.
+
+## Standardized Moving Average
+
+Moving averages are very common in technical analysis, and they smooth price data by calculating the average price over a specified period, creating a trend-following indicator. Since these are always tied to the price of the security, we standardize it using the following formula: 
+
+
+$$SMA_k = \frac{Open_T}{\frac{1}{k}\sum_{i=T-k}^{T-1}Close_i}$$
+
+-   $T$ = current time period
+
+-   $k$ = lookback period
+
+-   Hypothetically, values \> 1.0 indicate price above historical
+    average (bullish)
+-   Values \< 1.0 indicate price below historical average (bearish)
+
+Multiple Moving Averages are often combined and used in tandem to contextualize market trends. We try and capture this relationship by introducing interactions terms in our models. The $k$'s chosen for this analysis are:
+- SMA\_7
+- SMA\_20
+- SMA\_50
+
+
+## Normalized trading volume
+
+We normalized the volume due to the extremely volatile nature of the SPY intra-day market. To help reduce the noise we applied the following transformation.
+
+$$norm\_volume = \frac{E(V) - V}{\sqrt{Var(V)}}$$
+
+
+
+# Methodology
+
+## Logistic Regression
+
+Logistic regression models the log-odds of profitability as a linear function:
 
 $$
-Sharpe\ Ratio = \frac{R_p - R_f}{\sigma_p}
+\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \cdots + \beta_k X_k
 $$
 
-maximum drawdown:
+Variable selection via AIC and Lasso was performed. Thresholds were tuned using normal quantiles to maximize precision.
+
+## XGBoost
+
+XGBoost was trained to maximize AUC-PR, reflecting focus on precision:
 
 $$
-Maximum\ Drawdown = \max_{t \in [0,T]} \frac{Peak_t - Trough_t}{Peak_t}
+L(\phi) = \sum_i l(y_i, \hat{y}_i) + \sum_k \Omega(f_k)
 $$
 
+## Support Vector Machines
 
-win rate, and profit factor, providing a comprehensive picture of model effectiveness.
+We used an RBF kernel SVM to detect nonlinear boundaries. Thresholding was done similarly to GLM and XGBoost.
 
-## 5. Results and Analysis
+# Evaluation Metrics
 
-Detailed backtesting across distinct timeframes highlighted each strategy’s strengths. The 1-3 minute strategy yielded optimal results from linear models, whereas the ensemble excelled in the 3-5 minute strategy, offering superior risk-adjusted returns. The medium-term 5-15 minute strategy demonstrated effectiveness primarily through decision tree and GLM-based trend reversal identification. Live trading results corroborated backtesting performance, exhibiting sustained profitability, effective risk mitigation, and minimal execution slippage.
+- **Sharpe Ratio**: Mean return over return standard deviation
+- **Max Drawdown**: Largest capital loss from peak
+- **Precision**: $TP / (TP + FP)$
 
-### 5.3 Statistical Significance
+# Results
 
-The strategies achieved statistically significant performance metrics, with robust t-statistics, information ratios, and Calmar ratios, underscoring their reliability and effectiveness.
+| Model | Sharpe | Max Drawdown | Precision |
+|-------|--------|---------------|-----------|
+| GLM | 6.27 | -2.68% | ~51.7% |
+| XGBoost | 16.81 | 0% | 83.2% |
+| SVM | 0.46 | 0% | 80.6% |
+| Ensemble | 11.77 | -1.92% | 100% (filtered) |
 
-## 6. System Architecture
+# Backtest Visuals
 
-### 6.1 Real-Time Execution Engine
+_Equity curves for each model are included in the full PDF version._
 
-The production system implements:
+# Discussion
 
-```
-class Trade:
-    def __init__(self, profit_price, loss_price, entry_price, quantity, strategy, timeout):
-        self.profit_price = profit_price
-        self.loss_price = loss_price
-        self.entry_price = entry_price
-        self.timeout = timeout
-        self.quantity = quantity
-        self.strategy = strategy
-```
+SVMs and tree-based models outperform linear methods in non-linear regions, but logistic regression showed the best live performance due to generalization. Our ensemble strategy confirms that agreement between diverse models improves confidence in trade execution.
 
-### 6.2 Model Integration and Signal Generation
+# Conclusion
 
-The system uses R for model inference with Python for execution. Signal thresholds were determined through backtesting optimization:
+This study presents a robust ML framework for SPY trading. By prioritizing precision and leveraging ensemble thresholding, we achieve statistically significant results exceeding random baselines.
 
-# Load trained models
-```
-lm_1_3 <- readRDS("./models/SPY_1m/SPY_1m_lm_1_3.rds")
-glm_3_5 <- readRDS("./models/SPY_1m/SPY_1m_glm_3_5.rds")
-glm_5_15 <- readRDS("./models/SPY_1m/SPY_1m_glm_5_15.rds")
-```
-# Generate predictions
-```
-pred_1_3 <- predict(lm_1_3, current_data)
-pred_glm_3_5 <- predict(glm_3_5, current_data, type="response")
-pred_glm_5_15 <- predict(glm_5_15, current_data, type="response")
-```
-# Apply optimized thresholds
-```
-bullish_1_3 <- ifelse(pred_1_3 > 0.8634, 1, 0)
-bullish_3_5 <- ifelse(pred_glm_3_5 > 0.5914 & pred_lm_3_5 > 1.558, 1, 0)
-bullish_5_15 <- ifelse(pred_glm_5_15 > 0.5146, 1, 0)
-```
+# References
 
-These thresholds balance precision and recall based on historical performance analysis.
-
-### 6.3 Infrastructure Components
-
-1. **Data Pipeline**: Real-time price feed integration
-2. **Model Serving**: Containerized R model inference
-3. **Execution Engine**: Python-based order management
-4. **Risk Monitor**: Continuous position and exposure tracking
-5. **Logging System**: Comprehensive audit trail
-
-## 7. Practical Implementation Challenges
-
-### 7.1 Data Quality and Processing
-Real-time market data introduces several nontrivial issues. First, missing data can occur during low-liquidity intervals, especially outside regular trading hours. While institutional-grade data feeds offer better reliability, these are generally inaccessible to individual developers. Second, outliers such as sudden price jumps—often driven by breaking news—must be carefully filtered to avoid contaminating model inputs. Reducing noise is especially important when using machine learning models sensitive to anomalous values. Finally, latency is a central concern. Indicators must be computed quickly enough to support timely decision-making. In performance-critical settings, client-side latency could be improved by rewriting computational bottlenecks in a lower-level language such as C++.
-
-The FinData class was developed to address these concerns. It handles data validation, smoothing, and indicator computation efficiently and with minimal overhead.
-
-### 7.2 Model Deployment
-Deploying R models in a Python-based execution system required deliberate design decisions. Models are serialized as .rds files and loaded at runtime. Signal thresholds were selected based on cross-validated backtesting to maximize predictive reliability. Logging infrastructure was added to monitor prediction consistency and performance over time.
-
-### 7.3 Risk Control Implementation
-Effective risk management in production must go beyond formulaic stop-loss logic. Position sizes are capped independently of model confidence to limit exposure to model overfitting or regime shifts. Trade correlation is monitored to avoid redundant risk across instruments or strategies. Manual override functionality is included to disable the system in response to unusual market events or infrastructure failures. An auto-timeout mechanism ensures trades are exited if neither take-profit nor stop-loss levels are reached within a predefined window, preventing unintended exposure to new momentum cycles.
-
-## 8. Performance
-
-The primary sources of excess returns in the system are mean reversion, momentum capture, and volatility timing. Mean reversion strategies exploit short-term price inefficiencies, identifying instances where prices deviate from their expected value and are likely to revert. Momentum capture involves following established price trends during favorable market conditions to generate profits. Volatility timing uses ATR-based position sizing to adapt exposure dynamically in response to changing market volatility, enhancing risk-adjusted returns. The following is the results of backtesting log-regression 
-
-An initial capital of 1000 dollars was set, and the `pl_value` (This column was computed in [data_mining.ipynb]("SPY%20training/data_mining.ipynb") was added if the threshold was met. This is the approximation of drawdown while backtesting. This following graph shows that in a 100 trades, the model is able to increase it's capital by 4%.
-![](log_regression_performance.png)
-
-## 9. Future Enhancements
-
-### 9.1 Advanced Machine Learning
-
-Potential improvements include:
-#### **Deep Learning**: 
-
-LSTM networks for sequence modeling. From reading literature it seems that this model is good at sequential predictions. A matrix of SMAs as input would work well.
-Let:
-
-- $t$ be the current timestep  
-- $k \in \{7, 20, 50, 100\}$ denote different SMA periods  
-- $L$ be the lookback window length (e.g., 30 timesteps)
-
-Then the **input matrix** $X_t \in \mathbb{R}^{L \times K}$ is defined as:
-
-```
-X_t = [
-  [SMA₇[t−30], SMA₂₀[t−30], SMA₅₀[t−30], SMA₁₀₀[t−30]],
-  [SMA₇[t−29], SMA₂₀[t−29], SMA₅₀[t−29], SMA₁₀₀[t−29]],
-  ...
-  [SMA₇[t],    SMA₂₀[t],    SMA₅₀[t],    SMA₁₀₀[t]]
-]
-```
-
-Each row represents one timestep, and each column represents a different SMA period. The goal is to predict a price movement or trading signal at time $t+1$ based on the SMA dynamics observed in the prior $L$ timesteps.
-
-#### **Reinforcement Learning**: 
-
-Adaptive strategy where a machine learning model looks at the market situation and determines which model should be applied to evaluate a trade
-
-#### **Confidence**: 
-
-Confidence of trade execution which may be used for `punishment`, or reinforcement. There is already a scaling factor $\chi$ for position sizes, this can be expanded upon
-
-#### **PCA**: 
-
-Vectorize successful and unsuccessful trades, create a PCA to visualize and cluster trades. Identify trends and clusters which may arise
-
-### 9.2 Infrastructure Scaling
-
-System enhancements:
-- **Multi-Asset Support**: More ETFs may be used for the same strategy, as we standardize prices. This means the same `.rds` may be used
-- **Real-Time Analytics**: Enhanced monitoring capabilities such as a live trading dashboard
-- **Cloud-infrastructure**: Move processes to microservices so that host capacity or host availability is not a bottleneck
-
-### 9.3 Centralization
-
-Using `.rds` (the R binary file format for serialized models) for each prediction introduces unnecessary latency, as the model must be loaded from disk and invoked on every call. This results in slow inference times, especially problematic in the SMCs we are targeting. A more efficient alternative is to host the models in a persistent R process and expose a WebSocket or REST API for inference, allowing the models to remain in memory and significantly reducing response time. Alternatively, migrating the models entirely to Python by retraining them using equivalent libraries like scikit-learn—would eliminate cross-language overhead and simplify system architecture, enabling faster evaluations per second.
-## 10. Lessons Learned
-
-Developing 2023-momentum provided valuable insights into practical algorithmic trading:
-
-**What Worked Well**:
-- Multi-timeframe approach captured different market dynamics effectively
-- ATR-based risk management adapted well to changing volatility
-- Ensemble methods provided more robust predictions than individual models
-
-**Key Challenges**:
-- Model overfitting required careful validation procedures, linear models were better in this regard
-- Real-time execution introduced latency considerations not present in backtesting, the compute time was on average 8 seconds. I doubt this changed the SMC the trade was in, but it is very important to note regardless
-
-
-This project demonstrates that systematic approaches to trading can be profitable when properly implemented with appropriate risk controls. The key is combining sound statistical methods with practical market knowledge and robust execution infrastructure.
-
-## Resources
-
-**Data Sources**:
-- Market data obtained through TD Ameritrade (deprecated) API. Big thanks to the folks at [td-api](https://tda-api.readthedocs.io/en/latest/)
-- Technical indicators calculated using custom implementations
-- Backtesting performed on historical SPY data from 2022-2023
-
-**Tools and Libraries**:
-- R: randomForest, e1071, class, rpart packages
-- Python: pandas, numpy for data processing
-- AWS Chalice for cloud deployment
-
-## Appendix A: Model Specifications
-
-### A.1 Random Forest Parameters
-- Number of trees: 1000
-- Features per split: √p (where p is total features)
-- Minimum samples per leaf: 5
-- Bootstrap sampling: True
-
-### A.2 SVM Configuration
-- Kernel types: RBF, Linear
-- Regularization parameter C: Grid-searched
-- Gamma parameter: Auto-scaled
-- Probability estimates: Enabled
-
-### A.3 Feature Set Details
-- ATR (Average True Range): 15-period
-- SMA periods: 7, 20, 50, 100
-- Price ratios: Current/SMA for each period
-- Momentum indicators: Multi-period price changes
-- Volume-weighted features: Price-volume relationships
-
-## Appendix B: Performance Tables
-[R backtesting](SPY%20training/workbooks.strat_book.pdf)
+- Agresti, A. (2013). *Categorical Data Analysis*. 3rd ed.
+- Chen, T., & Guestrin, C. (2016). XGBoost.
+- Vapnik, V. (1995). *The Nature of Statistical Learning Theory*.
