@@ -1,5 +1,6 @@
 ---
-title: "Machine Learning-Driven Multi-Timeframe Trading Strategy for SPY ETF"
+title: "Machine Learning-Driven Algorithmic Trading Strategy for SPY ETF"
+
 author: "Ayan Goswami"
 date: "2025-07-16"
 output:
