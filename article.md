@@ -1,16 +1,7 @@
----
-title: "Machine Learning-Driven Algorithmic Trading Strategy for SPY ETF"
-author: "Ayan Goswami"
-date: "2025-07-16"
-output:
-  pdf_document:
-    toc: true
-    toc_depth: 3
-  html_document:
-    toc: true
-    toc_float: true
-    theme: flatly
----
+# Machine Learning-Driven Algorithmic Trading Strategy for SPY ETF
+
+**Author:** Ayan Goswami  
+**Date:** July 16, 2025
 
 # Abstract
 
