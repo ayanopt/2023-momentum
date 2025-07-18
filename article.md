@@ -138,11 +138,11 @@ The logistic regression model estimates the probability of profitable trades by 
 $$ \log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \cdots + \beta_k X_k $$
 
 Where p represents the probability of a profitable trade and X_i are the predictor variables.
-Initially, all regressors the three moving averages ($SMA_7$, $SMA_20$, $SMA_50$), normalized volume, and ATR  were included in a logistic regression model, along with all possible interaction terms up to the fourth order. This resulted in a model with 126 terms. However, only a small subset of coefficients were statistically significant based on their p-values, and diagnostic plots revealed strong multicollinearity among the SMA features.
+Initially, all regressors the three moving averages ($SMA_{7}$, $SMA_{20}$, $SMA_{50}$), normalized volume, and ATR  were included in a logistic regression model, along with all possible interaction terms up to the fourth order. This resulted in a model with 126 terms. However, only a small subset of coefficients were statistically significant based on their p-values, and diagnostic plots revealed strong multicollinearity among the SMA features.
 
 ![](collinearity.png)
 
-To quantify the multicollinearity, we calculated the Variance Inflation Factor (VIF) using a linear regression model with pl_value as the dependent variable. The VIF for SMA_20 exceeded the conventional threshold of 5, indicating substantial collinearity with the other predictors. As a result, SMA_20 was excluded from subsequent models to improve stability and interpretability. This threshold aligns with guidance in regression diagnostics literature (see James et al., 2021);
+To quantify the multicollinearity, we calculated the Variance Inflation Factor (VIF) using a linear regression model with pl_value as the dependent variable. The VIF for $SMA_{20}$ exceeded the conventional threshold of 5, indicating substantial collinearity with the other predictors. As a result, $SMA_{20}$ was excluded from subsequent models to improve stability and interpretability. This threshold aligns with guidance in regression diagnostics literature (see James et al., 2021);
 
 Variable selection was conducted using both stepwise selection based on the Akaike Information Criterion (AIC) and Lasso regularization. These methods were employed to reduce model complexity and mitigate multicollinearity, particularly among the interaction terms. The AIC approach iteratively added or removed predictors to minimize information loss, while the Lasso imposed an $L_1$ penalty to shrink less informative coefficients toward zero.
 
@@ -163,7 +163,7 @@ $$ L(\phi) = \sum_{i=1}^n l(y_i, \hat{y}i) + \sum{k=1}^K \Omega(f_k) $$
 
 where l is the loss function, $\hat{y}_i$ are predicted probabilities, and $\Omega$ represents regularization terms controlling model complexity. 
 
-Similar to the logistic regression approach, we applied threshold tuning to this model’s probabilistic outputs in order to maximize precision. Rather than using a fixed decision threshold of 0.5, we evaluated multiple upper quantiles of the predicted probability distribution to identify the cutoff that minimized false positives. The model was trained using all two way and higher-order interaction terms among the predictors, allowing it to capture complex nonlinear relationships in the data. The highest precision achieved was 76.65% at a threshold of 0.555, indicating that trade signals above this level were highly reliable.
+Similar to the logistic regression approach, we applied threshold tuning to this model’s probabilistic outputs in order to maximize precision. Rather than using a fixed decision threshold of 0.5, we evaluated multiple upper quantiles of the predicted probability distribution to identify the cutoff that minimized false positives. The model was trained using all two way and higher-order interaction terms among the predictors, allowing it to capture complex nonlinear relationships in the data. The highest precision achieved was 76.65% at a threshold of `0.555`, indicating that trade signals above this level could be more reliable.
 
 ## Support Vector Machines
 
@@ -173,7 +173,7 @@ $$ K(\mathbf{x}_i, \mathbf{x}_j) = \exp(-\gamma ||\mathbf{x}_i - \mathbf{x}_j||^
 
 The RBF kernel implicitly maps the input features into an infinite dimensional space, enabling the model to construct flexible decision boundaries without requiring explicit feature engineering. This approach is well-suited for financial applications, where interactions between technical indicators are often nonlinear and context-dependent. The RBF kernel is widely regarded for its ability to generalize well in high dimensional settings (Vapnik, 1995). 
 
-Probability calibration and threshold optimization were performed analogously to the GLM and XGBoost approaches. By scanning upper quantiles of the model’s predicted probability distribution, we identified an optimal decision threshold that prioritized precision. The highest precision achieved by the SVM model was 79.55% at a threshold of 0.612, demonstrating its effectiveness in filtering for high confidence trade signals.
+Probability calibration and threshold optimization were performed analogously to the GLM and XGBoost approaches. By scanning upper quantiles of the model’s predicted probability distribution from the training data predicted values, we identified an optimal decision threshold that prioritized precision. The highest precision achieved by the SVM model was 79.55% at a threshold of `0.612`.
 
 
 # Results (Backtesting trading simulation)
