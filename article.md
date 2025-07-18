@@ -5,7 +5,7 @@
 
 # Abstract
 
-This paper presents a machine learning framework for intraday trading of the SPDR S&P 500 ETF (SPY) using standardized formats of traditional indicators. The strategies leverage Average True Range (ATR), Moving Averages, and Volume to try and predict short term momentum bursts (MBs). We employ logistic regression, XGBoost, and support vector machines (SVM) to predict this, and this paper will focus on long-only strategies as they are less risky when implementing in a production environment. Emphasis is placed on high precision and minimizing false positives using probabilistic thresholds derived from model outputs. Backtests demonstrate that our methods significantly outperform random chance in terms of Sharpe ratio, precision, and drawdown control.
+This paper presents a machine learning framework for intraday trading of the SPDR S&P 500 ETF (SPY) using standardized formats of traditional indicators. The strategies leverage Average True Range ( $\sigma$), Moving Averages, and Volume to try and predict short term momentum bursts (MBs). We employ logistic regression, XGBoost, and support vector machines (SVM) to predict this, and this paper will focus on long-only strategies as they are less risky when implementing in a production environment. Emphasis is placed on high precision and minimizing false positives using probabilistic thresholds derived from model outputs. Backtests demonstrate that our methods significantly outperform random chance in terms of Sharpe ratio, precision, and drawdown control.
 
 Keywords: Support Vector Machines, Gradient
 
@@ -24,20 +24,17 @@ There is no right way to time price trends, hence the best path forward to speci
 4. 60 minutes
 5. 180 minutes
 
-## ATR (volatility measure)
+##  $\sigma$ (volatility measure)
 
-ATR (Average true range) is a technical indicator that measures market volatility by decomposing the entire range of an asset's price for a given period. Developed by J. Welles Wilder, it's calculated using the previous price movements of the security. For the purpose of our analysis, it was calculated using standard deviation.
+For the purpose of our analysis, we calculated standard deviation of the price as an indicator for market volatility.
 
-$$ ATR_T = \sqrt{\frac{\sum_{i=T-k}^{T}(OHLC_i - \mu_T)^2}{k}} $$ 
+$$ \sigma_T = \sqrt{\frac{\sum_{i=T-k}^{T}(OHLC_i - \mu_T)^2}{k}} $$ 
 
 
-Where $OHLC = \frac{Open+High+Low+Close}{4}$ and $k$ is the look back period. The look back period standard in the industry is 14, and we set this as our look back period as well.
+Where $OHLC = \frac{Open+High+Low+Close}{4}$ and $k$ is the look back period. The look back period standard in the industry is 14, and we set this as our look back period as well. The motivation was to control the sensitivity to market volatility and potentially use as a regressor. The purpose is that it scales profit/loss targets based on current market conditions
 
-The motivation was to control
-the sensitivity to market volatility and potentially use as a regressor. The purpose is that it scales profit/loss targets based on current market conditions
-
-During the data mining process, we introduced an ATR scaling factor $\lambda$ which uses ATR to increase profit and loss margins. 
-- **Example**: If SPY ATR = 0.50 and $\lambda = 10$:
+During the data mining process, we introduced an  $\sigma$ scaling factor $\lambda$ which uses  $\sigma$ to increase profit and loss margins. 
+- **Example**: If SPY  $\sigma$ = 0.50 and $\lambda = 10$:
     - Base volatility adjustment = 10 × 0.50 = \$5.00
     - Hypothetically: Sell if SPY is up 5$ from entry price
 
@@ -58,9 +55,9 @@ Hence the relationships for each timeout are as follows:
 Furthermore, we introduced an asymmetric risk-ratio ($\chi$) which determines how much higher the take profit price will be compared to the stop loss, for a given $\lambda$. For simplicity though, this was fixed to 1.5. Further exploration can be conducted to fine tune this parameter
 
 Our `pl_value` column was determined by a 100 shares of SPY, where the targets were:
-- **Profit Target** $PT$: $Price + \lambda * \chi × ATR$
+- **Profit Target** $PT$: $Price + \lambda * \chi ×  \sigma$
 
-- **Loss Target** $LT$: $Price - \lambda * ATR$
+- **Loss Target** $LT$: $Price - \lambda *  \sigma$
 
 For each entry point $i$, the algorithm checks future prices within time window $t$ minutes. This is done pessimistically, where the stop loss is evaluated first:
 Stop Loss Check:
@@ -69,7 +66,7 @@ if Low_{i+j} ≤ Loss_target:
     PL = 0  # Loss trade
     pl_value = (Loss_target - Open_i) × 100
 where:
-Loss_target = Open_i - (λ × ATR_i)
+Loss_target = Open_i - (λ ×  sd_i)
 j ∈ [0, t]
 ```
 
@@ -79,7 +76,7 @@ if High_{i+j} ≥ Profit_target:
     PL = 1  # Winning trade
     pl_value = (Profit_target - Open_i) × 100
 where:
-Profit_target = Open_i + (λ × ATR_i)
+Profit_target = Open_i + (λ ×  sd_i)
 j ∈ [0, t]
 ```
 Time Expiry:
@@ -95,10 +92,13 @@ Moving averages are fundamental to technical analysis, serving as trend-followin
 
 $$SMA_k = \frac{Open_T}{\frac{1}{k}\sum_{i=T-k}^{T-1}Close_i}$$
 
-where $T$ represents the current time period and $k$ is the lookback period. This standardization creates a ratio where values above 1.0 suggest bullish conditions (current price exceeds historical average), while values below 1.0 indicate bearish conditions (current price below historical average). For our analysis, we selected three key lookback periods:
+where $T$ represents the current time period and $k$ is the lookback period. This standardization creates a ratio where values above 1.0 suggest bullish conditions (current price exceeds historical average), while values below 1.0 indicate bearish conditions (current price below historical average). This way we have a value that is centered at 1, instead of being scaled based on the current price of the ticker. This way the analysis may be used for other symbols in the future, as well as remain relevant if the price were to increase or decrease dramatically in the future. 
+
+For our analysis, we selected three key lookback periods:
 1. 7
 2. 20
-3. 50 
+3. 50
+
 This represents short, medium, and long term trends respectively. To capture the interplay between different time horizons that traders often consider, we incorporated interaction terms between these moving averages in our models.
 
 
@@ -108,7 +108,9 @@ We normalized the trading volume to address the highly volatile nature of SPY in
 
 # Methodology
 
-Our study prioritized model precision to minimize false positives in trading signals, as these can lead to significant financial losses. We selected three complementary models: logistic regression, XGBoost, and Support Vector Machines (SVM) with a radial kernel. Logistic regression serves as an interpretable baseline, while XGBoost excels at capturing non linear feature interactions and handling imbalanced financial data through its gradient boosting framework. The SVM with a radial kernel function (RBF) was chosen for its ability to find complex decision boundaries in high-dimensional space while being less prone to overfitting compared to linear kernels. While no model inherently guarantees high precision, we enhanced their performance through threshold optimization, allowing us to adjust the trade-off between precision and recall based on our risk tolerance. This approach enables us to reduce false positives, which is crucial for practical trading applications. For simplicity, this paper will focus on the results of the smallest timeout (3 minutes). The p value used for determining validity is 0.05. The train-test split was 75-25, so our model was trained on 16119 observations. 
+Our study prioritized model precision to minimize false positives in trading signals, as these can lead to significant financial losses. We selected three complementary models: logistic regression, XGBoost, and Support Vector Machines (SVM) with a radial kernel. Logistic regression serves as an interpretable baseline, while XGBoost excels at capturing non linear feature interactions and handling imbalanced financial data through its gradient boosting framework. The SVM with a radial kernel function (RBF) was chosen for its ability to find complex decision boundaries in high-dimensional space. The inclusion of support vector machines and XGBoost alongside logistic regression reflects a deliberate bias-variance tradeoff. Logistic regression introduces more bias but offers robustness and low variance in small or noisy datasets. In contrast, XGBoost and SVMs reduce bias by capturing nonlinear interactions at the cost of increased variance. This tradeoff is critical in financial time series where signal-to-noise ratios are often low and overfitting is a substantial risk. By combining these models and tuning their thresholds independently, we aim to balance generalization performance across diverse market regimes.
+
+While no model inherently guarantees high precision, we enhanced their performance through threshold optimization, allowing us to adjust the trade-off between precision and recall based on our risk tolerance. This approach enables us to reduce false positives, which is crucial for practical trading applications. Threshold tuning was conducted using quantiles of predicted probabilities to emphasize precision. From a decision-theoretic perspective, this reflects asymmetric costs between false positives and false negatives, where incorrect trade entry carries greater financial risk than missed opportunities. This approach is analogous to varying the decision threshold in ROC analysis, effectively adjusting the classifier's operating point to match domain-specific utility functions. The result is a calibrated classification boundary aligned with the underlying risk-reward structure of algorithmic trading. For simplicity, this paper will focus on the results of the smallest timeout (3 minutes). The p value used for determining validity is 0.05. The train-test split was 75-25, so our model was trained on 16119 observations. 
 
 The following are the metrics of evaluating the model.
 
@@ -133,12 +135,12 @@ These values serve as statistical baselines: any strategy whose performance fail
 
 ## Logistic Regression
 
-The logistic regression model estimates the probability of profitable trades by modeling the log-odds as a linear function of predictors:
+Logistic regression was selected for its interpretability and theoretical grounding in binary classification tasks. In contexts where the positive class is relatively rare, as is the case with profitable trades modeling the log-odds rather than raw probabilities provides more stable estimates. The log-odds transformation ensures that predicted probabilities remain bounded between 0 and 1 while allowing the linear model to capture additive effects in the latent space. This is particularly important in sparse positive classes, where naive probability estimates tend to be biased toward the majority class. The odds-based interpretation also facilitates the analysis of marginal effects and covariate influence on trading outcomes. The logistic regression model estimates the probability of profitable trades by modeling the log-odds as a linear function of predictors:
 
 $$ \log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \cdots + \beta_k X_k $$
 
-Where p represents the probability of a profitable trade and X_i are the predictor variables.
-Initially, all regressors the three moving averages ($SMA_{7}$, $SMA_{20}$, $SMA_{50}$), normalized volume, and ATR  were included in a logistic regression model, along with all possible interaction terms up to the fourth order. This resulted in a model with 126 terms. However, only a small subset of coefficients were statistically significant based on their p-values, and diagnostic plots revealed strong multicollinearity among the SMA features.
+Where p represents the probability of a profitable trade and $X_i$ are the predictor variables.
+Initially, all regressors the three moving averages ($SMA_{7}$, $SMA_{20}$, $SMA_{50}$), normalized volume, and  $\sigma$  were included in a logistic regression model, along with all possible interaction terms up to the fourth order. This resulted in a model with 126 terms. However, only a small subset of coefficients were statistically significant based on their p-values, and diagnostic plots revealed strong multicollinearity among the SMA features.
 
 ![](collinearity.png)
 
@@ -213,13 +215,13 @@ The ensemble prediction strategy applied the default threshold of 0.5 across all
 </table>
 
 # Discussion
-While the trading models achieved precision levels significantly above the random baseline, the realized returns did not exceed the 95% confidence lower bound of the random trader’s return distribution (0.046%). This suggests that although the models were effective at identifying high probability trades, the magnitudes of those profits were insufficient to produce statistically superior capital growth under the market conditions observed. Notably, the logistic regression model achieved exactly 50% precision—surpassing the baseline threshold of 45.5%, but failed to produce returns beyond random chance. This indicates that the model was directionally correct more often than not, but the trades it identified were likely concentrated in a low volatility or declining market regime, where even accurate predictions produced minimal gains. There is scope for further analysis by clustering the types of trades the model tends to make. This could be achieved through dimensionality reduction techniques such as Principal Component Analysis (PCA), using PL as the reference variable. By projecting high dimensional feature sets, particularly those involving Volume and ATR, onto a lower dimensional space, it may be possible to identify distinct trends which explain when the model performs best and when it falters. A tree model may also perform well in this regard, where pruning can be conducted to improve precision.
+While the trading models achieved precision levels significantly above the random baseline, the realized returns did not exceed the 95% confidence lower bound of the random trader’s return distribution (0.046%). This suggests that although the models were effective at identifying high probability trades, the magnitudes of those profits were insufficient to produce statistically superior capital growth under the market conditions observed. Notably, the logistic regression model achieved exactly 50% precision surpassing the baseline threshold of 45.5%, but failed to produce returns beyond random chance. This indicates that the model was directionally correct more often than not, but the trades it identified were likely concentrated in a low volatility or declining market regime, where even accurate predictions produced minimal gains. There is scope for further analysis by clustering the types of trades the model tends to make. This could be achieved through dimensionality reduction techniques such as Principal Component Analysis (PCA), using PL as the reference variable. By projecting high dimensional feature sets, particularly those involving Volume and  $\sigma$, onto a lower dimensional space, it may be possible to identify distinct trends which explain when the model performs best and when it falters. A tree model may also perform well in this regard, where pruning can be conducted to improve precision.
 
 The ensemble model, which required unanimous agreement across all three classifiers, delivered the highest precision (68.25%) and came closest to matching the baseline return threshold. However, even this approach fell marginally short of outperforming the simulated random trader in terms of returns, reinforcing the challenge of generating statistically robust profit under volatile or adverse market conditions. The extremely low baseline return of 0.046% also reflects a high degree of variance in the random strategy, as indicated by the large spread in drawdowns and Sharpe ratios observed across simulations.
 
 Further research could explore the use of neural network architectures, such as Long Short Term Memory (LSTM) networks, which are particularly well-suited for time series data. LSTMs have demonstrated strong performance in financial forecasting tasks due to their ability to retain temporal dependencies and process high-dimensional input matrices for a single output. This makes them a promising candidate for modeling momentum bursts and dynamic market regimes that are less amenable to traditional models.
 
-Additionally, future work may involve tuning the parameters of key technical indicators used as features. While this study adopted fixed, industry standard values for the Average True Range (ATR) and standardized moving average windows to avoid overfitting, systematic optimization of these parameters could yield more responsive and context aware features. A big critique of our methodology is that it relies on a few "magic numbers", which may seem normal to a trader, but arbitrary to someone who lacks the background knowledge A formal hyperparameter tuning loop across ATR scaling factors and moving average lookback periods may uncover configurations better suited for specific timeouts or volatility regimes. However, this notoriously leads to overfitting, and would need to be cross-validated thoroughly.
+Additionally, future work may involve tuning the parameters of key technical indicators used as features. While this study adopted fixed, industry standard values for the volatility measure ( $\sigma$) and standardized moving average windows to avoid overfitting, systematic optimization of these parameters could yield more responsive and context aware features. A big critique of our methodology is that it relies on a few "magic numbers", which may seem normal to a trader, but arbitrary to someone who lacks the background knowledge A formal hyperparameter tuning loop across  $\sigma$ scaling factors and moving average lookback periods may uncover configurations better suited for specific timeouts or volatility regimes. However, this notoriously leads to overfitting, and would need to be cross-validated thoroughly.
 
 Finally, while this study used a single train-test split to evaluate model performance, a more rigorous validation framework such as time-series cross-validation could be employed. These approaches would better capture the non-stationarity inherent in financial data and provide a more reliable estimate of out-of-sample performance.
 
