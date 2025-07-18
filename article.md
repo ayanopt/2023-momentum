@@ -120,11 +120,9 @@ The following are the metrics of evaluating the model.
 - **Returns**: Percentage increase in capital
 
 ## Baseline: Random Trading Simulation
-To ensure that the observed model performance was not an artifact of upward trending data or survivorship bias, we established a benchmark using a random trading strategy. A "coin-toss" trader was simulated by randomly deciding whether to take each trade, independent of market features. This simulation was run 100 times with different seeds, each time using a fresh draw from the test set and computing the resulting capital trajectory.
+To ensure that the observed model performance was not an artifact of upward trending data or survivorship bias, we established a benchmark using a random trading strategy. A "coin-toss" trader was simulated by randomly deciding whether to take each trade, independent of market features. This simulation was run 100 times with different seeds, each time using a fresh draw from the test set and computing the results.
 
-For each run, we recorded both the precision (fraction of trades that resulted in profit) and the percentage return. The simulations yielded a distribution of outcomes representing what could be achieved through pure chance.
-
-Using a normal approximation, we computed the 95th percentile lower bound for both metrics:
+For each run, we recorded the above metrics. The simulations yielded a distribution of outcomes representing what could be achieved through pure chance. Using a normal approximation, we computed the 95th percentile lower/upper bound for these metrics:
 
 - (Lower bound) Precision: 0.455
 - (Lower bound) Return: 0.046%
