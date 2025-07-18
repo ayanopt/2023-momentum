@@ -1,7 +1,7 @@
 library("caret")
 
 #--------------------------------------------load models
-lm_1_3 <- readRDS("./models/SPY_1m/SPY_1m_lm_1_3.rds")
+lm_1_3 <- readRDS("./models/SPY_1m/SPY_1m_glm_1_3.rds")
 
 lm_3_5 <- readRDS("./models/SPY_1m/SPY_1m_lm_3_5.rds")
 glm_3_5 <- readRDS("./models/SPY_1m/SPY_1m_glm_3_5.rds")

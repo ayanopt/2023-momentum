@@ -21,6 +21,8 @@ Trade timeout duration (minutes). View data_mining.ipynb for how this is populat
 
 ```{r}
 data1_3 = read.csv("../csvs/train1_3.csv")
+# pl_value was calculated with 1000 shares when I made it 2023. I think 100 is cleaner
+data1_3$pl_value = data1_3$pl_value/10
 ```
 
 # Data exploration for 1_3
@@ -54,7 +56,7 @@ the sensitivity to market volatility:
 ### pl_value
 
 It is determined by iterating through the dataframe and seeing if the
-price reaches take profit or stop loss first. It assumes a 1000 share
+price reaches take profit or stop loss first. It assumes a 100 share
 position size.
 
 #### Profit-to-Loss Ratio (Chi)
@@ -124,7 +126,7 @@ Standard normalization $norm\_vol = \frac{mean(Vol) - Vol}{sd(Vol)}$
 Split train-test data
 
 ```{r}
-seed_num = 7
+seed_num = 13
 set.seed(seed_num) # reproducibility
 data1_3$norm_volume = (data1_3$Volume - mean(data1_3$Volume))/sd(data1_3$Volume)
 ind = sample(1:nrow(data1_3),0.75*nrow(data1_3))
@@ -264,7 +266,8 @@ selected_vars
 These are a lot fewer than earlier, let's fit this conservative model as well.
 
 ```{r}
-glm_formula <- as.formula(paste("PL ~", paste(selected_vars, collapse = " + ")))
+glm_formula <- as.formula(paste("PL ~", 
+                                paste(selected_vars, collapse = " + ")))
 glm_cons <- glm(glm_formula, data = train, family = "binomial")
 summary(glm_cons)
 ```
@@ -308,15 +311,88 @@ for (i in 1:1000) {
   baseline_accuracy <- c(mean(coin_flips == test$PL), baseline_accuracy)
 }
 set.seed(seed_num) # reproducibility
-cat("Coin toss simulations that performed better than strategy :",length(baseline_accuracy[baseline_accuracy>winrate]) / length(baseline_accuracy))
+cat("Coin toss simulations that performed better than strategy :",
+    length(baseline_accuracy[baseline_accuracy>winrate]) / length(baseline_accuracy))
 
 
 # Use normal approximation
 
-cat("\nWinrate p value:",pnorm(winrate, mean(baseline_accuracy), sd(baseline_accuracy), lower.tail = F))
+cat("\nWinrate p value:",pnorm(winrate, mean(baseline_accuracy), sd(baseline_accuracy),
+                               lower.tail = F))
+
+cat("\nStatistically significant lower bound on accuracy", qnorm(0.95, mean(baseline_accuracy),
+                                                                 sd(baseline_accuracy)))
 ```
 
-This is definitely below the p value.
+This makes it clear that our models perform better than random chance, however we need to set a baseline for precision as well.
+
+### Random chance
+It's possible that the data is looking at a biased subset of information. It's possible that the overall trend from when this data was collected was upward, and these models wouldn't hold up in turbulent market. To disprove this, A random trader was utilized, trading on a coin toss. This simulation is run 100 times to give a baseline of precision, and returns for our p-value.
+```{r}
+precisions <- c()
+percent_returns <- c()
+sharpe_ratios <- c()
+max_drawdowns <- c()
+
+initial_capital <- (1 / 0.02) * (100 * sample(test$Open, 1))
+# Diff seeds
+for (i in 1001:1100) {
+  set.seed(i)
+  capital <- initial_capital
+  drawdown <- c(capital)
+  wins <- c()
+  
+  for (j in 1:nrow(test)) {
+    if (round(runif(1, 0, 1)) == 1) {
+      capital <- capital + test$pl_value[j]
+      drawdown <- c(drawdown, capital)
+      wins <- c(wins, test$pl_value[j])
+    }
+  }
+  
+  returns <- diff(drawdown)
+  num_wins <- sum(returns > 0)
+  total_trades <- length(returns)
+  
+  precision <- if (total_trades > 0) num_wins / total_trades else NA
+  percent_return <- round(((capital / initial_capital) - 1) * 100, 2)
+  
+  # Sharpe Ratio (no risk-free rate)
+  sharpe <- if (length(wins) > 1 && sd(wins) > 0) {
+    mean(wins) / sd(wins)
+  } else {
+    NA
+  }
+  
+  # Max Drawdown
+  equity_curve <- drawdown
+  peak <- cummax(equity_curve)
+  dd <- (equity_curve - peak) / peak
+  max_dd <- min(dd)
+  
+  # Store metrics
+  precisions <- c(precision, precisions)
+  percent_returns <- c(percent_return, percent_returns)
+  sharpe_ratios <- c(sharpe, sharpe_ratios)
+  max_drawdowns <- c(max_dd, max_drawdowns)
+}
+
+# Baseline values at 95% confidence level
+cat("\nStatistically significant lower bound on precision:", 
+    qnorm(0.95, mean(precisions, na.rm = TRUE), sd(precisions, na.rm = TRUE)))
+
+cat("\nStatistically significant lower bound on returns (%):", 
+    qnorm(0.95, mean(percent_returns, na.rm = TRUE), sd(percent_returns, na.rm = TRUE)))
+
+cat("\nStatistically significant lower bound on Sharpe Ratio:", 
+    qnorm(0.95, mean(sharpe_ratios, na.rm = TRUE), sd(sharpe_ratios, na.rm = TRUE)))
+
+cat("\nStatistically significant upper bound on Max Drawdown (%):", 
+    qnorm(0.05, mean(max_drawdowns, na.rm = TRUE), sd(max_drawdowns, na.rm = TRUE)) * 100)
+
+```
+
+This is a good baseline estimate for random chance precision. All models should try and perform higher than this.
 
 ### Buy threshold
 
@@ -362,7 +438,8 @@ for (prob in probs) {
               prob, true_positive, false_positive, winrate))
 }
 
-best_threshold_glm = qnorm(1 - prob_with_best_winrate, mean = fit_mean, sd = fit_sd)
+best_threshold_glm = qnorm(1 - prob_with_best_winrate,
+                           mean = fit_mean, sd = fit_sd)
 cat("Best winrate", best_winrate*100)
 cat("\nProbability with highest precision", prob_with_best_winrate)
 cat("\nThreshold", best_threshold_glm)
@@ -372,12 +449,12 @@ cat("\nThreshold", best_threshold_glm)
 
 ### Drawdown
 
-`pl_value` is calculated with 1000 shares of SPY. In trading, using 2%
+`pl_value` is calculated with 100 shares of SPY. In trading, using 2%
 of your portfolio in a trade is recommended, hence, The initial capital
-is set at $\frac{1}{0.02} * (1000 * Price)$.
+is set at $\frac{1}{0.02} * (100 * Price)$.
 
 ```{r}
-initial_capital = (1/(0.02))*(1000 * sample(train$Open, 1)) # random price
+initial_capital = (1/(0.02))*(100 * sample(train$Open, 1)) # random price
 capital <- initial_capital
 drawdown <- c(capital)
 wins <- c()
@@ -422,6 +499,17 @@ cat("\nFinal Capital:", tail(drawdown, 1), "\n")
 cat("Sharpe Ratio:", round(sharpe, 3), "\n")
 cat("Max Drawdown:", max_drawdown*100, "%\n")
 cat("Returns:", ((capital/initial_capital)-1)*100, "%\n")
+returns <- diff(drawdown)
+
+# Count wins and total trades
+num_wins <- sum(returns > 0)
+num_losses <- sum(returns <= 0)
+total_trades <- length(returns)
+
+# Winrate as percentage
+winrate <- num_wins / total_trades
+
+cat("Precision:", round(winrate * 100, 2), "%\n")
 ```
 
 ## XGboost
@@ -444,7 +532,8 @@ library(Matrix)
 library(caret)
 
 data = train
-X = model.matrix(PL ~ (ATR + SMA_k7 + SMA_k50 + norm_volume)^4, data=data)[, -1]
+X = model.matrix(PL ~ (ATR + SMA_k7 + SMA_k50 + norm_volume)^4,
+                 data=data)[, -1]
 y = data$PL
 dtrain = xgb.DMatrix(data = X, label = y)
 ```
@@ -554,7 +643,7 @@ dtest = xgb.DMatrix(data = test_X)
 
 pred_probs_xg <- predict(model, dtest)
 
-initial_capital = (1/(0.02)) * (1000 * sample(train$Open, 1))
+initial_capital = (1/(0.02)) * (100 * sample(train$Open, 1))
 capital = initial_capital
 drawdown = c(capital)
 wins = c()
@@ -593,7 +682,20 @@ max_dd = min(drawdown - cummax(drawdown)) / max(drawdown)
 cat("Final Capital:", capital, "\n")
 cat("Sharpe Ratio:", round(sharpe, 3), "\n")
 cat("Max Drawdown:", round(max_dd * 100, 2), "%\n")
+cat("Returns:", ((capital/initial_capital)-1)*100, "%\n")
+returns <- diff(drawdown)
+
+# Count wins and total trades
+num_wins <- sum(returns > 0)
+num_losses <- sum(returns <= 0)
+total_trades <- length(returns)
+
+# Winrate as percentage
+winrate <- num_wins / total_trades
+
+cat("Precision:", round(winrate * 100, 2), "%\n")
 ```
+
 
 ### Commentary
 
@@ -637,7 +739,8 @@ optimizing precision
 ```{r}
 library(e1071)
 
-X = model.matrix(PL ~ (ATR + SMA_k7 + SMA_k50 + norm_volume)^4, data=train)[, -1]
+X = model.matrix(PL ~ (ATR + SMA_k7 + SMA_k50 + norm_volume)^4,
+                 data=train)[, -1]
 y = as.factor(train$PL)
 
 svm_model <- svm(x = X, y = y, 
@@ -666,7 +769,8 @@ Far too computationally expensive to run, `tune.svm` will take forever to compil
 ### Threshold Optimization for Precision
 
 ```{r}
-svm_probs <- attr(predict(svm_model, X, probability = TRUE), "probabilities")[, "1"]
+svm_probs <- attr(predict(svm_model, X, probability = TRUE),
+                  "probabilities")[, "1"]
 
 # Define threshold range
 probs <- 10^seq(-2, -10, length.out = 9)
@@ -697,19 +801,21 @@ for (prob in probs) {
               prob, TP, FP, precision))
 }
 
-cat("SVM Best Precision:", round(best_precision * 100, 2), "% at Threshold", best_threshold_svm, "\n")
+cat("SVM Best Precision:", round(best_precision * 100, 2),
+    "% at Threshold", best_threshold_svm, "\n")
 ```
 
 ### Backtesting SVM Strategy
 
 ```{r}
 #test data
-test_X <- model.matrix(PL ~ (ATR + SMA_k7 + SMA_k50 + norm_volume)^4, data=test)[, -1]
+test_X <- model.matrix(PL ~ (ATR + SMA_k7 + SMA_k50 + norm_volume)^4,
+                       data=test)[, -1]
 
 # Get probability predictions for test set
 test_probs_svm <- attr(predict(svm_model, test_X, probability = TRUE), "probabilities")[, "1"]
 
-initial_capital <- (1/(0.02)) * (1000 * sample(train$Open, 1))
+initial_capital <- (1/(0.02)) * (100 * sample(train$Open, 1))
 capital <- initial_capital
 drawdown <- c(capital)
 wins <- c()
@@ -748,7 +854,19 @@ cat("Initial Capital:", initial_capital, "\n")
 cat("Final Capital:", capital, "\n")
 cat("Sharpe Ratio:", round(sharpe, 3), "\n")
 cat("Max Drawdown:", round(max_dd * 100, 2), "%\n")
-cat("Returns:", round(((capital/initial_capital)-1)*100, 2), "%\n")
+cat("Returns:", round(((capital/initial_capital)-1)*100, 2),
+    "%\n")
+returns <- diff(drawdown)
+
+# Count wins and total trades
+num_wins <- sum(returns > 0)
+num_losses <- sum(returns <= 0)
+total_trades <- length(returns)
+
+# Winrate as percentage
+winrate <- num_wins / total_trades
+
+cat("Precision:", round(winrate * 100, 2), "%\n")
 ```
 
 ### SVM Advantages for Trading
@@ -772,52 +890,6 @@ The non-linear mapping capability is particularly valuable for capturing
 market regimes where relationships between indicators and outcomes
 change dynamically.
 
-# Random chance
-It's possible that the data is looking at a biased subset of information. It's possible that the overall trend from when this data was collected was upward, and these models wouldn't hold up in turbulent market. To disprove this, A random trader was utilized, trading on a coin toss
-```{r}
-initial_capital <- (1/(0.02)) * (1000 * sample(train$Open, 1))
-capital <- initial_capital
-drawdown <- c(capital)
-wins <- c()
-
-for (i in 1:nrow(test)) {
-  if (round(runif(1,0,1)) == 1) {
-    capital <- capital + test$pl_value[i]
-    drawdown <- c(drawdown, capital)
-    wins <- c(wins, test$pl_value[i])
-  }
-}
-
-ggplot(data = data.frame(trade = 1:length(drawdown), 
-                        equity = drawdown), 
-       aes(x = trade, y = equity)) +
-  geom_line(color = "black", size = 1) +
-  theme_minimal() +
-  labs(title = "Monkey trader Equity Curve",
-       x = "Trade #",
-       y = "Capital") +
-  theme(
-    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 10),
-    panel.grid.major = element_line(color = "grey90"),
-    panel.grid.minor = element_line(color = "grey95")
-  ) +
-  scale_y_continuous(labels = scales::comma)
-
-# Calculate performance metrics
-sharpe <- (tail(drawdown, 1) - drawdown[1]) / sd(wins)
-max_dd <- min(drawdown - cummax(drawdown)) / max(drawdown)
-
-cat("Initial Capital:", initial_capital, "\n")
-cat("Final Capital:", capital, "\n")
-cat("Sharpe Ratio:", round(sharpe, 3), "\n")
-cat("Max Drawdown:", round(max_dd * 100, 2), "%\n")
-cat("Returns:", round(((capital/initial_capital)-1)*100, 2), "%\n")
-```
-
-This makes it clear that our models perform better than random chance
-
 # Ensemble prediction
 For production trading systems, an ensemble approach combining these
 models might offer the most robust performance across varying market
@@ -825,7 +897,7 @@ conditions. Each model captures different aspects of market behavior,
 and their combined signals could provide more reliable trading decisions
 than any single model alone.
 ```{r}
-initial_capital = (1/(0.02))*(1000 * sample(train$Open, 1)) # random price
+initial_capital = (1/(0.02))*(100 * sample(train$Open, 1)) # random price
 capital <- initial_capital
 drawdown <- c(capital)
 wins <- c()
@@ -873,6 +945,17 @@ cat("\nFinal Capital:", tail(drawdown, 1), "\n")
 cat("Sharpe Ratio:", round(sharpe, 3), "\n")
 cat("Max Drawdown:", max_drawdown*100, "%\n")
 cat("Returns:", ((capital/initial_capital)-1)*100, "%\n")
+returns <- diff(drawdown)
+
+# Count wins and total trades
+num_wins <- sum(returns > 0)
+num_losses <- sum(returns <= 0)
+total_trades <- length(returns)
+
+# Winrate as percentage
+winrate <- num_wins / total_trades
+
+cat("Precision:", round(winrate * 100, 2), "%\n")
 ```
 ```
 

@@ -118,7 +118,7 @@ See data_mining.ipynb for information
 Split train-test data
 
 ```{r}
-seed_num = 7
+seed_num = 1
 set.seed(seed_num) # reproducibility
 data8_60$norm_volume = (data8_60$Volume - mean(data8_60$Volume))/sd(data8_60$Volume)
 ind = sample(1:nrow(data8_60),0.75*nrow(data8_60))

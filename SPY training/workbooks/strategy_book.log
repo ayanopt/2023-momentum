@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.7.16)  16 JUL 2025 18:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.7.16)  17 JUL 2025 19:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -477,10 +477,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 3.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 3.
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 13.
-(/Users/ayanopt/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
+
 
 [1
 
@@ -488,60 +485,64 @@ File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 \tf@toc=\write4
 \openout4 = `strategy_book.toc'.
 
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 136.
+(/Users/ayanopt/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 137.
 
 
 [2]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 188.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 190.
 (/Users/ayanopt/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 
-LaTeX Warning: Command \texttimes invalid in math mode on input line 214.
+LaTeX Warning: Command \texttimes invalid in math mode on input line 216.
 
 
-LaTeX Warning: Command \texttimes invalid in math mode on input line 214.
+LaTeX Warning: Command \texttimes invalid in math mode on input line 216.
 
 
 
 [3{/Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-<strategy_book_files/figure-latex/unnamed-chunk-4-1.pdf, id=107, 469.755pt x 325.215pt>
+<strategy_book_files/figure-latex/unnamed-chunk-4-1.pdf, id=110, 469.755pt x 325.215pt>
 File: strategy_book_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
 <use strategy_book_files/figure-latex/unnamed-chunk-4-1.pdf>
-Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-4-1.pdf  used on input line 304.
+Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-4-1.pdf  used on input line 310.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
 [4]
-<strategy_book_files/figure-latex/unnamed-chunk-5-1.pdf, id=115, 469.755pt x 325.215pt>
+<strategy_book_files/figure-latex/unnamed-chunk-5-1.pdf, id=117, 469.755pt x 325.215pt>
 File: strategy_book_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
 <use strategy_book_files/figure-latex/unnamed-chunk-5-1.pdf>
-Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-5-1.pdf  used on input line 322.
+Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-5-1.pdf  used on input line 328.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
 [5 <./strategy_book_files/figure-latex/unnamed-chunk-4-1.pdf>]
-<strategy_book_files/figure-latex/unnamed-chunk-6-1.pdf, id=126, 469.755pt x 325.215pt>
+<strategy_book_files/figure-latex/unnamed-chunk-6-1.pdf, id=128, 469.755pt x 325.215pt>
 File: strategy_book_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 <use strategy_book_files/figure-latex/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 345.
+Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 351.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 345--348
+Underfull \hbox (badness 10000) in paragraph at lines 351--354
 [][]
  []
 
 
 
 [6 <./strategy_book_files/figure-latex/unnamed-chunk-5-1.pdf>]
-<strategy_book_files/figure-latex/unnamed-chunk-7-1.pdf, id=137, 469.755pt x 325.215pt>
+<strategy_book_files/figure-latex/unnamed-chunk-7-1.pdf, id=139, 469.755pt x 325.215pt>
 File: strategy_book_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
 <use strategy_book_files/figure-latex/unnamed-chunk-7-1.pdf>
-Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 371.
+Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 377.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 371--379
+Underfull \hbox (badness 10000) in paragraph at lines 377--385
 [][]
  []
 
@@ -552,18 +553,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 371--379
 [8 <./strategy_book_files/figure-latex/unnamed-chunk-7-1.pdf>]
 
 [9]
-<strategy_book_files/figure-latex/unnamed-chunk-11-1.pdf, id=167, 469.755pt x 325.215pt>
+<strategy_book_files/figure-latex/unnamed-chunk-11-1.pdf, id=169, 469.755pt x 325.215pt>
 File: strategy_book_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
 <use strategy_book_files/figure-latex/unnamed-chunk-11-1.pdf>
-Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-11-1.pdf  used on input line 489.
+Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-11-1.pdf  used on input line 497.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
 [10 <./strategy_book_files/figure-latex/unnamed-chunk-11-1.pdf>]
-<strategy_book_files/figure-latex/unnamed-chunk-12-1.pdf, id=178, 469.755pt x 325.215pt>
+<strategy_book_files/figure-latex/unnamed-chunk-12-1.pdf, id=180, 469.755pt x 325.215pt>
 File: strategy_book_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 <use strategy_book_files/figure-latex/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 555.
+Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 563.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
@@ -576,92 +577,88 @@ Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-12-1.pdf
 [14]
 
 [15]
-<strategy_book_files/figure-latex/unnamed-chunk-18-1.pdf, id=206, 469.755pt x 325.215pt>
-File: strategy_book_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type pdf)
-<use strategy_book_files/figure-latex/unnamed-chunk-18-1.pdf>
-Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-18-1.pdf  used on input line 853.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
 
 [16]
 
-[17 <./strategy_book_files/figure-latex/unnamed-chunk-18-1.pdf>]
-
-[18]
-<strategy_book_files/figure-latex/unnamed-chunk-20-1.pdf, id=225, 469.755pt x 325.215pt>
-File: strategy_book_files/figure-latex/unnamed-chunk-20-1.pdf Graphic file (type pdf)
-<use strategy_book_files/figure-latex/unnamed-chunk-20-1.pdf>
-Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-20-1.pdf  used on input line 997.
+[17]
+<strategy_book_files/figure-latex/unnamed-chunk-19-1.pdf, id=216, 469.755pt x 325.215pt>
+File: strategy_book_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type pdf)
+<use strategy_book_files/figure-latex/unnamed-chunk-19-1.pdf>
+Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-19-1.pdf  used on input line 988.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
-[19 <./strategy_book_files/figure-latex/unnamed-chunk-20-1.pdf>]
+[18 <./strategy_book_files/figure-latex/unnamed-chunk-19-1.pdf>]
+
+[19]
 
 [20]
-<strategy_book_files/figure-latex/unnamed-chunk-22-1.pdf, id=240, 469.755pt x 325.215pt>
-File: strategy_book_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
-<use strategy_book_files/figure-latex/unnamed-chunk-22-1.pdf>
-Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-22-1.pdf  used on input line 1110.
+<strategy_book_files/figure-latex/unnamed-chunk-21-1.pdf, id=236, 469.755pt x 325.215pt>
+File: strategy_book_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (type pdf)
+<use strategy_book_files/figure-latex/unnamed-chunk-21-1.pdf>
+Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-21-1.pdf  used on input line 1153.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
-[21]
+[21 <./strategy_book_files/figure-latex/unnamed-chunk-21-1.pdf>]
 
-[22 <./strategy_book_files/figure-latex/unnamed-chunk-22-1.pdf>]
+[22]
+<strategy_book_files/figure-latex/unnamed-chunk-23-1.pdf, id=250, 469.755pt x 325.215pt>
+File: strategy_book_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (type pdf)
+<use strategy_book_files/figure-latex/unnamed-chunk-23-1.pdf>
+Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-23-1.pdf  used on input line 1266.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-[23]
+
+[23 <./strategy_book_files/figure-latex/unnamed-chunk-23-1.pdf>]
 
 [24]
 
 [25]
-<strategy_book_files/figure-latex/unnamed-chunk-25-1.pdf, id=270, 469.755pt x 325.215pt>
-File: strategy_book_files/figure-latex/unnamed-chunk-25-1.pdf Graphic file (type pdf)
-<use strategy_book_files/figure-latex/unnamed-chunk-25-1.pdf>
-Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-25-1.pdf  used on input line 1341.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-
-[26 <./strategy_book_files/figure-latex/unnamed-chunk-25-1.pdf>]
-
-[27]
-<strategy_book_files/figure-latex/unnamed-chunk-26-1.pdf, id=290, 469.755pt x 325.215pt>
+[26]
+<strategy_book_files/figure-latex/unnamed-chunk-26-1.pdf, id=277, 469.755pt x 325.215pt>
 File: strategy_book_files/figure-latex/unnamed-chunk-26-1.pdf Graphic file (type pdf)
 <use strategy_book_files/figure-latex/unnamed-chunk-26-1.pdf>
-Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-26-1.pdf  used on input line 1464.
+Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-26-1.pdf  used on input line 1532.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
+
+[27]
 
 [28 <./strategy_book_files/figure-latex/unnamed-chunk-26-1.pdf>]
-<strategy_book_files/figure-latex/unnamed-chunk-27-1.pdf, id=301, 469.755pt x 325.215pt>
-File: strategy_book_files/figure-latex/unnamed-chunk-27-1.pdf Graphic file (type pdf)
-<use strategy_book_files/figure-latex/unnamed-chunk-27-1.pdf>
-Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-27-1.pdf  used on input line 1568.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
 
 [29]
+<strategy_book_files/figure-latex/unnamed-chunk-27-1.pdf, id=300, 469.755pt x 325.215pt>
+File: strategy_book_files/figure-latex/unnamed-chunk-27-1.pdf Graphic file (type pdf)
+<use strategy_book_files/figure-latex/unnamed-chunk-27-1.pdf>
+Package pdftex.def Info: strategy_book_files/figure-latex/unnamed-chunk-27-1.pdf  used on input line 1680.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
 
 [30 <./strategy_book_files/figure-latex/unnamed-chunk-27-1.pdf>]
 
-[31] (./strategy_book.aux)
+[31]
+
+[32] (./strategy_book.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-11>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 12181 strings out of 469797
- 190727 string characters out of 5481693
- 606375 words of memory out of 5000000
- 40275 multiletter control sequences out of 15000+600000
+ 12178 strings out of 469797
+ 190289 string characters out of 5481693
+ 606348 words of memory out of 5000000
+ 40270 multiletter control sequences out of 15000+600000
  688988 words of font info for 88 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 89i,7n,93p,606b,627s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,7n,93p,606b,625s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx7.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on strategy_book.pdf (31 pages, 4328261 bytes).
+Output written on strategy_book.pdf (32 pages, 4321590 bytes).
 PDF statistics:
- 524 PDF objects out of 1000 (max. 8388607)
- 428 compressed objects within 5 object streams
- 79 named destinations out of 1000 (max. 500000)
- 341 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 526 PDF objects out of 1000 (max. 8388607)
+ 431 compressed objects within 5 object streams
+ 81 named destinations out of 1000 (max. 500000)
+ 344 words of extra memory for PDF output out of 10000 (max. 10000000)
 
