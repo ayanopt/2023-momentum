@@ -55,7 +55,7 @@ Hence the relationships for each timeout are as follows:
 Furthermore, we introduced an asymmetric risk-ratio ($\chi$) which determines how much higher the take profit price will be compared to the stop loss, for a given $\lambda$. For simplicity though, this was fixed to 1.5. Further exploration can be conducted to fine tune this parameter
 
 Our `pl_value` column was determined by a 100 shares of SPY, where the targets were:
-- **Profit Target** $PT$: $Price + \lambda * \chi ×  \sigma$
+- **Profit Target** $PT$: $Price + \lambda * \chi *  \sigma$
 
 - **Loss Target** $LT$: $Price - \lambda *  \sigma$
 
