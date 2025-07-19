@@ -1,6 +1,6 @@
 ---
 title: "SPY ETF ML Trading Strategy Analysis"
-author: "Algorithmic Trading System"
+author: "Ayan Goswami"
 date: "`r Sys.Date()`"
 output:
   pdf_document: 

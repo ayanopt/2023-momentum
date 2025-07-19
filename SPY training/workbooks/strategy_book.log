@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.7.16)  17 JUL 2025 19:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.7.16)  19 JUL 2025 11:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -649,13 +649,13 @@ L3 programming layer <2025-07-11>
 Here is how much of TeX's memory you used:
  12178 strings out of 469797
  190289 string characters out of 5481693
- 606348 words of memory out of 5000000
+ 606247 words of memory out of 5000000
  40270 multiletter control sequences out of 15000+600000
  688988 words of font info for 88 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  89i,7n,93p,606b,625s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx7.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/ayanopt/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on strategy_book.pdf (32 pages, 4321590 bytes).
+Output written on strategy_book.pdf (32 pages, 4319905 bytes).
 PDF statistics:
  526 PDF objects out of 1000 (max. 8388607)
  431 compressed objects within 5 object streams
