@@ -1,11 +1,11 @@
-# Machine Learning-Driven Algorithmic Trading Strategy for SPY ETF
+# Can Machine Learning replace day-traders? An ML focused approach to technical analysis
 
 **Author:** Ayan Goswami  
 **Date:** July 16, 2025
 
 # Abstract
 
-This paper presents a machine learning framework for intraday trading of the SPDR S&P 500 ETF (SPY) using standardized formats of traditional indicators. The strategies leverage Average True Range ( $\sigma$), Moving Averages, and Volume to try and predict short term momentum bursts (MBs). We employ logistic regression, XGBoost, and support vector machines (SVM) to predict this, and this paper will focus on long-only strategies as they are less risky when implementing in a production environment. Emphasis is placed on high precision and minimizing false positives using probabilistic thresholds derived from model outputs. Backtests demonstrate that our methods significantly outperform random chance in terms of Sharpe ratio, precision, and drawdown control.
+This paper presents a machine learning framework for intraday trading of the SPDR S&P 500 ETF (SPY) using standardized formats of traditional indicators. The strategies leverage Average True Range ($\sigma$), Moving Averages, and Volume to try and predict short term momentum bursts (MBs). We employ logistic regression, XGBoost, and support vector machines (SVM) to predict this, and this paper will focus on long-only strategies as they are less risky when implementing in a production environment. Emphasis is placed on high precision and minimizing false positives using probabilistic thresholds derived from model outputs. Backtests demonstrate that our methods significantly outperform random chance in terms of Sharpe ratio, precision, and drawdown control.
 
 Keywords: Support Vector Machines, Gradient
 
