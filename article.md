@@ -7,17 +7,17 @@
 
 This paper presents a machine learning framework for intraday trading of the SPDR S&P 500 ETF (SPY) using standardized formats of traditional indicators. The strategies leverage Average True Range ($\sigma$), Moving Averages, and Volume to try and predict short term momentum bursts (MBs). We employ logistic regression, XGBoost, and support vector machines (SVM) to predict this, and this paper will focus on long-only strategies as they are less risky when implementing in a production environment. Emphasis is placed on high precision and minimizing false positives using probabilistic thresholds derived from model outputs. Backtests demonstrate that our methods significantly outperform random chance in terms of Sharpe ratio, precision, and drawdown control.
 
-Keywords: Support Vector Machines, Gradient
+Keywords: Support Vector Machines, Gradient Boosting, Logistic Regression
 
 # Introduction
 
-The development of statistically sound and precision driven trading strategies is essential in modern algorithmic finance. This paper addresses the problem of directional prediction of SPY ETF trades using machine learning and statistical modeling by transforming traditional day trading indicators. We aim to optimize execution precision rather than naive accuracy, focusing on reducing false positive trade signals. This is done through increasing machine learning output categorization thresholds, at the cost of missing profitable trades (false negative).
+This paper addresses the problem of directional prediction of SPY ETF trades using machine learning and statistical modeling by transforming traditional day trading indicators. We aim to optimize execution precision rather than naive accuracy, focusing on reducing false positive trade signals. This is done through increasing machine learning output categorization thresholds, at the cost of missing profitable trades (false negative). High precision or "win rate" as it is referred to in day trading circles, is given the utmost importance because of the greatly emotional nature of retail trading. On an institutional level, a win rate of 51% may be accepted if it is statistically significant, as the quantity of trades are far greater than at the retail level. Thus, the evaluation of models will be done by primarily examining precision related metrics.
 
 # Data and Features
 The dataset comprises one minute interval price data (OHLCV: Open, High, Low, Close, Volume) for the SPDR S&P 500 ETF Trust (SPY) spanning from May 29th, 2023, to July 17th, 2023 with 21493 candles. From these primary market data points, we derived a set of technical indicators commonly employed in financial analysis. While these indicators typically involve parameterization, we adopted industry standard parameters to maintain methodological consistency and prevent overfitting through excessive parameter optimization. This research focuses primarily on optimizing machine learning models' predictive capabilities using these established indicators, rather than engaging in indicator parameter optimization. This approach allows us to isolate the effectiveness of various machine learning architectures while maintaining the integrity of widely accepted technical analysis frameworks.
 
 ## Timeout (t)
-There is no right way to time price trends, hence the best path forward to specialize in different time frames is to set an automatic timeout for trades. This way we categorize different types of momentum bursts based on their time period, and each strategy occupies its own seperate area of specialization. Thus, we introduce 5 primary timeout periods for this paper:
+There is no right way to time price trends, hence the best path forward to specialize in different time frames is to set an automatic timeout for trades. This way we categorize different types of momentum bursts based on their time period, and each strategy occupies its own seperate area of specialization. If we allowed the trade to drag on until the profit/loss thresholds are met, we are ignoring the focus of the analysis, which is identifying moments where short term volatility influences prices. Thus, we introduce 5 primary timeout periods for this paper:
 1. 3 minutes
 2. 5 minutes
 3. 15 minutes
@@ -42,7 +42,7 @@ For longer time periods, the price might fluctuate a lot more than shorter time 
 
 The relationship between timeframe and volatility follows a logarithmic pattern, where:
 
-$$\lambda = 4\log(t-2)+1$$
+$$\lambda = \lceil{4\log(t-2)+1}\rceil$$
 
 Hence the relationships for each timeout are as follows:
 
@@ -171,7 +171,7 @@ We employed Support Vector Machines with radial basis function (RBF) kernels to 
 
 $$ K(\mathbf{x}_i, \mathbf{x}_j) = \exp(-\gamma ||\mathbf{x}_i - \mathbf{x}_j||^2) $$
 
-The RBF kernel implicitly maps the input features into an infinite dimensional space, enabling the model to construct flexible decision boundaries without requiring explicit feature engineering. This approach is well-suited for financial applications, where interactions between technical indicators are often nonlinear and context-dependent. The RBF kernel is widely regarded for its ability to generalize well in high dimensional settings (Vapnik, 1995). 
+The RBF kernel implicitly maps the input features into an infinite dimensional space, enabling the model to construct flexible decision boundaries and is widely regarded for its ability to generalize well in high dimensional settings (Vapnik, 1995). This approach is well-suited for financial applications, where interactions between technical indicators are often nonlinear and context-dependent.
 
 Probability calibration and threshold optimization were performed analogously to the GLM and XGBoost approaches. By scanning upper quantiles of the model’s predicted probability distribution from the training data predicted values, we identified an optimal decision threshold that prioritized precision. The highest precision achieved by the SVM model was 79.55% at a threshold of `0.612`.
 
@@ -228,8 +228,8 @@ This study presents a machine learning framework for short-horizon SPY trading b
 
 # Appendix
 
-[Lab notebook](SPY%20training/workbooks/strategy_book.pdf)
-[Data processing](SPY%20training/workbooks/data_mining.ipynb)
+- [Lab notebook](SPY%20training/workbooks/strategy_book.pdf)
+- [Data processing](SPY%20training/workbooks/data_mining.ipynb)
 
 # References
 
