@@ -881,7 +881,7 @@ SVMs offer several advantages for financial prediction:
     data.
 
 3.  **Flexibility**: Through kernel selection, SVMs can model various
-    decision boundaries without explicit feature engineering.
+    decision boundaries.
 
 4.  **Theoretical Guarantees**: SVMs are founded on statistical learning
     theory, providing formal bounds on generalization error.
