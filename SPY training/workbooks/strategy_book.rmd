@@ -887,7 +887,7 @@ SVMs offer several advantages for financial prediction:
     theory, providing formal bounds on generalization error.
 
 The non-linear mapping capability is particularly valuable for capturing
-market regimes where relationships between indicators and outcomes
+markets where relationships between indicators and outcomes
 change dynamically.
 
 # Ensemble prediction
